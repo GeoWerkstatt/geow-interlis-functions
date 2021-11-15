@@ -1,15 +1,24 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
-
 group 'ch.geowerkstatt.ilivalidator.extensions.functions'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
 repositories {
     mavenCentral()
+    maven { url "https://jars.interlis.ch" }
 }
 
 dependencies {
+    implementation group: 'ch.interlis', name: 'iox-api', version: '1.0.4'
+    implementation group: 'ch.interlis', name: 'iox-ili', version: '1.21.8'
+    implementation group: 'ch.interlis', name: 'ili2c-tool', version: "5.2.3"
+    implementation group: 'ch.interlis', name: 'ili2c-core', version: "5.2.3"
+    implementation group: 'com.vividsolutions', name: 'jts-core', version: '1.14.0'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
