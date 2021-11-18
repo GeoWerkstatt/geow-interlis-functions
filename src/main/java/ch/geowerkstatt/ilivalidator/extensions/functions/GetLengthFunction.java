@@ -3,7 +3,10 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 import ch.ehi.basics.settings.Settings;
 import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.iom.IomObject;
+import ch.interlis.iox.IoxException;
+import ch.interlis.iox.IoxLogEvent;
 import ch.interlis.iox.IoxValidationConfig;
+import ch.interlis.iox_j.jts.Iox2jtsext;
 import ch.interlis.iox_j.logging.LogEventFactory;
 import ch.interlis.iox_j.validator.InterlisFunction;
 import ch.interlis.iox_j.validator.ObjectPool;
@@ -35,7 +38,19 @@ public class GetLengthFunction implements InterlisFunction {
             return Value.createSkipEvaluation();
         }
 
-        return new Value(-1.0);
+        //TODO Parse attribute values
+
+        double result = 0.0d;
+
+        for (IomObject polyline: argObjects.getComplexObjects()) {
+            try {
+                result += Iox2jtsext.polyline2JTS(polyline, false, 0.00001).getLength();
+            }catch (IoxException ex){
+                logger.addEvent(logger.logErrorMsg("Could not calculate GetLength for Object with OID {0}", polyline.getobjectoid()));
+            }
+        }
+
+        return new Value(result);
     }
 
     @Override
