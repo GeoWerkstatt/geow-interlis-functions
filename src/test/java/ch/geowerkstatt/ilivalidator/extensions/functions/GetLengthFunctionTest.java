@@ -11,6 +11,7 @@ class GetLengthFunctionTest {
     @BeforeEach
     void setUp() {
         vh = new ValidationTestHelper();
+        vh.addFunction(new GetLengthFunction());
     }
 
     @Test

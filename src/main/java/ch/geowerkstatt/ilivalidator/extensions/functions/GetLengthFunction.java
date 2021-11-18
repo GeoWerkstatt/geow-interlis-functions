@@ -27,7 +27,7 @@ public class GetLengthFunction implements InterlisFunction {
 
     @Override
     public Value evaluate(String s, String s1, IomObject iomObject, Value[] arguments) {
-        Value argObjects=arguments[0]
+        Value argObjects=arguments[0];
         if (argObjects.skipEvaluation()){
             return argObjects;
         }

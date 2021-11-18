@@ -18,11 +18,11 @@ import ch.interlis.iox_j.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
+import java.util.HashMap;
 
 public class ValidationTestHelper {
 
-    Map<String,Class> userFunctions = new java.util.HashMap();
+    HashMap<String, Class<InterlisFunction>> userFunctions = new HashMap<String, Class<InterlisFunction>>();
 
     public void runValidation(String[] dataFiles, String[] modelFiles) throws IoxException, Ili2cFailure {
         IoxLogging errHandler = new ch.interlis.iox_j.logging.Log2EhiLogger();
@@ -33,7 +33,7 @@ public class ValidationTestHelper {
         settings.setTransientObject(ch.interlis.iox_j.validator.Validator.CONFIG_CUSTOM_FUNCTIONS, userFunctions);
 
         modelFiles = appendGeoWFunctionsExtIli(modelFiles);
-        TransferDescription td = ch.interlis.ili2c.Ili2c.compileIliFiles(new ArrayList(Arrays.asList(modelFiles)), new ArrayList());
+        TransferDescription td = ch.interlis.ili2c.Ili2c.compileIliFiles(new ArrayList<String>(Arrays.asList(modelFiles)), new ArrayList<String>());
 
         ValidationConfig modelConfig = new ValidationConfig();
         modelConfig.mergeIliMetaAttrs(td);
@@ -42,7 +42,7 @@ public class ValidationTestHelper {
         Validator validator = new ch.interlis.iox_j.validator.Validator(td, modelConfig, errHandler, errFactory, pool, settings);
 
         for (String filename : dataFiles) {
-            IoxReader ioxReader = new ReaderFactory().createReader(new java.io.File(filename), errFactory);
+            IoxReader ioxReader = new ReaderFactory().createReader(new java.io.File(filename), errFactory, settings);
             if (ioxReader instanceof IoxIliReader) {
                 ((IoxIliReader) ioxReader).setModel(td);
 
@@ -69,8 +69,8 @@ public class ValidationTestHelper {
         return result.toArray(new String[0]);
     }
 
-
-    public void AddFunction(InterlisFunction function) {
-        userFunctions.put(function.getQualifiedIliName(), function.getClass());
+    @SuppressWarnings("unchecked")
+    public void addFunction(InterlisFunction function) {
+        userFunctions.put(function.getQualifiedIliName(), (Class<InterlisFunction>) function.getClass());
     }
 }
