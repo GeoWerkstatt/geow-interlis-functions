@@ -62,7 +62,8 @@ public class ValidationTestHelper {
     }
 
     private String[] appendGeoWFunctionsExtIli(String[] modelDirs){
-        String GeoW_FunctionsExtIliPath = "TODO";
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        String GeoW_FunctionsExtIliPath = "src/model/GeoW_FunctionsExt.ili";
         ArrayList<String> result = new ArrayList<>();
         result.add(GeoW_FunctionsExtIliPath);
         result.addAll(Arrays.asList(modelDirs));
