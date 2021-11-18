@@ -9,19 +9,33 @@ import ch.interlis.iox_j.validator.InterlisFunction;
 import ch.interlis.iox_j.validator.ObjectPool;
 import ch.interlis.iox_j.validator.Value;
 
-public class GetLengthFunction implements InterlisFunction {
-    @Override
-    public void init(TransferDescription transferDescription,
-                     Settings settings,
-                     IoxValidationConfig ioxValidationConfig,
-                     ObjectPool objectPool,
-                     LogEventFactory logEventFactory) {
+import java.util.HashMap;
 
+public class GetLengthFunction implements InterlisFunction {
+
+    private LogEventFactory logger = null;
+    private HashMap tag2class = null;
+    private TransferDescription td = null;
+
+    @Override
+    public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
+        this.logger = logEventFactory;
+        this.logger.setValidationConfig(validationConfig);
+        this.tag2class = ch.interlis.iom_j.itf.ModelUtilities.getTagMap(td);
+        this.td = td;
     }
 
     @Override
-    public Value evaluate(String s, String s1, IomObject iomObject, Value[] values) {
-        return null;
+    public Value evaluate(String s, String s1, IomObject iomObject, Value[] arguments) {
+        Value argObjects=arguments[0]
+        if (argObjects.skipEvaluation()){
+            return argObjects;
+        }
+        if (argObjects.isUndefined()){
+            return Value.createSkipEvaluation();
+        }
+
+        return new Value(-1.0);
     }
 
     @Override
