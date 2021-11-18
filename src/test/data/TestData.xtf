@@ -2,7 +2,7 @@
 <ili:headersection><ili:models><ili:model>GeoW_FunctionsExt</ili:model><ili:model>TestSuite</ili:model></ili:models><ili:sender>ili2gpkg-4.5.0-fc023c8d2d8cd44d792927e45dc80c1ad973f095</ili:sender></ili:headersection>
 <ili:datasection>
 <TestSuite:FuncionTestTopic ili:bid="TestSuite.FuncionTestTopic">
-<TestSuite:BaseClass ili:tid="0"><TestSuite:polylineAttribute><geom:polyline><geom:start><geom:c1>2645789.918</geom:c1><geom:c2>1249008.896</geom:c2></geom:start><geom:straight><geom:c1>2652158.018</geom:c1><geom:c2>1250532.162</geom:c2></geom:straight><geom:straight><geom:c1>2663519.047</geom:c1><geom:c2>1244714.131</geom:c2></geom:straight></geom:polyline></TestSuite:polylineAttribute></TestSuite:BaseClass>
+<TestSuite:BaseClass ili:tid="0"><TestSuite:polylineAttribute><geom:polyline><geom:coord><geom:c1>2645789.918</geom:c1><geom:c2>1249008.896</geom:c2></geom:coord><geom:coord><geom:c1>2652158.018</geom:c1><geom:c2>1250532.162</geom:c2></geom:coord><geom:coord><geom:c1>2663519.047</geom:c1><geom:c2>1244714.131</geom:c2></geom:coord></geom:polyline></TestSuite:polylineAttribute></TestSuite:BaseClass>
 </TestSuite:FuncionTestTopic>
 </ili:datasection>
 </ili:transfer>
