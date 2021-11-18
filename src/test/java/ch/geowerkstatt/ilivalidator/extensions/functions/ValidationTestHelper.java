@@ -24,7 +24,7 @@ public class ValidationTestHelper {
 
     Map<String,Class> userFunctions = new java.util.HashMap();
 
-    public void runValidation(String[] dataFiles, String[] modelDirs) throws IoxException, Ili2cFailure {
+    public void runValidation(String[] dataFiles, String[] modelFiles) throws IoxException, Ili2cFailure {
         IoxLogging errHandler = new ch.interlis.iox_j.logging.Log2EhiLogger();
         LogEventFactory errFactory = new LogEventFactory();
         errFactory.setLogger(errHandler);
@@ -32,8 +32,8 @@ public class ValidationTestHelper {
         Settings settings = new Settings();
         settings.setTransientObject(ch.interlis.iox_j.validator.Validator.CONFIG_CUSTOM_FUNCTIONS, userFunctions);
 
-        modelDirs = appendGeoWFunctionsExtIli(modelDirs);
-        TransferDescription td = ch.interlis.ili2c.Ili2c.compileIliFiles(new ArrayList(Arrays.asList(modelDirs)), new ArrayList());
+        modelFiles = appendGeoWFunctionsExtIli(modelFiles);
+        TransferDescription td = ch.interlis.ili2c.Ili2c.compileIliFiles(new ArrayList(Arrays.asList(modelFiles)), new ArrayList());
 
         ValidationConfig modelConfig = new ValidationConfig();
         modelConfig.mergeIliMetaAttrs(td);
@@ -62,9 +62,10 @@ public class ValidationTestHelper {
     }
 
     private String[] appendGeoWFunctionsExtIli(String[] modelDirs){
-        String GeoW_FunctionsExtIliPath = "";
-        ArrayList<String> result = new ArrayList<>(Arrays.asList(modelDirs));
+        String GeoW_FunctionsExtIliPath = "TODO";
+        ArrayList<String> result = new ArrayList<>();
         result.add(GeoW_FunctionsExtIliPath);
+        result.addAll(Arrays.asList(modelDirs));
         return result.toArray(new String[0]);
     }
 
