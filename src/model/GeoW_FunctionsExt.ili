@@ -1,0 +1,13 @@
+INTERLIS 2.4;
+CONTRACTED MODEL GeoW_FunctionsExt
+  AT "mailto:info@geowerkstatt.ch" VERSION "2021-11-15" =
+    /**
+    * Geometrie-Funktionen
+    */
+    !!@ fn.description = "Ermittelt die Länge einer Linien-Geometrie";
+    !!@ fn.param = "geometry Geometrieattribut.";
+    !!@ fn.return = "Länge der Geometrie";
+    !!@ fn.since = "2021-11-15";
+    FUNCTION GetLength (Objects: OBJECTS OF ANYCLASS; LineAttr: ATTRIBUTE OF @ Objects RESTRICTION (POLYLINE ;  MULTIPOLYLINE)): NUMERIC;
+
+END GeoW_FunctionsExt.
