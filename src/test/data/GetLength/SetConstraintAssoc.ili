@@ -24,15 +24,8 @@ MODEL TestSuite
         ToBase -- {1} BaseClass;      
     END AssocB;
 
-    VIEW BaseClass_Proj
-        PROJECTION OF BaseClass;
-        WHERE GeoW_FunctionsExt.GetLength(ALL,BaseClass->ToGeometry->polylineAttribute) == 100;
-        =
-        ALL OF BaseClass;
-    END BaseClass_Proj;
-
     CONSTRAINTS OF BaseClass =
-        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL,BaseClass->ToGeometry->polylineAttribute) == 100;
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL,ToGeometry->polylineAttribute) == 100;
     END;
 
   END FuncionTestTopic;
