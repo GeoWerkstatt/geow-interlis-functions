@@ -38,15 +38,21 @@ public class GetLengthFunction implements InterlisFunction {
             return Value.createSkipEvaluation();
         }
 
+        Value argPath = arguments[1];
+        if (argPath.skipEvaluation()){
+            return argPath;
+        }
+
         //TODO Parse attribute values
 
         double result = 0.0d;
 
-        for (IomObject polyline: argObjects.getComplexObjects()) {
+        for (IomObject rootObject: argObjects.getComplexObjects()) {
             try {
-                result += Iox2jtsext.polyline2JTS(polyline, false, 0.00001).getLength();
+                IomObject polylineAttribute = rootObject.getattrobj(argPath.getValue(),0);
+                result += Iox2jtsext.polyline2JTS(polylineAttribute, false, 0.00001).getLength();
             }catch (IoxException ex){
-                logger.addEvent(logger.logErrorMsg("Could not calculate GetLength for Object with OID {0}", polyline.getobjectoid()));
+                logger.addEvent(logger.logErrorMsg("Could not calculate GetLength for Object with OID {0}", rootObject.getobjectoid()));
             }
         }
 
