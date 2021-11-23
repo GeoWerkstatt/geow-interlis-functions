@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:geom="http://www.interlis.ch/geometry/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:GeoW_FunctionsExt="http://www.interlis.ch/xtf/2.4/GeoW_FunctionsExt" xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+<ili:headersection><ili:models><ili:model>GeoW_FunctionsExt</ili:model><ili:model>TestSuite</ili:model></ili:models><ili:sender>ili2gpkg-4.5.0-fc023c8d2d8cd44d792927e45dc80c1ad973f095</ili:sender></ili:headersection>
+<ili:datasection>
+<TestSuite:FuncionTestTopic ili:bid="97ac3851-bd8d-47ae-9b93-7ebe32a276ba">
+<TestSuite:BaseClass ili:tid="1"><TestSuite:a><TestSuite:ContainerStruct><TestSuite:polylineAttribute><geom:polyline><geom:coord><geom:c1>2628540.717</geom:c1><geom:c2>1250067.997</geom:c2></geom:coord><geom:coord><geom:c1>2652028.909</geom:c1><geom:c2>1249016.287</geom:c2></geom:coord><geom:coord><geom:c1>2652379.479</geom:c1><geom:c2>1231487.785</geom:c2></geom:coord><geom:coord><geom:c1>2622581.026</geom:c1><geom:c2>1227280.945</geom:c2></geom:coord></geom:polyline></TestSuite:polylineAttribute></TestSuite:ContainerStruct></TestSuite:a></TestSuite:BaseClass>
+</TestSuite:FuncionTestTopic>
+</ili:datasection>
+</ili:transfer>
