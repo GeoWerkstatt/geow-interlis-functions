@@ -16,9 +16,10 @@ import java.util.HashMap;
 
 public class GetLengthFunction implements InterlisFunction {
 
-    private LogEventFactory logger = null;
-    private HashMap tag2class = null;
-    private TransferDescription td = null;
+    private LogEventFactory logger;
+    private HashMap tag2class;
+    private TransferDescription td;
+    private Validator validator;
 
     @Override
     public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
@@ -26,6 +27,7 @@ public class GetLengthFunction implements InterlisFunction {
         this.logger.setValidationConfig(validationConfig);
         this.tag2class = ch.interlis.iom_j.itf.ModelUtilities.getTagMap(td);
         this.td = td;
+        this.validator = (Validator) settings.getTransientObject(IOX_VALIDATOR);
     }
 
     @Override
