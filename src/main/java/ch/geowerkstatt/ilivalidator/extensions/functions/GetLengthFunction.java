@@ -52,7 +52,7 @@ public class GetLengthFunction implements InterlisFunction {
         for (IomObject rootObject: argObjects.getComplexObjects()) {
             try {
                 IomObject polylineAttribute = rootObject.getattrobj(argPath.getValue(),0);
-                result += Iox2jtsext.polyline2JTS(polylineAttribute, false, 0.00001).getLength();
+                result += Iox2jtsext.polyline2JTS(polylineAttribute, false, 0.0).getLength();
             }catch (IoxException ex){
                 logger.addEvent(logger.logErrorMsg("Could not calculate GetLength for Object with OID {0}", rootObject.getobjectoid()));
             }
