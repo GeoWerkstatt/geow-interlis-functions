@@ -14,7 +14,7 @@ MODEL TestSuite
 
     CLASS BaseClass =
         polylineAttribute : POLYLINE WITH (STRAIGHTS) VERTEX CHKoord;
-        SET CONSTRAINT GeoW_FunctionsExt.GetLength(THIS, >> polylineAttribute) == 100;
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(THIS, polylineAttribute) == 100;
     END BaseClass;
 
   END FuncionTestTopic;
