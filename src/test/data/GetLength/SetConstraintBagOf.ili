@@ -18,7 +18,7 @@ MODEL TestSuite
 
     CLASS BaseClass =
         a : BAG OF ContainerStruct;
-        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL, a->polylineAttribute) == 100;
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL, "a->polylineAttribute") == 100;
     END BaseClass;
 
   END FuncionTestTopic;

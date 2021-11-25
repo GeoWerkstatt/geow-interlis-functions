@@ -25,7 +25,7 @@ MODEL TestSuite
     END AssocB;
 
     CONSTRAINTS OF BaseClass =
-        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL,ToGeometry->polylineAttribute) == 100;
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL,"ToGeometry->polylineAttribute") == 100;
     END;
 
   END FuncionTestTopic;

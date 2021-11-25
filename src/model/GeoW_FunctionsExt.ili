@@ -8,6 +8,6 @@ CONTRACTED MODEL GeoW_FunctionsExt
     !!@ fn.param = "geometry Geometrieattribut.";
     !!@ fn.return = "Länge der Geometrie";
     !!@ fn.since = "2021-11-15";
-    FUNCTION GetLength (Objects: OBJECTS OF ANYCLASS; LineAttr: ATTRIBUTE OF @ Objects RESTRICTION (POLYLINE ;  MULTIPOLYLINE)): NUMERIC;
+    FUNCTION GetLength (Objects: OBJECTS OF ANYCLASS; LineAttr: TEXT): NUMERIC;
 
 END GeoW_FunctionsExt.
