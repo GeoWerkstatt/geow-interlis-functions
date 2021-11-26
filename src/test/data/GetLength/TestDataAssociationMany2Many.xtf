@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:geom="http://www.interlis.ch/geometry/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:GeoW_FunctionsExt="http://www.interlis.ch/xtf/2.4/GeoW_FunctionsExt" xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
 <ili:headersection><ili:models><ili:model>GeoW_FunctionsExt</ili:model><ili:model>TestSuite</ili:model></ili:models><ili:sender>ili2gpkg-4.5.0-fc023c8d2d8cd44d792927e45dc80c1ad973f095</ili:sender></ili:headersection>
 <ili:datasection>
-<TestSuite:FuncionTestTopic ili:bid="TestSuite.FuncionTestTopic">
+<TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
 <TestSuite:AssocClass ili:tid="6"><TestSuite:polylineAttribute><geom:polyline><geom:start><geom:c1>2645965.951</geom:c1><geom:c2>1249260.568</geom:c2></geom:start><geom:straight><geom:c1>2682869.774</geom:c1><geom:c2>1247234.476</geom:c2></geom:straight></geom:polyline></TestSuite:polylineAttribute></TestSuite:AssocClass>
 <TestSuite:AssocClass ili:tid="8"><TestSuite:polylineAttribute><geom:polyline><geom:start><geom:c1>2645965.951</geom:c1><geom:c2>1249260.568</geom:c2></geom:start><geom:straight><geom:c1>2682869.774</geom:c1><geom:c2>1247234.476</geom:c2></geom:straight><geom:straight><geom:c1>2759850.038</geom:c1><geom:c2>1190505.298</geom:c2></geom:straight></geom:polyline></TestSuite:polylineAttribute></TestSuite:AssocClass>
 <TestSuite:AssocClass ili:tid="9"><TestSuite:polylineAttribute><geom:polyline><geom:start><geom:c1>2499151.743</geom:c1><geom:c2>1117891.951</geom:c2></geom:start><geom:straight><geom:c1>2645965.951</geom:c1><geom:c2>1249260.568</geom:c2></geom:straight><geom:straight><geom:c1>2682869.774</geom:c1><geom:c2>1247234.476</geom:c2></geom:straight><geom:straight><geom:c1>2759850.038</geom:c1><geom:c2>1190505.298</geom:c2></geom:straight><geom:straight><geom:c1>2717810.732</geom:c1><geom:c2>1095234.403</geom:c2></geom:straight></geom:polyline></TestSuite:polylineAttribute></TestSuite:AssocClass>
@@ -15,6 +15,6 @@
 <TestSuite:AssocB><TestSuite:ToGeometry ili:ref="8"></TestSuite:ToGeometry><TestSuite:ToBase ili:ref="1"></TestSuite:ToBase></TestSuite:AssocB>
 <TestSuite:AssocB><TestSuite:ToGeometry ili:ref="8"></TestSuite:ToGeometry><TestSuite:ToBase ili:ref="2"></TestSuite:ToBase></TestSuite:AssocB>
 <TestSuite:AssocB><TestSuite:ToGeometry ili:ref="9"></TestSuite:ToGeometry><TestSuite:ToBase ili:ref="2"></TestSuite:ToBase></TestSuite:AssocB>
-</TestSuite:FuncionTestTopic>
+</TestSuite:FunctionTestTopic>
 </ili:datasection>
 </ili:transfer>
