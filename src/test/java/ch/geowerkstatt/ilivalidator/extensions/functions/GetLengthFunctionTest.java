@@ -24,18 +24,10 @@ class GetLengthFunctionTest {
     void MandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetLength/MandatoryConstraintThis.ili"});
         Assert.equals(4, vh.getErrs().size());
-        Assert.equals("0", vh.getErrs().get(0).getSourceObjectXtfId());
-        Assert.equals("Mandatory Constraint TestSuite.FunctionTestTopic.BaseClass.Constraint1 is not true.", vh.getErrs().get(0).getEventMsg());
-
-        Assert.equals("0", vh.getErrs().get(1).getSourceObjectXtfId());
-        Assert.equals("Mandatory Constraint TestSuite.FunctionTestTopic.BaseClass.Constraint2 is not true.", vh.getErrs().get(1).getEventMsg());
-
-        Assert.equals("3", vh.getErrs().get(2).getSourceObjectXtfId());
-        Assert.equals("Mandatory Constraint TestSuite.FunctionTestTopic.BaseClass.Constraint3 is not true.", vh.getErrs().get(2).getEventMsg());
-
-        Assert.equals("3", vh.getErrs().get(3).getSourceObjectXtfId());
-        Assert.equals("Mandatory Constraint TestSuite.FunctionTestTopic.BaseClass.Constraint4 is not true.", vh.getErrs().get(3).getEventMsg());
-
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint1");
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
+        AssertionHelper.assertSingleConstraintError(vh, 3, "Constraint3");
+        AssertionHelper.assertSingleConstraintError(vh, 3, "Constraint4");
     }
 
     @Test
