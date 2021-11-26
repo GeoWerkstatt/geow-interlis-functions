@@ -33,7 +33,12 @@ class GetLengthFunctionTest {
     @Test
     void SetConstraintOnAll() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetLength/SetConstraintAll.ili"});
-        Assert.equals(1, vh.getErrs().size());
+        Assert.equals(3, vh.getErrs().size());
+        AssertionHelper.assertNoConstraintError(vh,"Constraint1");
+        AssertionHelper.assertNoConstraintError(vh,"Constraint2");
+        AssertionHelper.assertConstraintErrors(vh, 1, "Constraint3");
+        AssertionHelper.assertConstraintErrors(vh, 1, "Constraint4");
+        AssertionHelper.assertConstraintErrors(vh, 1, "Constraint5");
     }
 
     @Test
