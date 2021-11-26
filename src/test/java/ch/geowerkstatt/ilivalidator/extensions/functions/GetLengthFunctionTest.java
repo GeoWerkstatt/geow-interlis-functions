@@ -57,7 +57,7 @@ class GetLengthFunctionTest {
 
     @Test
     void SetConstraintOnAssociation() throws Ili2cFailure, IoxException {
-        vh.runValidation(new String[]{"GetLength/TestDataAssociation.xtf"}, new String[]{"GetLength/SetConstraintAssocOne2Many.ili"});
+        vh.runValidation(new String[]{"GetLength/TestDataAssocOne2Many.xtf"}, new String[]{"GetLength/SetConstraintAssocOne2Many.ili"});
         Assert.equals(1, vh.getErrs().size());
     }
 }
