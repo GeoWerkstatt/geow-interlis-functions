@@ -18,7 +18,10 @@ MODEL TestSuite
 
     CLASS BaseClass =
         a : BAG OF ContainerStruct;
-        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL, "a->polylineAttribute") == 100;
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(THIS, "a->polylineAttribute") >= 13000; !! Fails for oid 0 and oid 1 if only 1 polyline if found
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(THIS, "a->polylineAttribute") >= 26000; !! Fails for oid 0
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL, "a->polylineAttribute") >= 830000;
+        SET CONSTRAINT GeoW_FunctionsExt.GetLength(ALL, "a->polylineAttribute") >= 1660000;
     END BaseClass;
 
   END FunctionTestTopic;
