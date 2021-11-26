@@ -1,5 +1,5 @@
 INTERLIS 2.4;
-CONTRACTED MODEL GeoW_FunctionsExt
+MODEL GeoW_FunctionsExt
   AT "mailto:info@geowerkstatt.ch" VERSION "2021-11-15" =
     /**
     * Geometrie-Funktionen
