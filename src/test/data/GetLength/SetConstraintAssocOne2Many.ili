@@ -20,7 +20,7 @@ MODEL TestSuite
     END BaseClass;
 
     ASSOCIATION AssocB  = 
-        ToGeometry -- {1..*} AssocClass;
+        ToGeometry -- {0..*} AssocClass;
         ToBase -- {1} BaseClass;      
     END AssocB;
 
