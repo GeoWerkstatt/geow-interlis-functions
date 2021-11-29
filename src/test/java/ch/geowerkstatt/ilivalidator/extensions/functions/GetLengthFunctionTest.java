@@ -78,4 +78,29 @@ class GetLengthFunctionTest {
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint6");
         Assert.equals(7, vh.getErrs().size());
     }
+
+    @Test
+    void SetConstraintOnAssociationMany2Many() throws Ili2cFailure, IoxException {
+        vh.runValidation(new String[]{"GetLength/TestDataAssocMany2Many.xtf"}, new String[]{"GetLength/SetConstraintAssocMany2Many.ili"});
+        AssertionHelper.assertNoConstraintError(vh, "Constraint1");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint3");
+          AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint3");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint4");
+        AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint4");
+        AssertionHelper.assertSingleConstraintError(vh, 2, "Constraint4");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint5");
+        AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint5");
+        AssertionHelper.assertSingleConstraintError(vh, 2, "Constraint5");
+        AssertionHelper.assertSingleConstraintError(vh, 3, "Constraint5");
+
+        AssertionHelper.assertNoConstraintError(vh, "Constraint6");
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint7");
+        AssertionHelper.assertNoConstraintError(vh, "Constraint8");
+        Assert.equals(11, vh.getErrs().size());
+    }
 }
