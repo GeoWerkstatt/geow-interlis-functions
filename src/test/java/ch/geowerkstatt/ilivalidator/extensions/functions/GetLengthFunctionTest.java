@@ -61,8 +61,21 @@ class GetLengthFunctionTest {
     }
 
     @Test
-    void SetConstraintOnAssociation() throws Ili2cFailure, IoxException {
+    void SetConstraintOnAssociationOne2Many() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{"GetLength/TestDataAssocOne2Many.xtf"}, new String[]{"GetLength/SetConstraintAssocOne2Many.ili"});
-        Assert.equals(1, vh.getErrs().size());
+        AssertionHelper.assertNoConstraintError(vh, "Constraint1");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint3");
+        AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint3");
+
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint4");
+        AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint4");
+        AssertionHelper.assertSingleConstraintError(vh, 2, "Constraint4");
+
+        AssertionHelper.assertNoConstraintError(vh, "Constraint5");
+        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint6");
+        Assert.equals(7, vh.getErrs().size());
     }
 }
