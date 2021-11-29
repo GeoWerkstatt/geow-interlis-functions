@@ -7,7 +7,6 @@ import ch.interlis.iox.EndTransferEvent;
 import ch.interlis.iox.IoxEvent;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox.IoxLogEvent;
-import ch.interlis.iox.IoxLogging;
 import ch.interlis.iox.IoxReader;
 import ch.interlis.iox_j.IoxIliReader;
 import ch.interlis.iox_j.PipelinePool;
@@ -21,12 +20,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class ValidationTestHelper {
 
     private LogCollector logCollector;
-    HashMap<String, Class<InterlisFunction>> userFunctions = new HashMap<String, Class<InterlisFunction>>();
+    private final HashMap<String, Class<InterlisFunction>> userFunctions = new HashMap<>();
 
     public void runValidation(String[] dataFiles, String[] modelFiles) throws IoxException, Ili2cFailure {
         dataFiles = addLeadingTestDataDirectory(dataFiles);
@@ -40,7 +38,7 @@ public class ValidationTestHelper {
         Settings settings = new Settings();
         settings.setTransientObject(ch.interlis.iox_j.validator.Validator.CONFIG_CUSTOM_FUNCTIONS, userFunctions);
 
-        TransferDescription td = ch.interlis.ili2c.Ili2c.compileIliFiles(new ArrayList<String>(Arrays.asList(modelFiles)), new ArrayList<String>());
+        TransferDescription td = ch.interlis.ili2c.Ili2c.compileIliFiles(new ArrayList<>(Arrays.asList(modelFiles)), new ArrayList<String>());
 
         ValidationConfig modelConfig = new ValidationConfig();
         modelConfig.mergeIliMetaAttrs(td);
@@ -56,7 +54,7 @@ public class ValidationTestHelper {
             errFactory.setDataSource(filename);
             td.setActualRuntimeParameter(ch.interlis.ili2c.metamodel.RuntimeParameters.MINIMAL_RUNTIME_SYSTEM01_CURRENT_TRANSFERFILE, filename);
             try {
-                IoxEvent event = null;
+                IoxEvent event;
                 do {
                     event = ioxReader.read();
                     validator.validate(event);
@@ -84,9 +82,9 @@ public class ValidationTestHelper {
 
     public String[] addLeadingTestDataDirectory(String[] files) {
         return Arrays
-                .stream(files).map(file -> Paths.get("src/test/data",file).toString())
-                .collect(Collectors.toSet())
-                .toArray(new String[0]);
+                .stream(files).map(file -> Paths.get("src/test/data", file).toString())
+                .distinct()
+                .toArray(String[]::new);
     }
 
     public ArrayList<IoxLogEvent> getErrs() {

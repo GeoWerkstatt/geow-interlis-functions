@@ -9,7 +9,6 @@ import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iox.IoxException;
-import ch.interlis.iox.IoxLogEvent;
 import ch.interlis.iox.IoxValidationConfig;
 import ch.interlis.iox_j.jts.Iox2jtsext;
 import ch.interlis.iox_j.logging.LogEventFactory;
@@ -18,16 +17,13 @@ import ch.interlis.iox_j.validator.ObjectPool;
 import ch.interlis.iox_j.validator.Validator;
 import ch.interlis.iox_j.validator.Value;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class GetLengthFunction implements InterlisFunction {
 
     private LogEventFactory logger;
-    private HashMap tag2class;
     private TransferDescription td;
     private Validator validator;
 
@@ -35,7 +31,6 @@ public class GetLengthFunction implements InterlisFunction {
     public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
         this.logger = logEventFactory;
         this.logger.setValidationConfig(validationConfig);
-        this.tag2class = ch.interlis.iom_j.itf.ModelUtilities.getTagMap(td);
         this.td = td;
         this.validator = (Validator) settings.getTransientObject(IOX_VALIDATOR);
     }
@@ -64,10 +59,10 @@ public class GetLengthFunction implements InterlisFunction {
             contextClass = getContextClass(iomObject, argObjects);
 
             if (contextClass == null){
-                throw new IllegalStateException("unkown class in "+usageScope);
+                throw new IllegalStateException("unknown class in " + usageScope);
             }
 
-            PathEl polylineAttributePath[] = getAttributePathEl(contextClass, argPath);
+            PathEl[] polylineAttributePath = getAttributePathEl(contextClass, argPath);
 
             for (IomObject rootObject : argObjects.getComplexObjects()) {
                 Value polylineAttributes = validator.getValueFromObjectPath(null, rootObject, polylineAttributePath, null);
