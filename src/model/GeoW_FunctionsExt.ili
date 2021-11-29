@@ -4,7 +4,7 @@ MODEL GeoW_FunctionsExt
     /**
     * Geometrie-Funktionen
     */
-    !!@ fn.description = "Ermittelt die Länge einer Linien-Geometrie";
+    !!@ fn.description = "Ermittelt die Länge einer (bzw. die Summe mehrer) Linien-Geometrien. Für 'Objects' können Objekte oder Geometrien angegeben werden. Für 'LineAttr' soll der Pfad zur Linien-Geometrie in INTERLIS 2 Syntax angegeben werden. Falls 'Objects' bereits die Geometrien enthält, soll für 'LineAttr' 'UNDEFINED' übergeben werden. Wird über eine Beziehung die gleiche Geometrie mehrmals gefunden, wird dessen Länge auch mehrmals gezählt.";
     !!@ fn.param = "geometry Geometrieattribut.";
     !!@ fn.return = "Länge der Geometrie";
     !!@ fn.since = "2021-11-15";
