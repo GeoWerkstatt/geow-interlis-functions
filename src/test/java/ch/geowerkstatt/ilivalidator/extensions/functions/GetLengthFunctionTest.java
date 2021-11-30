@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 class GetLengthFunctionTest {
 
+    protected static final String TEST_DATA = "GetLength/TestData.xtf";
     ValidationTestHelper vh = null;
-    protected  static final String TEST_DATA = "GetLength/TestData.xtf";
 
     @BeforeEach
     void setUp() {
@@ -32,8 +32,8 @@ class GetLengthFunctionTest {
     void SetConstraintOnAll() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetLength/SetConstraintAll.ili"});
         Assert.equals(3, vh.getErrs().size());
-        AssertionHelper.assertNoConstraintError(vh,"Constraint1");
-        AssertionHelper.assertNoConstraintError(vh,"Constraint2");
+        AssertionHelper.assertNoConstraintError(vh, "Constraint1");
+        AssertionHelper.assertNoConstraintError(vh, "Constraint2");
         AssertionHelper.assertConstraintErrors(vh, 1, "Constraint3");
         AssertionHelper.assertConstraintErrors(vh, 1, "Constraint4");
         AssertionHelper.assertConstraintErrors(vh, 1, "Constraint5");
@@ -86,7 +86,7 @@ class GetLengthFunctionTest {
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
 
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint3");
-          AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint3");
+        AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint3");
 
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint4");
         AssertionHelper.assertSingleConstraintError(vh, 1, "Constraint4");

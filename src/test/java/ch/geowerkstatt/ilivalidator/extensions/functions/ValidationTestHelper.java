@@ -23,15 +23,15 @@ import java.util.HashMap;
 
 public class ValidationTestHelper {
 
-    private LogCollector logCollector;
     private final HashMap<String, Class<InterlisFunction>> userFunctions = new HashMap<>();
+    private LogCollector logCollector;
 
     public void runValidation(String[] dataFiles, String[] modelFiles) throws IoxException, Ili2cFailure {
         dataFiles = addLeadingTestDataDirectory(dataFiles);
         modelFiles = addLeadingTestDataDirectory(modelFiles);
         modelFiles = appendGeoWFunctionsExtIli(modelFiles);
 
-        logCollector  = new LogCollector();
+        logCollector = new LogCollector();
         LogEventFactory errFactory = new LogEventFactory();
         errFactory.setLogger(logCollector);
 
@@ -51,22 +51,22 @@ public class ValidationTestHelper {
             if (ioxReader instanceof IoxIliReader) {
                 ((IoxIliReader) ioxReader).setModel(td);
 
-            errFactory.setDataSource(filename);
-            td.setActualRuntimeParameter(ch.interlis.ili2c.metamodel.RuntimeParameters.MINIMAL_RUNTIME_SYSTEM01_CURRENT_TRANSFERFILE, filename);
-            try {
-                IoxEvent event;
-                do {
-                    event = ioxReader.read();
-                    validator.validate(event);
-                } while (!(event instanceof EndTransferEvent));
-            } finally {
-                ioxReader.close();
-            }
+                errFactory.setDataSource(filename);
+                td.setActualRuntimeParameter(ch.interlis.ili2c.metamodel.RuntimeParameters.MINIMAL_RUNTIME_SYSTEM01_CURRENT_TRANSFERFILE, filename);
+                try {
+                    IoxEvent event;
+                    do {
+                        event = ioxReader.read();
+                        validator.validate(event);
+                    } while (!(event instanceof EndTransferEvent));
+                } finally {
+                    ioxReader.close();
+                }
             }
         }
     }
 
-    private String[] appendGeoWFunctionsExtIli(String[] modelDirs){
+    private String[] appendGeoWFunctionsExtIli(String[] modelDirs) {
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         String GeoW_FunctionsExtIliPath = "src/model/GeoW_FunctionsExt.ili";
         ArrayList<String> result = new ArrayList<>();

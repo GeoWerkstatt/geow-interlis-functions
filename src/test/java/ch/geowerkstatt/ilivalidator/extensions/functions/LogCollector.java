@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 
 public class LogCollector implements ch.interlis.iox.IoxLogging {
-    private ArrayList<IoxLogEvent> errs=new ArrayList<IoxLogEvent>();
-    private ArrayList<IoxLogEvent> warn=new ArrayList<IoxLogEvent>();
+    private ArrayList<IoxLogEvent> errs = new ArrayList<>();
+    private ArrayList<IoxLogEvent> warn = new ArrayList<>();
 
     @Override
     public void addEvent(IoxLogEvent event) {
         EhiLogger.getInstance().logEvent((LogEvent) event);
-        if(event.getEventKind()==IoxLogEvent.ERROR){
+        if (event.getEventKind() == IoxLogEvent.ERROR) {
             errs.add(event);
-        }else if(event.getEventKind()==IoxLogEvent.WARNING){
+        } else if (event.getEventKind() == IoxLogEvent.WARNING) {
             warn.add(event);
         }
     }

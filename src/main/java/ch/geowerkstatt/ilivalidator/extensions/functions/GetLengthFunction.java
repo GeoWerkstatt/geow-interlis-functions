@@ -3,6 +3,7 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 import ch.ehi.basics.logging.EhiLogger;
 import ch.ehi.basics.settings.Settings;
 import ch.interlis.ili2c.Ili2cException;
+import ch.interlis.ili2c.metamodel.Element;
 import ch.interlis.ili2c.metamodel.ObjectPath;
 import ch.interlis.ili2c.metamodel.PathEl;
 import ch.interlis.ili2c.metamodel.TransferDescription;
@@ -36,29 +37,29 @@ public class GetLengthFunction implements InterlisFunction {
     }
 
     @Override
-    public Value evaluate(String validationKind, String usageScope, IomObject iomObject, Value[] arguments) {
-        Value argObjects=arguments[0];
+    public Value evaluate(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
+        Value argObjects = arguments[0];
         Value argPath = arguments[1];
 
-        if (argObjects.skipEvaluation()){
+        if (argObjects.skipEvaluation()) {
             return argObjects;
         }
-        if (argObjects.isUndefined()){
+        if (argObjects.isUndefined()) {
             return Value.createSkipEvaluation();
         }
-        if (argObjects.getComplexObjects() == null){
+        if (argObjects.getComplexObjects() == null) {
             return Value.createUndefined();
         }
 
         Collection<IomObject> polylines = new ArrayList<>();
         Viewable contextClass;
 
-        if (argPath.isUndefined() || argPath.skipEvaluation()){
+        if (argPath.isUndefined() || argPath.skipEvaluation()) {
             polylines.addAll(argObjects.getComplexObjects());
         } else {
-            contextClass = getContextClass(iomObject, argObjects);
+            contextClass = getContextClass(contextObject, argObjects);
 
-            if (contextClass == null){
+            if (contextClass == null) {
                 throw new IllegalStateException("unknown class in " + usageScope);
             }
 
@@ -66,8 +67,7 @@ public class GetLengthFunction implements InterlisFunction {
 
             for (IomObject rootObject : argObjects.getComplexObjects()) {
                 Value polylineAttributes = validator.getValueFromObjectPath(null, rootObject, polylineAttributePath, null);
-                if(!(polylineAttributes.isUndefined() || polylineAttributes.skipEvaluation() || polylineAttributes.getComplexObjects() == null ))
-                {
+                if (!(polylineAttributes.isUndefined() || polylineAttributes.skipEvaluation() || polylineAttributes.getComplexObjects() == null)) {
                     polylines.addAll(polylineAttributes.getComplexObjects());
                 }
             }
@@ -75,10 +75,10 @@ public class GetLengthFunction implements InterlisFunction {
 
         double result = 0.0d;
 
-        for (IomObject polyline: polylines) {
+        for (IomObject polyline : polylines) {
             try {
                 result += Iox2jtsext.polyline2JTS(polyline, false, 0.0).getLength();
-            }catch (IoxException ex){
+            } catch (IoxException ex) {
                 logger.addEvent(logger.logErrorMsg("Could not calculate GetLength for Object {0}", polyline.toString()));
             }
         }
@@ -86,7 +86,7 @@ public class GetLengthFunction implements InterlisFunction {
         return new Value(result);
     }
 
-    private PathEl[] getAttributePathEl(Viewable contextClass, Value argPath) {
+    private PathEl[] getAttributePathEl(Viewable<Element> contextClass, Value argPath) {
         try {
             ObjectPath objectPath = validator.parseObjectOrAttributePath(contextClass, argPath.getValue());
             if (objectPath.getPathElements() != null) {
