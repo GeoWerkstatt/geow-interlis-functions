@@ -41,8 +41,11 @@ public class GetLengthFunction implements InterlisFunction {
         Value argObjects = arguments[0];
         Value argPath = arguments[1];
 
-        if (argObjects.skipEvaluation() || argPath.skipEvaluation()) {
-            return argObjects.skipEvaluation() ? argObjects : argPath;
+        if (argObjects.skipEvaluation()) {
+            return argObjects;
+        }
+        if (argPath.skipEvaluation()) {
+            return argPath;
         }
         if (argObjects.isUndefined()) {
             return Value.createSkipEvaluation();
