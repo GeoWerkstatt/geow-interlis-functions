@@ -41,8 +41,8 @@ public class GetLengthFunction implements InterlisFunction {
         Value argObjects = arguments[0];
         Value argPath = arguments[1];
 
-        if (argObjects.skipEvaluation()) {
-            return argObjects;
+        if (argObjects.skipEvaluation() || argPath.skipEvaluation()) {
+            return argObjects.skipEvaluation() ? argObjects : argPath;
         }
         if (argObjects.isUndefined()) {
             return Value.createSkipEvaluation();
@@ -54,7 +54,7 @@ public class GetLengthFunction implements InterlisFunction {
         Collection<IomObject> polylines = new ArrayList<>();
         Viewable contextClass;
 
-        if (argPath.isUndefined() || argPath.skipEvaluation()) {
+        if (argPath.isUndefined()) {
             polylines.addAll(argObjects.getComplexObjects());
         } else {
             contextClass = getContextClass(contextObject, argObjects);
