@@ -5,9 +5,15 @@ MODEL GeoW_FunctionsExt
     * Geometrie-Funktionen
     */
     !!@ fn.description = "Ermittelt die Länge einer (bzw. die Summe mehrer) Linien-Geometrien. Für 'Objects' können Objekte oder Geometrien angegeben werden. Für 'LineAttr' soll der Pfad zur Linien-Geometrie in INTERLIS 2 Syntax angegeben werden. Falls 'Objects' bereits die Geometrien enthält, soll für 'LineAttr' 'UNDEFINED' übergeben werden. Wird über eine Beziehung die gleiche Geometrie mehrmals gefunden, wird dessen Länge mehrmals gezählt.";
-    !!@ fn.param = "geometry Geometrieattribut.";
+    !!@ fn.param = "Objects: Ausgangsobjekte oder Geometrien. LineAttr: Pfad zum Geometrieattribut oder UNDEFINED";
     !!@ fn.return = "Länge der Geometrie";
     !!@ fn.since = "2021-11-15";
     FUNCTION GetLength (Objects: OBJECTS OF ANYCLASS; LineAttr: TEXT): NUMERIC;
+
+    !!@ fn.description = "Ermittelt die Fläche einer (bzw. die Summe mehrer) Polygon-Geometrien. Für 'Objects' können Objekte oder Geometrien angegeben werden. Für 'AreaAttr' soll der Pfad zur Flächen-Geometrie in INTERLIS 2 Syntax angegeben werden. Falls 'Objects' bereits die Geometrien enthält, soll für 'AreaAttr' 'UNDEFINED' übergeben werden. Wird über eine Beziehung die gleiche Geometrie mehrmals gefunden, wird dessen Länge mehrmals gezählt.";
+    !!@ fn.param = "Objects: Ausgangsobjekte oder Geometrien. AreaAttr: Pfad zum Geometrieattribut oder UNDEFINED";
+    !!@ fn.return = "Fläche der Geometrie";
+    !!@ fn.since = "2021-11-15";
+    FUNCTION GetArea (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
 
 END GeoW_FunctionsExt.
