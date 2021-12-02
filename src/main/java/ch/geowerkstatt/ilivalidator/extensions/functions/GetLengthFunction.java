@@ -39,10 +39,10 @@ public class GetLengthFunction extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        Collection<IomObject> surfaces = new ArrayList<>();
+        Collection<IomObject> polylines;
 
         if (argPath.isUndefined()) {
-            surfaces.addAll(argObjects.getComplexObjects());
+            polylines = argObjects.getComplexObjects();
         } else {
             Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
 
@@ -51,10 +51,10 @@ public class GetLengthFunction extends BaseInterlisFunction {
             }
 
             PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            surfaces.addAll(EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath));
+            polylines = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
         }
 
-        double lengthSum = EvaluationHelper.sum(surfaces, this::getLength);
+        double lengthSum = EvaluationHelper.sum(polylines, this::getLength);
         return new Value(lengthSum);
     }
 }

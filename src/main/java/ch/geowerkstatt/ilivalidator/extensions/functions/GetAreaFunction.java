@@ -39,10 +39,10 @@ public class GetAreaFunction extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        Collection<IomObject> surfaces = new ArrayList<>();
+        Collection<IomObject> surfaces;
 
         if (argPath.isUndefined()) {
-            surfaces.addAll(argObjects.getComplexObjects());
+            surfaces = argObjects.getComplexObjects();
         } else {
             Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
 
@@ -51,7 +51,7 @@ public class GetAreaFunction extends BaseInterlisFunction {
             }
 
             PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            surfaces.addAll(EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath));
+            surfaces = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
         }
 
         double areaSum = EvaluationHelper.sum(surfaces, this::getArea);
