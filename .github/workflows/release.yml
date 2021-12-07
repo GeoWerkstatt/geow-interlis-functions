@@ -36,7 +36,6 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "build/libs/*.jar"
-        tag_name: ${{ steps.tag_version.outputs.new_tag }}
-        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+        name: ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
         token: ${{ secrets.GITHUB_TOKEN }}
