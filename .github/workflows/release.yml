@@ -42,4 +42,5 @@ jobs:
         name: ${{ steps.tag_version.outputs.new_tag }}
         tag: ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
+        prerelease: ${{ contains(steps.tag_version.outputs.changelog, 'prerelease') }}
         token: ${{ secrets.GITHUB_TOKEN }}
