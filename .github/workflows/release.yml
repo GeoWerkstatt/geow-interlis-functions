@@ -11,12 +11,12 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Bump version and push tag
-        id: tag_version
-        uses: miguelfito/github-bump-and-tag-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: master
-          pre_release_branches: prerelease
+      id: tag_version
+      uses: miguelfito/github-bump-and-tag-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        release_branches: master
+        pre_release_branches: prerelease
 
     - uses: actions/cache@v1
       with:
