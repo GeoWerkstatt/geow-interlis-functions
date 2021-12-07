@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
 }
 group 'ch.geowerkstatt.ilivalidator.extensions.functions'
-version '1.0-SNAPSHOT'
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
