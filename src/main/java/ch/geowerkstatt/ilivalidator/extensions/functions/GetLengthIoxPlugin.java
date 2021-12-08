@@ -10,16 +10,16 @@ import ch.interlis.iox_j.validator.Value;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class GetAreaFunction extends BaseInterlisFunction {
+public class GetLengthIoxPlugin extends BaseInterlisFunction {
 
     @Override
     public String getQualifiedIliName() {
-        return "GeoW_FunctionsExt.GetArea";
+        return "GeoW_FunctionsExt.GetLength";
     }
 
-    private double getArea(IomObject surface) {
+    private double getLength(IomObject polyline) {
         try {
-            return Iox2jtsext.surface2JTS(surface, 0.0).getArea();
+            return Iox2jtsext.polyline2JTS(polyline, false, 0.0).getLength();
         } catch (IoxException ex) {
             logger.addEvent(logger.logErrorMsg("Could not calculate {0}", this.getQualifiedIliName()));
         }
@@ -39,10 +39,10 @@ public class GetAreaFunction extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        Collection<IomObject> surfaces;
+        Collection<IomObject> polylines;
 
         if (argPath.isUndefined()) {
-            surfaces = argObjects.getComplexObjects();
+            polylines = argObjects.getComplexObjects();
         } else {
             Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
 
@@ -51,10 +51,10 @@ public class GetAreaFunction extends BaseInterlisFunction {
             }
 
             PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            surfaces = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
+            polylines = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
         }
 
-        double areaSum = EvaluationHelper.sum(surfaces, this::getArea);
-        return new Value(areaSum);
+        double lengthSum = EvaluationHelper.sum(polylines, this::getLength);
+        return new Value(lengthSum);
     }
 }
