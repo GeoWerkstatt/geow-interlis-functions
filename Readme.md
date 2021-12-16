@@ -2,7 +2,7 @@
 Eine Funktionsbibliothek für INTERLIS 2.4 mit einer Implementierung die das Tool [ilivalidator](https://github.com/claeis/ilivalidator) erweitert.
 
 ## Licence
-To be defined
+LGPL-2.1 License See [LICENSE.md](LICENSE.md)
 
 ## Anwendung
 - Das Modell [GeoW_FunctionsExt](src/model/GeoW_FunctionsExt.ili) in das zu verwendende Modell importieren. 
