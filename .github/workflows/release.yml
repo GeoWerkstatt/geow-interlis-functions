@@ -33,8 +33,13 @@ jobs:
       with:
         java-version: 1.8
 
-    - name: Build with Gradle
+    - name: Build jar with Gradle
       run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' jar
+
+    - name: Publish to GitHub Maven with Gradle
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     - uses: ncipollo/release-action@v1
       with:
