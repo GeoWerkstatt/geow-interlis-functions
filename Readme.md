@@ -7,12 +7,12 @@ LGPL-2.1 License See [LICENSE.md](LICENSE.md)
 ## Anwendung
 - Das Modell [GeoW_FunctionsExt](src/model/GeoW_FunctionsExt.ili) in das zu verwendende Modell importieren. 
 
-- Es muss sichergestellt werden, dass der ilivalidator das Modell in einem Repository finden kann. Hier kann GitHub direkt z.B. direkt Eingebunden werden. 
+- Es muss sichergestellt werden, dass der ilivalidator das Modell in einem Repository finden kann. Hier kann GitHub z.B. direkt eingebunden werden. 
 ```
 https://raw.githubusercontent.com/GeoWerkstatt/geow-interlis-functions/master/src/model/
 ```
 
-- **Jar-File:** Die Funktionsbibliothek (.jar-File) kann von GitHub aus dem [aktuellsten Release](https://github.com/GeoWerkstatt/geow-interlis-functions/releases) heruntergeladen werden. Das .jar-File muss dem _ilivalidator_ bekannt gemacht werden.
+- **Jar-File:** Die Funktionsbibliothek (.jar-File) kann von GitHub aus dem [aktuellsten Release](https://github.com/GeoWerkstatt/geow-interlis-functions/releases/latest) heruntergeladen werden. Das .jar-File muss dem _ilivalidator_ bekannt gemacht werden.
 
     - Option `-plugins PLUGINS_DIR` bei der verwendung aus der Konsole. 
     - Einstellung `org.interlis2.validator.pluginfolder` bei der Verwendung einer Konfigurationsdatei
