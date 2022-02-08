@@ -15,7 +15,7 @@ jobs:
 
     - name: Bump version and push tag
       id: tag_version
-      uses:  mathieudutour/github-tag-action@v6.0
+      uses:  mathieudutour/github-tag-action@d745f2e74aaf1ee82e747b181f7a0967978abee0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         release_branches: master
@@ -41,7 +41,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-    - uses: ncipollo/release-action@v1
+    - uses: ncipollo/release-action@40bb172bd05f266cf9ba4ff965cb61e9ee5f6d01
       with:
         artifacts: "build/libs/*.jar"
         name: ${{ steps.tag_version.outputs.new_tag }}
