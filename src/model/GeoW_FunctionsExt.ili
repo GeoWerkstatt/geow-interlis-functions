@@ -22,4 +22,10 @@ MODEL GeoW_FunctionsExt
     !!@ fn.since = "2022-03-09";
     FUNCTION Substring (TextVal: TEXT; StartIndex: 0 .. 2147483647; EndIndex: 0 .. 2147483647): TEXT;
 
+    !!@ fn.description = "Überprüft, ob TextVal dem angegebenen Pattern entspricht.";
+    !!@ fn.param = "TextVal: Zu untersuchendes Textattribut. Pattern: Ein Regular Expression Pattern";
+    !!@ fn.return = "Ob TextVal durch das Regular Expression Pattern gematched wird";
+    !!@ fn.since = "2022-03-09";
+    FUNCTION IsMatch (TextVal: TEXT; Pattern: TEXT): BOOLEAN;
+
 END GeoW_FunctionsExt.
