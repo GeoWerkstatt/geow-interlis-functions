@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS"
+              xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+    <ili:headersection>
+        <ili:models>
+            <ili:model>TestSuite</ili:model>
+        </ili:models>
+        <ili:sender>ch.geowerkstatt.ilivalidator.extensions.functions_TestSuite</ili:sender>
+    </ili:headersection>
+    <ili:datasection>
+        <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
+            <TestSuite:SubstringUndefinedClass ili:tid="1">
+                <TestSuite:inputTextVal>NDIANHARTH</TestSuite:inputTextVal>
+                <TestSuite:inputStartIndex>6</TestSuite:inputStartIndex>
+                <TestSuite:inputEndIndex>2</TestSuite:inputEndIndex>
+            </TestSuite:SubstringUndefinedClass>
+        </TestSuite:FunctionTestTopic>
+    </ili:datasection>
+</ili:transfer>

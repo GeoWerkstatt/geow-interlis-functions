@@ -1,6 +1,6 @@
 INTERLIS 2.4;
 MODEL GeoW_FunctionsExt
-  AT "mailto:info@geowerkstatt.ch" VERSION "2021-11-15" =
+  AT "mailto:info@geowerkstatt.ch" VERSION "2022-03-09" =
     /**
     * Geometrie-Funktionen
     */
@@ -15,5 +15,11 @@ MODEL GeoW_FunctionsExt
     !!@ fn.return = "Fläche der Geometrie";
     !!@ fn.since = "2021-11-15";
     FUNCTION GetArea (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
+
+    !!@ fn.description = "Gibt den Teil von 'TextVal' zurück, der zwischen 'StartIndex' und 'EndIndex' liegt. Wenn der 'EndIndex' kleiner ist als der 'StartIndex' oder 'EndIndex' grösser ist als die Länge von 'TextVal' ist das Resultat UNDEFINED. Das erste Zeichen hat den Index 0.";
+    !!@ fn.param = "TextVal: Textattribut. StartIndex: Der start Index, inklusive. EndIndex: Der end Index, Exklusive";
+    !!@ fn.return = "Den angegebenen Teilstring";
+    !!@ fn.since = "2022-03-09";
+    FUNCTION Substring (TextVal: TEXT; StartIndex: 0 .. 2147483647; EndIndex: 0 .. 2147483647): TEXT;
 
 END GeoW_FunctionsExt.

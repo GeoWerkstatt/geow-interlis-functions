@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS"
+              xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+    <ili:headersection>
+        <ili:models>
+            <ili:model>TestSuite</ili:model>
+        </ili:models>
+        <ili:sender>ch.geowerkstatt.ilivalidator.extensions.functions_TestSuite</ili:sender>
+    </ili:headersection>
+    <ili:datasection>
+        <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
+            <TestSuite:SubstringTestClass ili:tid="1">
+                <TestSuite:inputTextVal>ASTIONYWAS</TestSuite:inputTextVal>
+                <TestSuite:inputStartIndex>1</TestSuite:inputStartIndex>
+                <TestSuite:inputEndIndex>4</TestSuite:inputEndIndex>
+                <TestSuite:expectedText>STI</TestSuite:expectedText>
+            </TestSuite:SubstringTestClass>
+            <TestSuite:SubstringTestClass ili:tid="2">
+                <TestSuite:inputTextVal>ITINGTONGE</TestSuite:inputTextVal>
+                <TestSuite:inputStartIndex>0</TestSuite:inputStartIndex>
+                <TestSuite:inputEndIndex>10</TestSuite:inputEndIndex>
+                <TestSuite:expectedText>ITINGTONGE</TestSuite:expectedText>
+            </TestSuite:SubstringTestClass>
+            <TestSuite:SubstringTestClass ili:tid="3">
+                <TestSuite:inputTextVal>NENYACHEDU</TestSuite:inputTextVal>
+                <TestSuite:inputStartIndex>5</TestSuite:inputStartIndex>
+                <TestSuite:inputEndIndex>5</TestSuite:inputEndIndex>
+                <TestSuite:expectedText></TestSuite:expectedText>
+            </TestSuite:SubstringTestClass>
+        </TestSuite:FunctionTestTopic>
+    </ili:datasection>
+</ili:transfer>

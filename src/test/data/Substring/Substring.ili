@@ -1,0 +1,27 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2022-03-09" =
+  IMPORTS GeoW_FunctionsExt;
+
+  TOPIC FunctionTestTopic =
+
+    CLASS SubstringClass (ABSTRACT) =
+        inputTextVal : TEXT;
+        inputStartIndex : -50 .. 3000000000;
+        inputEndIndex : -50 .. 3000000000;
+    END SubstringClass;
+
+    CLASS SubstringTestClass EXTENDS SubstringClass =
+        expectedText : TEXT;
+        MANDATORY CONSTRAINT substringConstraint : GeoW_FunctionsExt.Substring(inputTextVal, inputStartIndex, inputEndIndex) == expectedText;
+        MANDATORY CONSTRAINT substringDefinedConstraint : DEFINED (GeoW_FunctionsExt.Substring(inputTextVal, inputStartIndex, inputEndIndex));
+    END SubstringTestClass;
+
+    CLASS SubstringUndefinedClass EXTENDS SubstringClass =
+        MANDATORY CONSTRAINT substringUndefinedConstraint : NOT (DEFINED (GeoW_FunctionsExt.Substring(inputTextVal, inputStartIndex, inputEndIndex)));
+    END SubstringUndefinedClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.
