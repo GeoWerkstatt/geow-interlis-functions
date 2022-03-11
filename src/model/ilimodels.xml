@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
-<HEADERSECTION SENDER="mkilimodelsxml-5.2.5-b1471c2815bd6f7703c39f0de059eb083e194448" VERSION="2.3"><MODELS><MODEL NAME="IliRepository20" VERSION="2020-04-17" URI="http://models.interlis.ch/core"></MODEL></MODELS></HEADERSECTION>
+<HEADERSECTION SENDER="mkilimodelsxml-5.2.2-c48675a2ecb4cf824bcbdcaa76abfdb10bea327e" VERSION="2.3"><MODELS><MODEL NAME="IliRepository20" VERSION="2020-04-17" URI="http://models.interlis.ch/core"></MODEL></MODELS></HEADERSECTION>
 <DATASECTION>
 <IliRepository20.RepositoryIndex BID="b1">
-<IliRepository20.RepositoryIndex.ModelMetadata TID="0"><Name>GeoW_FunctionsExt</Name><SchemaLanguage>ili2_4</SchemaLanguage><File>GeoW_FunctionsExt.ili</File><Version>2021-11-15</Version><publishingDate>2021-12-07</publishingDate><Issuer>mailto:info@geowerkstatt.ch</Issuer><browseOnly>false</browseOnly><md5>62a2509930c8a5d9c36b0455d4769938</md5></IliRepository20.RepositoryIndex.ModelMetadata>
+<IliRepository20.RepositoryIndex.ModelMetadata TID="0"><Name>GeoW_FunctionsExt</Name><SchemaLanguage>ili2_4</SchemaLanguage><File>GeoW_FunctionsExt.ili</File><Version>2021-11-15</Version><publishingDate>2021-12-07</publishingDate><Issuer>mailto:info@geowerkstatt.ch</Issuer><browseOnly>false</browseOnly><md5>66ecbd369e80507f0e475fc79c206ff7</md5></IliRepository20.RepositoryIndex.ModelMetadata>
 </IliRepository20.RepositoryIndex>
 </DATASECTION>
 </TRANSFER>
