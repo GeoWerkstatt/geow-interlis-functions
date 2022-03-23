@@ -30,9 +30,18 @@ public class NplagHasIntersectionIoxPlugin extends BaseInterlisFunction {
         if (targetObject.getComplexObjects() == null || targetObject.getComplexObjects().size() != 1) {
             return Value.createUndefined();
         }
-        
-        // get Linienbezogene_Festlegung geometry
+
         IomObject lineObject = targetObject.getComplexObjects().iterator().next();
+
+        // check if KTCode of targetObject has a specific value
+        IomObject ktCodeRef = lineObject.getattrobj("Typ_GDE_U_LinieR", 0);
+        IomObject typLinie = objectPool.getObject(ktCodeRef.getobjectrefoid(), null, null);
+        String ktCode = typLinie.getattrvalue("KTCode");
+        if (!ktCode.equals("N7931")) {
+            return Value.createUndefined();
+        }
+
+        // get Linienbezogene_Festlegung geometry
         IomObject lineGeometryAttribute = lineObject.getattrobj("Geom", 0);
         CompoundCurve polyline = polyline2JtsOrNull(lineGeometryAttribute);
 
