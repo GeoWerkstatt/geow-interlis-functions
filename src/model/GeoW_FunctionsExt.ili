@@ -16,4 +16,10 @@ MODEL GeoW_FunctionsExt
     !!@ fn.since = "2021-11-15";
     FUNCTION GetArea (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
 
+    !!@ fn.description = "Überprüft, ob sich das 'TestObject' mit einer Instanz von 'BaseClass' überschneidet.";
+    !!@ fn.param = "TestObject: Das zu überprüfende Objekt. BaseClass: Klasse oder Struktur, deren Instanzen in der Überprüfung verwendet werden.";
+    !!@ fn.return = "true, wenn es Koordinaten gibt, die gleichzeitig teil von 'TestObject' und einer Instanz von 'BaseClass' sind. Sonst false.";
+    !!@ fn.since = "2022-03-21";
+    FUNCTION NplagHasIntersection (TestObject: OBJECT OF ANYCLASS; BaseClass: ANYSTRUCTURE): BOOLEAN;
+
 END GeoW_FunctionsExt.

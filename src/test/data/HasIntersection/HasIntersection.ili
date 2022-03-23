@@ -1,0 +1,81 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+    AT "mailto:info@geowerkstatt.ch" VERSION "2022-03-21" =
+    IMPORTS GeoW_FunctionsExt ;
+
+    DOMAIN
+        !!@CRS=EPSG:2056
+        LKoord = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                       1045000.000 .. 1310000.000 [INTERLIS.m],
+                       ROTATION 2 -> 1;
+
+        line = POLYLINE  WITH (STRAIGHTS, ARCS) VERTEX LKoord;
+        gebietseinteilung = AREA WITH (STRAIGHTS, ARCS) VERTEX LKoord WITHOUT OVERLAPS > 0.002;
+
+    Code_Grundnutzung = (
+        N1111,
+        N1121,
+        N1131,
+        N1141,
+        N1151
+    );
+
+    Code_U_Linie = (
+        N7111,
+        N7911,
+        N7921,
+        N7931,
+        N7951,
+        N7952,
+        N7961,
+        N7962,
+        N7971,
+        N7999
+    );
+
+    TOPIC FunctionTestTopic =
+
+        CLASS Typ_GDE_Grundnutzung =
+            KTCode : MANDATORY Code_Grundnutzung;
+        END Typ_GDE_Grundnutzung;
+
+        CLASS Typ_GDE_U_Linie =
+            KTCode : MANDATORY Code_U_Linie;
+        END Typ_GDE_U_Linie;
+
+        CLASS Grundnutzung =
+            WURSTSALAT : TEXT;
+            Geom : MANDATORY gebietseinteilung;
+        END Grundnutzung;
+
+        CLASS Linienbezogene_Festlegung =
+            Geom : MANDATORY line;
+
+            MANDATORY CONSTRAINT overlayConstraint: GeoW_FunctionsExt.NplagHasIntersection (THIS, >Grundnutzung);
+        END Linienbezogene_Festlegung;
+
+        ASSOCIATION GrundnutzungTyp_GDE_Grundnutzung =
+            GrundnutzungR -- {0..*} Grundnutzung;
+            Typ_GDE_GrundnutzungR -- {1} Typ_GDE_Grundnutzung;
+        END GrundnutzungTyp_GDE_Grundnutzung;
+
+        ASSOCIATION Linienbezogene_FestlegungTyp_GDE_U_Linie =
+            Linienbezogene_FestlegungR -- {0..*} Linienbezogene_Festlegung;
+            Typ_GDE_U_LinieR -- {1} Typ_GDE_U_Linie;
+        END Linienbezogene_FestlegungTyp_GDE_U_Linie;
+
+
+
+    END FunctionTestTopic;
+
+END TestSuite.
+
+
+
+
+
+
+
+
+

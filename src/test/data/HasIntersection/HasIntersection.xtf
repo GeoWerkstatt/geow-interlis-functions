@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:geom="http://www.interlis.ch/geometry/1.0"
+              xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+    <ili:headersection>
+        <ili:models>
+            <ili:model>TestSuite</ili:model>
+        </ili:models>
+        <ili:sender>ili2gpkg-4.6.1-63db90def1260a503f0f2d4cb846686cd4851184</ili:sender>
+    </ili:headersection>
+    <ili:datasection>
+        <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
+            <TestSuite:Typ_GDE_Grundnutzung ili:tid="4">
+                <TestSuite:KTCode>N1131</TestSuite:KTCode>
+            </TestSuite:Typ_GDE_Grundnutzung>
+            <TestSuite:Typ_GDE_U_Linie ili:tid="5">
+                <TestSuite:KTCode>N7931</TestSuite:KTCode>
+            </TestSuite:Typ_GDE_U_Linie>
+            <TestSuite:Grundnutzung ili:tid="6">
+                <TestSuite:Geom>
+                    <geom:surface>
+                        <geom:exterior>
+                            <geom:polyline>
+                                <geom:coord>
+                                    <geom:c1>2634000.000</geom:c1>
+                                    <geom:c2>1240000.000</geom:c2>
+                                </geom:coord>
+                                <geom:coord>
+                                    <geom:c1>2598000.000</geom:c1>
+                                    <geom:c2>1190000.000</geom:c2>
+                                </geom:coord>
+                                <geom:coord>
+                                    <geom:c1>2667000.000</geom:c1>
+                                    <geom:c2>1192000.000</geom:c2>
+                                </geom:coord>
+                                <geom:coord>
+                                    <geom:c1>2634000.000</geom:c1>
+                                    <geom:c2>1240000.000</geom:c2>
+                                </geom:coord>
+                            </geom:polyline>
+                        </geom:exterior>
+                    </geom:surface>
+                </TestSuite:Geom>
+                <TestSuite:Typ_GDE_GrundnutzungR ili:ref="4"/>
+            </TestSuite:Grundnutzung>
+            <TestSuite:Linienbezogene_Festlegung ili:tid="7">
+                <TestSuite:Geom>
+                    <geom:polyline>
+                        <geom:coord>
+                            <geom:c1>2604000.000</geom:c1>
+                            <geom:c2>1221000.000</geom:c2>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2592000.000</geom:c1>
+                            <geom:c2>1186000.000</geom:c2>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2672000.000</geom:c1>
+                            <geom:c2>1185000.000</geom:c2>
+                        </geom:coord>
+                    </geom:polyline>
+                </TestSuite:Geom>
+                <TestSuite:Typ_GDE_U_LinieR ili:ref="5"/>
+            </TestSuite:Linienbezogene_Festlegung>
+        </TestSuite:FunctionTestTopic>
+    </ili:datasection>
+</ili:transfer>

@@ -15,6 +15,7 @@ public abstract class BaseInterlisFunction implements InterlisFunction {
     protected LogEventFactory logger;
     protected TransferDescription td;
     protected Validator validator;
+    protected ObjectPool objectPool;
 
     @Override
     public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
@@ -22,6 +23,7 @@ public abstract class BaseInterlisFunction implements InterlisFunction {
         this.logger.setValidationConfig(validationConfig);
         this.td = td;
         this.validator = (Validator) settings.getTransientObject(IOX_VALIDATOR);
+        this.objectPool = objectPool;
     }
 
     @Override
