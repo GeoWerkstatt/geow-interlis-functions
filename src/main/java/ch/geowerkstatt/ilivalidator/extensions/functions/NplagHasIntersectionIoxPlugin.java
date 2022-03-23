@@ -12,12 +12,11 @@ import ch.interlis.iox_j.validator.ObjectPoolKey;
 import ch.interlis.iox_j.validator.Value;
 import com.vividsolutions.jts.geom.Polygon;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NplagHasIntersectionIoxPlugin extends BaseInterlisFunction {
+    private final Map<Viewable, List<Polygon>> basePolygonCache = new HashMap<>();
 
     @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject mainObj, Value[] actualArguments) {
@@ -40,10 +39,11 @@ public class NplagHasIntersectionIoxPlugin extends BaseInterlisFunction {
         // get Grundnutzung geometry
         String currentBid = getBidOfIomObject(mainObj, td, objectPool);
         Viewable baseObjectViewable = baseClassConstant.getViewable();
-        List<Polygon> basePolygons = getGeometryIomObjects(baseObjectViewable, "Geom", currentBid).stream()
+        List<Polygon> basePolygons = basePolygonCache.computeIfAbsent(baseObjectViewable, (v) ->
+                getGeometryIomObjects(v, "Geom", currentBid).stream()
                 .map(this::surface2JtsOrNull)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
 
         // determine if geometries intersect
         boolean hasIntersection = basePolygons.stream().anyMatch(p -> p.intersects(polyline));
