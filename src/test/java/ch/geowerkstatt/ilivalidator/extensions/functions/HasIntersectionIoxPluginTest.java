@@ -29,4 +29,11 @@ class HasIntersectionIoxPluginTest {
         vh.runValidation(new String[]{"HasIntersection/WithIntersection.xtf"}, new String[]{TEST_ILI});
         Assert.equals(0, vh.getErrs().size());
     }
+
+    @Test
+    void WithIntersectionButExcludedKTCode() throws Ili2cFailure, IoxException {
+        vh.runValidation(new String[]{"HasIntersection/WithIntersectionExcludedKTCode.xtf"}, new String[]{TEST_ILI});
+        Assert.equals(1, vh.getErrs().size());
+        AssertionHelper.assertConstraintErrors(vh, 1, "7", "overlayConstraint");
+    }
 }

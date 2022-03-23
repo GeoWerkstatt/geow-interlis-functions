@@ -10,7 +10,7 @@
     <ili:datasection>
         <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
             <TestSuite:Typ_GDE_Grundnutzung ili:tid="4">
-                <TestSuite:KTCode>N1141</TestSuite:KTCode>
+                <TestSuite:KTCode>N1111</TestSuite:KTCode>
             </TestSuite:Typ_GDE_Grundnutzung>
             <TestSuite:Typ_GDE_U_Linie ili:tid="5">
                 <TestSuite:KTCode>N7931</TestSuite:KTCode>
@@ -46,16 +46,16 @@
                 <TestSuite:Geom>
                     <geom:polyline>
                         <geom:coord>
-                            <geom:c1>2604000.000</geom:c1>
-                            <geom:c2>1221000.000</geom:c2>
+                            <geom:c1>2606585.717</geom:c1>
+                            <geom:c2>1230978.064</geom:c2>
                         </geom:coord>
                         <geom:coord>
-                            <geom:c1>2592000.000</geom:c1>
-                            <geom:c2>1186000.000</geom:c2>
+                            <geom:c1>2627405.529</geom:c1>
+                            <geom:c2>1203821.787</geom:c2>
                         </geom:coord>
                         <geom:coord>
-                            <geom:c1>2672000.000</geom:c1>
-                            <geom:c2>1185000.000</geom:c2>
+                            <geom:c1>2672609.415</geom:c1>
+                            <geom:c2>1185774.178</geom:c2>
                         </geom:coord>
                     </geom:polyline>
                 </TestSuite:Geom>

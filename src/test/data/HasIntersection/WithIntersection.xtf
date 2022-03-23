@@ -10,7 +10,7 @@
     <ili:datasection>
         <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
             <TestSuite:Typ_GDE_Grundnutzung ili:tid="4">
-                <TestSuite:KTCode>N1131</TestSuite:KTCode>
+                <TestSuite:KTCode>N1141</TestSuite:KTCode>
             </TestSuite:Typ_GDE_Grundnutzung>
             <TestSuite:Typ_GDE_U_Linie ili:tid="5">
                 <TestSuite:KTCode>N7931</TestSuite:KTCode>

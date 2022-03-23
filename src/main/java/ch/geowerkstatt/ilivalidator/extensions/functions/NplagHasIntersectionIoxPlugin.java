@@ -31,31 +31,25 @@ public class NplagHasIntersectionIoxPlugin extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        IomObject lineObject = targetObject.getComplexObjects().iterator().next();
-
-        // check if KTCode of targetObject has a specific value
-        IomObject ktCodeRef = lineObject.getattrobj("Typ_GDE_U_LinieR", 0);
-        IomObject typLinie = objectPool.getObject(ktCodeRef.getobjectrefoid(), null, null);
-        String ktCode = typLinie.getattrvalue("KTCode");
-        if (!ktCode.equals("N7931")) {
-            return Value.createUndefined();
-        }
-
         // get Linienbezogene_Festlegung geometry
+        IomObject lineObject = targetObject.getComplexObjects().iterator().next();
         IomObject lineGeometryAttribute = lineObject.getattrobj("Geom", 0);
         CompoundCurve polyline = polyline2JtsOrNull(lineGeometryAttribute);
 
-        // get Grundnutzung geometry
+        // get Grundnutzung geometry, filtered by relevant KTCodes
         String currentBid = getBidOfIomObject(mainObj, td, objectPool);
         Viewable baseObjectViewable = baseClassConstant.getViewable();
-        List<Polygon> basePolygons = basePolygonCache.computeIfAbsent(baseObjectViewable, (v) ->
-                getGeometryIomObjects(v, "Geom", currentBid).stream()
-                .map(this::surface2JtsOrNull)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList()));
+        List<Polygon> relevantBasePolygons = basePolygonCache.computeIfAbsent(baseObjectViewable, (viewable) ->
+                getIomObjects(viewable, currentBid)
+                        .stream()
+                        .filter((obj) -> "N1141".equals(extractKTCodeFromGrundnutzung(obj)))
+                        .map(obj -> obj.getattrobj("Geom", 0))
+                        .map(this::surface2JtsOrNull)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList()));
 
         // determine if geometries intersect
-        boolean hasIntersection = basePolygons.stream().anyMatch(p -> p.intersects(polyline));
+        boolean hasIntersection = relevantBasePolygons.stream().anyMatch(p -> p.intersects(polyline));
         return new Value(hasIntersection);
     }
 
@@ -65,29 +59,36 @@ public class NplagHasIntersectionIoxPlugin extends BaseInterlisFunction {
     }
 
     /**
-     * Get a specific attribute object from every instance of a class or struct.
+     * Get all instances of a class or struct.
      *
-     * @param classOrStructViewable The class or struct, that contains the attribute.
-     * @param geomAttribute The name of the attribute.
+     * @param classOrStructViewable The class or struct to get the instances from.
      * @param currentBid The id of the basket to get the objects from.
-     * @return A list of attribute objects.
+     * @return A list of class instance objects.
      */
-    private List<IomObject> getGeometryIomObjects(Viewable classOrStructViewable, String geomAttribute, String currentBid) {
-        ArrayList<IomObject> geometries = new ArrayList<>();
+    private List<IomObject> getIomObjects(Viewable classOrStructViewable, String currentBid) {
+        ArrayList<IomObject> resultObjects = new ArrayList<>();
 
         ObjPoolImpl2<ObjectPoolKey, IomObject> objectsOfBasketId = objectPool.getObjectsOfBasketId(currentBid);
-        objectsOfBasketId.valueIterator().forEachRemaining(obj -> {
-            Viewable element = (Viewable) td.getElement(obj.getobjecttag());
+        objectsOfBasketId.valueIterator().forEachRemaining(iomObject -> {
+            Viewable element = (Viewable) td.getElement(iomObject.getobjecttag());
 
             if (element.equals(classOrStructViewable)) {
-                for (int i = 0; i < obj.getattrvaluecount(geomAttribute); i++) {
-                    IomObject geometry = obj.getattrobj(geomAttribute, i);
-                    geometries.add(geometry);
-                }
+                resultObjects.add(iomObject);
             }
         });
 
-        return geometries;
+        return resultObjects;
+    }
+
+    /**
+     * Get the KTCode from an Instance of Grundnutzung
+     */
+    private String extractKTCodeFromGrundnutzung(IomObject grundnutzung) {
+        IomObject typGdeGrundnutzungRef = grundnutzung.getattrobj("Typ_GDE_GrundnutzungR", 0);
+        IomObject typGrundnutzung = objectPool.getObject(typGdeGrundnutzungRef.getobjectrefoid(), null, null);
+        String ktCode = typGrundnutzung.getattrvalue("KTCode");
+
+        return ktCode;
     }
 
     private Polygon surface2JtsOrNull (IomObject surface) {
