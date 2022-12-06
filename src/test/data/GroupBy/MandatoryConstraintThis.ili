@@ -15,7 +15,7 @@ MODEL TestSuite
     CLASS BaseClass =
         attr: TEXT*16;
         criteria1: (val1,val2,val3);
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GroupBy(ALL, "criteria1")) == INTERLIS.elementCount(ALL);
+        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GroupBy(ALL, "val1")) == 3;
     END BaseClass;
 
   END FunctionTestTopic;
