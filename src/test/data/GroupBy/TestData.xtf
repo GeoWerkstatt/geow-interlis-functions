@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:geom="http://www.interlis.ch/geometry/1.0"
+              xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+    <ili:headersection>
+        <ili:models>
+            <ili:model>GeoW_FunctionsExt</ili:model>
+            <ili:model>TestSuite</ili:model>
+        </ili:models>
+        <ili:sender>ili2gpkg-4.6.1-63db90def1260a503f0f2d4cb846686cd4851184</ili:sender>
+    </ili:headersection>
+    <ili:datasection>
+        <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
+            <TestSuite:BaseClass ili:tid="0">
+                <TestSuite:attr>blaa</TestSuite:attr>
+                <TestSuite:criteria1>val1</TestSuite:criteria1> 
+            </TestSuite:BaseClass>
+            <TestSuite:BaseClass ili:tid="1">
+                <TestSuite:attr>woot</TestSuite:attr>
+                <TestSuite:criteria1>val1</TestSuite:criteria1> 
+            </TestSuite:BaseClass>
+            <TestSuite:BaseClass ili:tid="2">
+                <TestSuite:attr>defs</TestSuite:attr>
+                <TestSuite:criteria1>val3</TestSuite:criteria1> 
+            </TestSuite:BaseClass>
+            <TestSuite:BaseClass ili:tid="3">
+                <TestSuite:attr>moon</TestSuite:attr>
+                <TestSuite:criteria1>val2</TestSuite:criteria1> 
+            </TestSuite:BaseClass>
+            <TestSuite:BaseClass ili:tid="4">
+                <TestSuite:attr>soon</TestSuite:attr>
+                <TestSuite:criteria1>val3</TestSuite:criteria1> 
+            </TestSuite:BaseClass>
+            <TestSuite:BaseClass ili:tid="5">
+                <TestSuite:attr>yeah</TestSuite:attr>
+                <TestSuite:criteria1>val1</TestSuite:criteria1> 
+            </TestSuite:BaseClass>
+        </TestSuite:FunctionTestTopic>
+    </ili:datasection>
+</ili:transfer>
