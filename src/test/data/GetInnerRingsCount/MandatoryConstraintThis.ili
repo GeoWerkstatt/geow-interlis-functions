@@ -2,7 +2,7 @@ INTERLIS 2.4;
 
 MODEL TestSuite
   AT "mailto:info@geowerkstatt.ch" VERSION "2022-12-02" =
-  !!IMPORTS GeoW_FunctionsExt ;
+  IMPORTS GeoW_FunctionsExt ;
 
   DOMAIN
        !!@CRS=EPSG:2056
@@ -16,7 +16,9 @@ MODEL TestSuite
         testAttributeArea : AREA WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
         testAttributeSurface : SURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
         testAttributeMultiSurface : MULTISURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
-        !!MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeArea") == 0;
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeArea") == 0;
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeSurface") == 0;
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeMultiSurface") == 0;
     END BaseClass;
 
   END FunctionTestTopic;
