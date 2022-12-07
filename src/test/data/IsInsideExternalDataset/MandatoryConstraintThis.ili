@@ -1,0 +1,43 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2022-12-05" =
+  IMPORTS GeoW_FunctionsExt ;
+
+  DOMAIN
+      !!@CRS=EPSG:2056
+      CHKoord = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+      CHKoord3d = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      0.000 .. 5000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+      CHMultiKoord = MULTICOORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+
+  TOPIC FunctionTestTopic =
+
+    CLASS BaseClass =
+        testAttributeArea : AREA WITH (STRAIGHTS) VERTEX CHKoord3d WITHOUT OVERLAPS > 0.001;
+        testAttributeSurface : SURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
+        testAttributeMultiSurface : MULTISURFACE WITH (STRAIGHTS) VERTEX CHKoord3d WITHOUT OVERLAPS > 0.001;
+        testAttributePolyline3d : POLYLINE WITH (STRAIGHTS) VERTEX CHKoord3d;
+        testAttributeMultiPolyline : MULTIPOLYLINE WITH (STRAIGHTS) VERTEX CHKoord;
+        testAttributePoint2d : CHKoord;
+        testAttributePoint3d : CHKoord3d;
+        testAttributeMultiCoord : CHMultiKoord;
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributePoint2d");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributeArea");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributeSurface");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributeMultiSurface");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributePolyline3d");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributePoint3d");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributeMultiCoord");
+        MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3", "9230,9250,9252,9257", THIS, "testAttributeMultiPolyline");        
+    END BaseClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.
