@@ -22,11 +22,11 @@ class GetInGroupsIoxPluginTest {
     void MandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetInGroups/SetConstraintAll.ili"});
         Assert.equals(3, vh.getErrs().size());
-        AssertionHelper.assertNoConstraintError(vh, "Constraint1");
-        AssertionHelper.assertNoConstraintError(vh, "Constraint2");
-        AssertionHelper.assertNoConstraintError(vh, "Constraint3");
-        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint4");
-        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint5");
-        AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint6");
+        AssertionHelper.assertNoConstraintError(vh, "trueConstraintTextAttr");
+        AssertionHelper.assertNoConstraintError(vh, "trueConstraintEnumAttr");
+        AssertionHelper.assertNoConstraintError(vh, "trueConstraintNumberAttr");
+        AssertionHelper.assertSingleConstraintError(vh, 0, "falseConstraintTextAttr");
+        AssertionHelper.assertSingleConstraintError(vh, 0, "falseConstraintEnumAttr");
+        AssertionHelper.assertSingleConstraintError(vh, 0, "falseConstraintNumberAttr");
     }
 }

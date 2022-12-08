@@ -16,12 +16,12 @@ MODEL TestSuite
         textAttr: TEXT*16;
         enumAttr: (val1,val2,val3);
         numberAttr: 0..10;
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 3;
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "enumAttr")) == 3;
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "numberAttr")) == 3;
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 2;
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "enumAttr")) == 2;
-        SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "numberAttr")) == 2;
+        SET CONSTRAINT trueConstraintTextAttr:      INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 3;
+        SET CONSTRAINT trueConstraintEnumAttr:      INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "enumAttr")) == 3;
+        SET CONSTRAINT trueConstraintNumberAttr:    INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "numberAttr")) == 3;
+        SET CONSTRAINT falseConstraintTextAttr:     INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 2;
+        SET CONSTRAINT falseConstraintEnumAttr:     INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "enumAttr")) == 2;
+        SET CONSTRAINT falseConstraintNumberAttr:   INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "numberAttr")) == 2;
     END BaseClass;
 
   END FunctionTestTopic;
