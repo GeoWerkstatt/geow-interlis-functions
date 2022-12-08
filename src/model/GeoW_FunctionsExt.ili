@@ -16,11 +16,11 @@ MODEL GeoW_FunctionsExt
     !!@ fn.since = "2021-11-15";
     FUNCTION GetArea (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
 
-    !!@ fn.description = "Zählt die Löcher in einer Fläche. Für 'Objects' können Objekte oder Geometrien angegeben werden. Für 'AreaAttr' soll der Pfad zur Flächen-Geometrie in INTERLIS 2 Syntax angegeben werden. Falls 'Objects' bereits die Geometrien enthält, soll für 'AreaAttr' 'UNDEFINED' übergeben werden. Wird über eine Beziehung die gleiche Geometrie mehrmals gefunden, werden die Löcher mehrmals gezählt.";
-    !!@ fn.param = "Objects: Ausgangsobjekte oder Geometrien. AreaAttr: Pfad zum Geometrieattribut oder UNDEFINED";
-    !!@ fn.return = "Anzahl Löcher";
+    !!@ fn.description = "Zählt die inneren Ringe in einer Fläche. Für 'Object' kann ein Objekt oder Geometrie angegeben werden. Für 'AreaAttr' soll der Attributname der Flächen-Geometrie. Falls 'Object' bereits die Geometrie enthält, soll für 'AreaAttr' 'UNDEFINED' übergeben werden.";
+    !!@ fn.param = "Object: Ausgangsobjekt oder Geometrie. AreaAttr: Pfad zum Geometrieattribut oder UNDEFINED";
+    !!@ fn.return = "Anzahl innerer Ringe der Flächengeometrie";
     !!@ fn.since = "2022-12-02";
-    FUNCTION GetInnerRingsCount (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
+    FUNCTION GetInnerRingsCount (Object: OBJECT OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
 
     !!@ fn.description = "Gruppiert die Eingabemenge gemäss dem übergebenen Attribut-Kriterium / -Pfad. Für 'Attr' soll der Pfad zum klassierenden Attribut in INTERLIS 2 Syntax angegeben werden.";
     !!@ fn.param = "Objects: Ausgangsobjekte. Attr: Pfad zum Attribut welches die Klassierung bestimmen soll";
