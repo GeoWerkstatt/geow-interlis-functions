@@ -11,28 +11,34 @@
     <ili:datasection>
         <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
             <TestSuite:BaseClass ili:tid="0">
-                <TestSuite:attr>blaa</TestSuite:attr>
-                <TestSuite:criteria1>val1</TestSuite:criteria1> 
+                <TestSuite:textAttr>aaa</TestSuite:textAttr>
+                <TestSuite:enumAttr>val1</TestSuite:enumAttr> 
+                <TestSuite:numberAttr>1</TestSuite:numberAttr>
             </TestSuite:BaseClass>
             <TestSuite:BaseClass ili:tid="1">
-                <TestSuite:attr>woot</TestSuite:attr>
-                <TestSuite:criteria1>val1</TestSuite:criteria1> 
+                <TestSuite:textAttr>aaa</TestSuite:textAttr>
+                <TestSuite:enumAttr>val1</TestSuite:enumAttr>
+                <TestSuite:numberAttr>2</TestSuite:numberAttr>
             </TestSuite:BaseClass>
             <TestSuite:BaseClass ili:tid="2">
-                <TestSuite:attr>defs</TestSuite:attr>
-                <TestSuite:criteria1>val3</TestSuite:criteria1> 
+                <TestSuite:textAttr>aaa</TestSuite:textAttr>
+                <TestSuite:enumAttr>val2</TestSuite:enumAttr>
+                <TestSuite:numberAttr>2</TestSuite:numberAttr>
             </TestSuite:BaseClass>
             <TestSuite:BaseClass ili:tid="3">
-                <TestSuite:attr>moon</TestSuite:attr>
-                <TestSuite:criteria1>val2</TestSuite:criteria1> 
+                <TestSuite:textAttr>bbb</TestSuite:textAttr>
+                <TestSuite:enumAttr>val2</TestSuite:enumAttr>
+                <TestSuite:numberAttr>2</TestSuite:numberAttr>
             </TestSuite:BaseClass>
             <TestSuite:BaseClass ili:tid="4">
-                <TestSuite:attr>soon</TestSuite:attr>
-                <TestSuite:criteria1>val3</TestSuite:criteria1> 
+                <TestSuite:textAttr>bbb</TestSuite:textAttr>
+                <TestSuite:enumAttr>val2</TestSuite:enumAttr>
+                <TestSuite:numberAttr>1</TestSuite:numberAttr>
             </TestSuite:BaseClass>
             <TestSuite:BaseClass ili:tid="5">
-                <TestSuite:attr>yeah</TestSuite:attr>
-                <TestSuite:criteria1>val1</TestSuite:criteria1> 
+                <TestSuite:textAttr>bbb</TestSuite:textAttr>
+                <TestSuite:enumAttr>val1</TestSuite:enumAttr>
+                <TestSuite:numberAttr>1</TestSuite:numberAttr>
             </TestSuite:BaseClass>
         </TestSuite:FunctionTestTopic>
     </ili:datasection>
