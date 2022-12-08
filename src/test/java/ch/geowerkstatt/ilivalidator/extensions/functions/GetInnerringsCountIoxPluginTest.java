@@ -23,30 +23,12 @@ class GetInnerringsCountIoxPluginTest {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetInnerRingsCount/MandatoryConstraintThis.ili"});
         Assert.equals(5, vh.getErrs().size());
 
-        AssertionHelper.assertConstraintErrors(vh,0,"0", "AreaInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh,0,"0", "SurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh,0,"0", "MultiSurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "0", "StructCapsuledSurface");
-
         AssertionHelper.assertConstraintErrors(vh, 1, "1", "AreaInnerRingCount");
         AssertionHelper.assertConstraintErrors(vh, 1, "1", "SurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "1", "MultiSurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "1", "StructCapsuledSurface");
 
         AssertionHelper.assertConstraintErrors(vh, 1, "2", "AreaInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "2", "SurfaceInnerRingCount");
         AssertionHelper.assertConstraintErrors(vh, 1, "2", "MultiSurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "2", "StructCapsuledSurface");
 
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "AreaInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "SurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "MultiSurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "StructCapsuledSurface");
-
-        AssertionHelper.assertConstraintErrors(vh, 0, "4", "AreaInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "4", "SurfaceInnerRingCount");
-        AssertionHelper.assertConstraintErrors(vh, 0, "4", "MultiSurfaceInnerRingCount");
         AssertionHelper.assertConstraintErrors(vh, 1, "4", "StructCapsuledSurface");
-
     }
 }
