@@ -16,9 +16,9 @@ MODEL TestSuite
         testAttributeArea : AREA WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
         testAttributeSurface : SURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
         testAttributeMultiSurface : MULTISURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
-        MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeArea") == 0;
-        MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeSurface") == 0;
-        MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeMultiSurface") == 0;
+        MANDATORY CONSTRAINT AreaInnerRingCount:         GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeArea") == 0;
+        MANDATORY CONSTRAINT SurfaceInnerRingCount:      GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeSurface") == 0;
+        MANDATORY CONSTRAINT MultiSurfaceInnerRingCount: GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeMultiSurface") == 0;
     END BaseClass;
 
   END FunctionTestTopic;

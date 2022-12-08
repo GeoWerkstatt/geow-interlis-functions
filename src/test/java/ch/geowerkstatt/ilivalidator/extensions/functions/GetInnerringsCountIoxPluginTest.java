@@ -23,20 +23,20 @@ class GetInnerringsCountIoxPluginTest {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetInnerRingsCount/MandatoryConstraintThis.ili"});
         Assert.equals(4, vh.getErrs().size());
 
-        AssertionHelper.assertConstraintErrors(vh,0,"0", "Constraint1");
-        AssertionHelper.assertConstraintErrors(vh,0,"0", "Constraint2");
-        AssertionHelper.assertConstraintErrors(vh,0,"0", "Constraint3");
+        AssertionHelper.assertConstraintErrors(vh,0,"0", "AreaInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh,0,"0", "SurfaceInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh,0,"0", "MultiSurfaceInnerRingCount");
 
-        AssertionHelper.assertConstraintErrors(vh, 1, "1", "Constraint1");
-        AssertionHelper.assertConstraintErrors(vh, 1, "1", "Constraint2");
-        AssertionHelper.assertConstraintErrors(vh, 0, "1", "Constraint3");
+        AssertionHelper.assertConstraintErrors(vh, 1, "1", "AreaInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh, 1, "1", "SurfaceInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh, 0, "1", "MultiSurfaceInnerRingCount");
 
-        AssertionHelper.assertConstraintErrors(vh, 1, "2", "Constraint1");
-        AssertionHelper.assertConstraintErrors(vh, 0, "2", "Constraint2");
-        AssertionHelper.assertConstraintErrors(vh, 1, "2", "Constraint3");
+        AssertionHelper.assertConstraintErrors(vh, 1, "2", "AreaInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh, 0, "2", "SurfaceInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh, 1, "2", "MultiSurfaceInnerRingCount");
 
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "Constraint1");
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "Constraint2");
-        AssertionHelper.assertConstraintErrors(vh, 0, "3", "Constraint3");
+        AssertionHelper.assertConstraintErrors(vh, 0, "3", "AreaInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh, 0, "3", "SurfaceInnerRingCount");
+        AssertionHelper.assertConstraintErrors(vh, 0, "3", "MultiSurfaceInnerRingCount");
     }
 }
