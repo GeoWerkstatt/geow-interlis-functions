@@ -1,9 +1,13 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
-group 'ch.geowerkstatt.ilivalidator.extensions.functions'
+group = 'ch.geowerkstatt.ilivalidator.extensions.functions'
+archivesBaseName = 'geow-interlis-functions'
+version = '0.0.0-SNAPSHOT'
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
@@ -24,6 +28,11 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
+java{
+    withSourcesJar()
+    withJavadocJar()
+}
+
 test {
     useJUnitPlatform()
 }
@@ -32,6 +41,29 @@ publishing {
     publications{
         GeowerkstattCustomFunctions(MavenPublication){
             from components.java
+            pom {
+                name = 'geow-interlis-functions'
+                description = 'Library containing function implementations for ilivalidator / INTERLIS v2.4'
+                url = 'https://github.com/GeoWerkstatt/geow-interlis-functions'
+                licenses {
+                    license {
+                        name = 'GNU Lesser General Public License v2.1'
+                        url = 'https://github.com/GeoWerkstatt/geow-interlis-functions/blob/master/LICENSE.md'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'GeoWerkstatt'
+                        name = 'GeoWerkstatt GmbHH'
+                        email = 'office@geowerkstatt.ch'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git:https://github.com/GeoWerkstatt/geow-interlis-functions.git'
+                    developerConnection = 'scm:git:git:https://github.com/GeoWerkstatt/geow-interlis-functions.git'
+                    url = 'https://github.com/GeoWerkstatt/geow-interlis-functions/'
+                }
+            }
         }
     }
 
@@ -45,4 +77,23 @@ publishing {
             }
         }
     }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            username = findProperty("OSSRH_USER")
+            password = findProperty("OSSRH_PASSWORD")
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
+signing{
+    def key = findProperty("SIGNING_KEY")
+    def password = findProperty("SIGNING_PASSWORD")
+
+    useInMemoryPgpKeys(key, password)
+    sign(publishing.publications.GeowerkstattCustomFunctions)
 }

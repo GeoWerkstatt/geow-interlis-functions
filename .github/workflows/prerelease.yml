@@ -1,6 +1,9 @@
 name: Release
 
 on:
+  push:
+      branches:
+      - master
   workflow_dispatch:
 
 jobs:
@@ -9,12 +12,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Bump version and push tag
+    - name: Get next Version
       id: tag_version
       uses: mathieudutour/github-tag-action@d745f2e74aaf1ee82e747b181f7a0967978abee0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        release_branches: .*
+        pre_release_branches : .*
 
     - uses: actions/cache@v1
       with:
@@ -29,15 +32,15 @@ jobs:
         java-version: 1.8
 
     - name: Build jar with Gradle
-      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' jar
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' jar
 
     - name: Publish to GitHub Maven with Gradle
-      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Publish to OSSRH Maven with Gradle
-      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' publishToSonatype releaseSonatypeStagingRepository
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' publishToSonatype
       env:
         OSSRH_USER: ${{ secrets.OSSRH_USER }}
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
@@ -47,8 +50,9 @@ jobs:
     - uses: ncipollo/release-action@a2e71bdd4e7dab70ca26a852f29600c98b33153e
       with:
         artifacts: "build/libs/*.jar"
-        makeLatest: true
+        allowUpdates: true
         name: ${{ steps.tag_version.outputs.new_tag }}
         tag: ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
+        prerelease: true
         token: ${{ secrets.GITHUB_TOKEN }}
