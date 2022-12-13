@@ -27,7 +27,7 @@ public class GetInGroupsIoxPlugin extends BaseInterlisFunction {
         Value argObjects = arguments[0];
         Value argPath = arguments[1];
 
-        if (argObjects.isUndefined()) {
+        if (argObjects.isUndefined() || argPath.isUndefined()) {
             return Value.createSkipEvaluation();
         }
 
