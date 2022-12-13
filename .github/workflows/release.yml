@@ -44,11 +44,11 @@ jobs:
         SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
 
-    - uses: ncipollo/release-action@40bb172bd05f266cf9ba4ff965cb61e9ee5f6d01
+    - uses: ncipollo/release-action@a2e71bdd4e7dab70ca26a852f29600c98b33153e
       with:
         artifacts: "build/libs/*.jar"
+        makeLatest: true
         name: ${{ steps.tag_version.outputs.new_tag }}
         tag: ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
-        prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}
