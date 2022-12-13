@@ -54,7 +54,7 @@ publishing {
                 developers {
                     developer {
                         id = 'GeoWerkstatt'
-                        name = 'GeoWerkstatt GmbH'
+                        name = 'GeoWerkstatt GmbHH'
                         email = 'office@geowerkstatt.ch'
                     }
                 }
@@ -82,8 +82,8 @@ publishing {
 nexusPublishing {
     repositories {
         sonatype {  //only for users registered in Sonatype after 24 Feb 2021
-            username = property("OSSRH_USER")
-            password = property("OSSRH_PASSWORD")
+            username = findProperty("OSSRH_USER")
+            password = findProperty("OSSRH_PASSWORD")
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
@@ -91,8 +91,8 @@ nexusPublishing {
 }
 
 signing{
-    def key = property("SIGNING_KEY")
-    def password = property("SIGNING_PASSWORD")
+    def key = findProperty("SIGNING_KEY")
+    def password = findProperty("SIGNING_PASSWORD")
 
     useInMemoryPgpKeys(key, password)
     sign(publishing.publications.GeowerkstattCustomFunctions)
