@@ -39,6 +39,8 @@ jobs:
       run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
 
     - name: Publish to OSSRH Maven with Gradle
       run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' publishToSonatype
