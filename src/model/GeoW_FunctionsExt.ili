@@ -16,7 +16,7 @@ MODEL GeoW_FunctionsExt
     !!@ fn.since = "2021-11-15";
     FUNCTION GetArea (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): NUMERIC;
 
-    !!@ fn.description = "Zählt die inneren Ringe in einer Fläche. Für 'Object' kann ein Objekt oder Geometrie angegeben werden. Für 'AreaAttr' soll der Attributname der Flächen-Geometrie. Falls 'Object' bereits die Geometrie enthält, soll für 'AreaAttr' 'UNDEFINED' übergeben werden.";
+    !!@ fn.description = "Zählt die inneren Ringe in einer Fläche. Für 'Object' kann ein Objekt oder Geometrie angegeben werden. Für 'AreaAttr' soll der Pfad zur Flächen-Geometrie in INTERLIS 2 Syntax angegeben werden.. Falls 'Object' bereits die Geometrie enthält, soll für 'AreaAttr' 'UNDEFINED' übergeben werden.";
     !!@ fn.param = "Object: Ausgangsobjekt oder Geometrie. AreaAttr: Pfad zum Geometrieattribut oder UNDEFINED";
     !!@ fn.return = "Anzahl innerer Ringe der Flächengeometrie";
     !!@ fn.since = "2022-12-02";
