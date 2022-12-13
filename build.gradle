@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
 group = 'ch.geowerkstatt.ilivalidator.extensions.functions'
@@ -75,23 +76,16 @@ publishing {
                 password = System.getenv("GITHUB_TOKEN")
             }
         }
+    }
+}
 
-        maven{
-            name = "OSSRH"
-            setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = property("OSSRH_USER")
-                password = property("OSSRH_PASSWORD")
-            }
-        }
-
-        maven{
-            name = "OSSRH-Snapshot"
-            setUrl("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            credentials {
-                username = property("OSSRH_USER")
-                password = property("OSSRH_PASSWORD")
-            }
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            username = property("OSSRH_USER")
+            password = property("OSSRH_PASSWORD")
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
     }
 }
