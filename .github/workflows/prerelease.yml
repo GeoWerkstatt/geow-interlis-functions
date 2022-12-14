@@ -57,7 +57,7 @@ jobs:
         artifacts: "build/libs/*.jar"
         allowUpdates: true
         name: ${{ steps.tag_version.outputs.new_tag }}-SNAPSHOT
-        tag: ${{ steps.tag_version.outputs.new_tag }}-SNAPSHOT
+        tag: ${{ steps.tag_version.outputs.new_tag }}-SNAPSHOT-${{ github.run_id }}
         commit: ${{ github.sha }}
         body: ${{ steps.tag_version.outputs.changelog }}
         prerelease: true
