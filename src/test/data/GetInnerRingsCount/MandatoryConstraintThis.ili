@@ -2,7 +2,7 @@ INTERLIS 2.4;
 
 MODEL TestSuite
   AT "mailto:info@geowerkstatt.ch" VERSION "2022-12-02" =
-  !!IMPORTS GeoW_FunctionsExt ;
+  IMPORTS GeoW_FunctionsExt ;
 
   DOMAIN
        !!@CRS=EPSG:2056
@@ -12,11 +12,20 @@ MODEL TestSuite
 
   TOPIC FunctionTestTopic =
 
+    STRUCTURE ContainerStruct =
+        testAttribute : SURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
+    END ContainerStruct;
+
     CLASS BaseClass =
         testAttributeArea : AREA WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
         testAttributeSurface : SURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
         testAttributeMultiSurface : MULTISURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
-        !!MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeArea") == 0;
+        testAttrStruct : ContainerStruct;
+        MANDATORY CONSTRAINT AreaInnerRingCount: GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeArea") == 0;
+        MANDATORY CONSTRAINT SurfaceInnerRingCount: GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeSurface") == 0;
+        MANDATORY CONSTRAINT MultiSurfaceInnerRingCount: GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttributeMultiSurface") == 0;
+        MANDATORY CONSTRAINT StructCapsuledSurface: GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttrStruct->testAttribute") == 0;
+        MANDATORY CONSTRAINT ReferencedStructAttribute: GeoW_FunctionsExt.GetInnerRingsCount(THIS, "testAttrStruct") == 0;
     END BaseClass;
 
   END FunctionTestTopic;

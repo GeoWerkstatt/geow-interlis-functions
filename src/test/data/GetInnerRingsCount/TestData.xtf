@@ -398,6 +398,64 @@
                         </geom:surface>
                 </TestSuite:testAttributeSurface> 
             </TestSuite:BaseClass>
+            <TestSuite:BaseClass ili:tid="4">
+                <TestSuite:testAttrStruct>
+                    <TestSuite:ContainerStruct>
+                        <TestSuite:testAttribute>
+                            <geom:surface>
+                                <geom:exterior>
+                                    <geom:polyline>
+                                        <geom:coord>
+                                            <geom:c1>2646349.508</geom:c1>
+                                            <geom:c2>1249022.931</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646353.508</geom:c1>
+                                            <geom:c2>1249022.926</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646353.503</geom:c1>
+                                            <geom:c2>1249018.926</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646349.503</geom:c1>
+                                            <geom:c2>1249018.931</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646349.508</geom:c1>
+                                            <geom:c2>1249022.931</geom:c2>
+                                        </geom:coord>
+                                    </geom:polyline>
+                                </geom:exterior>
+                                <geom:interior>
+                                    <geom:polyline>
+                                        <geom:coord>
+                                            <geom:c1>2646350.000</geom:c1>
+                                            <geom:c2>1249020.000</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646351.000</geom:c1>
+                                            <geom:c2>1249020.000</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646351.000</geom:c1>
+                                            <geom:c2>1249021.000</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646350.000</geom:c1>
+                                            <geom:c2>1249021.000</geom:c2>
+                                        </geom:coord>
+                                        <geom:coord>
+                                            <geom:c1>2646350.000</geom:c1>
+                                            <geom:c2>1249020.000</geom:c2>
+                                        </geom:coord>
+                                    </geom:polyline>
+                                </geom:interior>
+                            </geom:surface>
+                        </TestSuite:testAttribute>
+                    </TestSuite:ContainerStruct>
+                </TestSuite:testAttrStruct>
+            </TestSuite:BaseClass>
         </TestSuite:FunctionTestTopic>
     </ili:datasection>
 </ili:transfer>

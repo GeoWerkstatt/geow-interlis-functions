@@ -8,7 +8,7 @@ public class AssertionHelper {
     public static void assertConstraintErrors(ValidationTestHelper vh, int expectedCount, String oid, String constraintName) {
         int errorsFound = 0;
         for (IoxLogEvent err : vh.getErrs()) {
-            if (oid.equals(err.getSourceObjectXtfId()) && err.getEventMsg().contains(constraintName))
+            if (oid.equals(err.getSourceObjectXtfId()) && err.getEventMsg().contains(String.format(".%s ", constraintName)))
                 errorsFound++;
         }
 
@@ -23,7 +23,7 @@ public class AssertionHelper {
     public static void assertConstraintErrors(ValidationTestHelper vh, int expectedCount, String constraintName) {
         int errorsFound = 0;
         for (IoxLogEvent err : vh.getErrs()) {
-            if (err.getEventMsg().contains(constraintName))
+            if (err.getEventMsg().contains(String.format(".%s ", constraintName)))
                 errorsFound++;
         }
 
@@ -34,7 +34,7 @@ public class AssertionHelper {
     public static void assertNoConstraintError(ValidationTestHelper vh, String constraintName) {
         int errorsFound = 0;
         for (IoxLogEvent err : vh.getErrs()) {
-            if (err.getEventMsg().contains(constraintName))
+            if (err.getEventMsg().contains(String.format(".%s ", constraintName)))
                 errorsFound++;
         }
 
