@@ -24,14 +24,13 @@ MODEL GeoW_FunctionsExt
 
     !!@ fn.description = "Gruppiert die Eingabemenge gemäss dem übergebenen Attribut-Kriterium / -Pfad. Für 'Attr' soll der Pfad zum klassierenden Attribut in INTERLIS 2 Syntax angegeben werden.";
     !!@ fn.param = "Objects: Ausgangsobjekte. Attr: Pfad zum Attribut welches die Klassierung bestimmen soll";
-    !!@ fn.return = "Gruppierte Klasse der Eingabemenge";
+    !!@ fn.return = "Zugehörige Gruppe gemäss Attr des aktuellen Kontextobjekt";
     !!@ fn.since = "2022-12-02";
-    FUNCTION GroupBy (Objects: OBJECTS OF ANYCLASS; Attr: TEXT): OBJECTS OF ANYCLASS;
+    FUNCTION GetInGroups (Objects: OBJECTS OF ANYCLASS; Attr: TEXT): OBJECTS OF ANYCLASS;
 
     !!@ fn.description = "Prüft, ob ein Objekt innerhalb einer gegebenen Testgeometrie liegt, welche aus einem externen Datensatz stammt.";
     !!@ fn.param = "DatasetName: Name des Transfermodells, in welchem die Objekte zur Prüfung bereitliegen. Objects: Objekt(e), über die TID identifiziert, welche zur Prüfung beigezogen werden. TestObject: Objekt, welches zu prüfen ist.TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2022-12-05";
     FUNCTION IsInsideExternalDataset (DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
-
 END GeoW_FunctionsExt.

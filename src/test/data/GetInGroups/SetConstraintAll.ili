@@ -1,0 +1,29 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2022-12-02" =
+  IMPORTS GeoW_FunctionsExt ;
+
+  DOMAIN
+       !!@CRS=EPSG:2056
+       CHKoord = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+
+  TOPIC FunctionTestTopic =
+
+    CLASS BaseClass =
+        textAttr: TEXT*16;
+        enumAttr: (val1,val2,val3);
+        numberAttr: 0..10;
+        SET CONSTRAINT trueConstraintTextAttr:      INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 3;
+        SET CONSTRAINT trueConstraintEnumAttr:      INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "enumAttr")) == 3;
+        SET CONSTRAINT trueConstraintNumberAttr:    INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "numberAttr")) == 3;
+        SET CONSTRAINT falseConstraintTextAttr:     INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 2;
+        SET CONSTRAINT falseConstraintEnumAttr:     INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "enumAttr")) == 2;
+        SET CONSTRAINT falseConstraintNumberAttr:   INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "numberAttr")) == 2;
+    END BaseClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.
