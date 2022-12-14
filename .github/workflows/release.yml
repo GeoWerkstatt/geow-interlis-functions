@@ -35,6 +35,7 @@ jobs:
     - name: Publish to GitHub Maven with Gradle
       run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
       env:
+        ORG_GRADLE_PROJECT_GITHUB_ACTOR: ${{ github.actor }}
         ORG_GRADLE_PROJECT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         ORG_GRADLE_PROJECT_SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
