@@ -19,6 +19,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pre_release_branches : .*
         dry_run: true
+        append_to_pre_release_tag: -SNAPSHOT
 
     - uses: actions/cache@v1
       with:
@@ -34,10 +35,10 @@ jobs:
         distribution: adopt
 
     - name: Build jar with Gradle
-      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' jar
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' jar
 
     - name: Publish to GitHub Maven with Gradle
-      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' publishGeowerkstattCustomFunctionsPublicationToGitHubPackagesRepository
       env:
         ORG_GRADLE_PROJECT_GITHUB_ACTOR: ${{ github.actor }}
         ORG_GRADLE_PROJECT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,7 +46,7 @@ jobs:
         ORG_GRADLE_PROJECT_SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
 
     - name: Publish to OSSRH Maven with Gradle
-      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}-SNAPSHOT' publishToSonatype
+      run: ./gradlew -Pversion='${{ steps.tag_version.outputs.new_version }}' publishToSonatype
       env:
         ORG_GRADLE_PROJECT_OSSRH_USER: ${{ secrets.OSSRH_USER }}
         ORG_GRADLE_PROJECT_OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
