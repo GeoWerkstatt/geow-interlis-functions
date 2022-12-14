@@ -7,7 +7,6 @@ plugins {
 
 group = 'ch.geowerkstatt.ilivalidator.extensions.functions'
 archivesBaseName = 'geow-interlis-functions'
-version = '0.0.0-SNAPSHOT'
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
@@ -72,8 +71,8 @@ publishing {
             name = 'GitHubPackages'
             url = uri('https://maven.pkg.github.com/GeoWerkstatt/geow-interlis-functions')
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = findProperty("GITHUB_ACTOR")
+                password = findProperty("GITHUB_TOKEN")
             }
         }
     }
