@@ -39,6 +39,6 @@ public class IsInsideExternalDatasetIoxPluginTest {
 
         Assert.equals(1, vh.getWarn().size());
         // Interlis 2.4 XTF files do not work.
-        AssertionHelper.assertLogEventsContainMessage(vh.getWarn(), "GeoW_FunctionsExt.IsInsideExternalDataset: Error while reading xtf file file:\\S*src\\\\test\\\\data\\\\IsInsideExternalDataset\\\\TestData.xtf. Expected TRANSFER, but transfer found.");
+        AssertionHelper.assertLogEventsContainMessage(vh.getWarn(), "GeoW_FunctionsExt.IsInsideExternalDataset: Error while reading xtf file \\S*TestData.xtf. Expected TRANSFER, but transfer found.");
     }
 }
