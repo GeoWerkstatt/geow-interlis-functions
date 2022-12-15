@@ -30,11 +30,15 @@ public class IsInsideExternalDatasetIoxPluginTest {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"IsInsideExternalDataset/MandatoryConstraintThis.ili"});
 
         Assert.equals(6, vh.getErrs().size());
-        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Expected qualified attribute name but got <DatasetNameWithoutQualifiedAttribute>.");
-        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find Transferfile containing model <DoesNotExist>.");
-        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find objects with TID <100000000, 9999> in transfer file");
-        AssertionHelper.assertConstraintErrors(vh, 1, "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName is not true.");
-        AssertionHelper.assertConstraintErrors(vh, 1, "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName is not true.");
-        AssertionHelper.assertConstraintErrors(vh, 1, "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds is not true.");
+        AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Expected qualified attribute name but got <DatasetNameWithoutQualifiedAttribute>.");
+        AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find Transferfile containing model <DoesNotExist>.");
+        AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find objects with TID <100000000, 9999> in transfer file");
+        AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName is not true.");
+        AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName is not true.");
+        AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds is not true.");
+
+        Assert.equals(1, vh.getWarn().size());
+        // Interlis 2.4 XTF files do not work.
+        AssertionHelper.assertLogEventsContainMessage(vh.getWarn(), "GeoW_FunctionsExt.IsInsideExternalDataset: Error while reading xtf file file:\\S*src\\\\test\\\\data\\\\IsInsideExternalDataset\\\\TestData.xtf. Expected TRANSFER, but transfer found.");
     }
 }
