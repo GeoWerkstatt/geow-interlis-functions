@@ -31,8 +31,8 @@ public class IsInsideExternalDatasetIoxPluginTest {
 
         Assert.equals(6, vh.getErrs().size());
         AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Expected qualified attribute name but got <DatasetNameWithoutQualifiedAttribute>.");
-        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find Transferfile containing model <DoesNotExist> in path ");
-        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find objects with TID <100000000, 9999> in transfer file ");
+        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find Transferfile containing model <DoesNotExist>.");
+        AssertionHelper.assertConstraintErrors(vh, 1, "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalDataset. Could not find objects with TID <100000000, 9999> in transfer file");
         AssertionHelper.assertConstraintErrors(vh, 1, "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName is not true.");
         AssertionHelper.assertConstraintErrors(vh, 1, "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName is not true.");
         AssertionHelper.assertConstraintErrors(vh, 1, "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds is not true.");

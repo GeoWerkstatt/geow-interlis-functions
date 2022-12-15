@@ -6,11 +6,12 @@ import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iom_j.Iom_jObject;
 import ch.interlis.iom_j.itf.impl.jtsext.geom.CompoundCurve;
+import ch.interlis.iom_j.xtf.XtfReader;
+import ch.interlis.iom_j.xtf.XtfStartTransferEvent;
 import ch.interlis.iox.*;
 import ch.interlis.iox_j.jts.Iox2jtsext;
 import ch.interlis.iox_j.logging.LogEventFactory;
 import ch.interlis.iox_j.utility.IoxUtility;
-import ch.interlis.iox_j.utility.ReaderFactory;
 import ch.interlis.iox_j.validator.ObjectPool;
 import ch.interlis.iox_j.validator.Value;
 import com.vividsolutions.jts.geom.Coordinate;
@@ -20,17 +21,22 @@ import com.vividsolutions.jts.geom.Polygon;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.JarURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.Callable;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
     private static File dataDirectory;
-    private static Map<String, Set<File>> modelFiles;
+    private static Map<String, Set<URL>> modelFilesFromDataDirectory;
+    private static Map<String, Set<URL>> modelFilesFromJars;
     private static final Map<ValidAreaKey, Geometry> validAreaCache = new HashMap<>();
     private static final String qualifiedIliName = "GeoW_FunctionsExt.IsInsideExternalDataset";
 
@@ -42,13 +48,6 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
     @Override
     public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
         super.init(td, settings, validationConfig, objectPool, logEventFactory);
-
-        if (dataDirectory == null) {
-            dataDirectory = getDataDirectory();
-        }
-        if (dataDirectory != null && modelFiles == null) {
-            modelFiles = analyzeDataDirectory(logger, settings);
-        }
     }
 
     @Override
@@ -82,16 +81,6 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
                     .filter(Objects::nonNull)
                     .allMatch(validArea::contains);
 
-            // getClass().getProtectionDomain().getCodeSource().getLocation().toURI();
-            //      -> SecurityException
-            
-            // getClass().getResource(getClass().getSimpleName() + ".class")
-            
-            // ClassLoader.getSystemClassLoader().getResource(".")
-            
-            // logger.addEvent(logger.logErrorMsg("Could not calculate {0}", this.getQualifiedIliName()));
-            //            return null;
-
             return new Value(allInsideValidArea);
         } catch (IllegalStateException e) {
             logger.addEvent(logger.logErrorMsg(MessageFormat.format("{0}: Unable to evaluate {1}. {2}", usageScope, this.getQualifiedIliName(), e.getLocalizedMessage())));
@@ -116,13 +105,14 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
         String attribute = key.datasetName.substring(lastPoint + 1);
         String qualifiedClass = key.datasetName.substring(0, lastPoint);
 
-        Set<File> files = modelFiles.get(model);
-        if (files == null) {
-            throw new IllegalStateException(MessageFormat.format("Could not find Transferfile containing model <{0}> in path {1}.", model, dataDirectory.getAbsolutePath()));
+        Collection<URL> urls = getUrlsForModel(model);
+        if (urls == null) {
+            throw new IllegalStateException(MessageFormat.format("Could not find Transferfile containing model <{0}>.", model));
         }
 
-        Polygon[] polygons = files.stream()
-                .flatMap(file -> getObjectsFromFile(file, qualifiedClass, key.transferIds).stream())
+        Polygon[] polygons = urls.stream()
+                .map(url -> logExceptionAsWarning(url::openStream))
+                .flatMap(xtfStream -> getObjectsFromXTF(xtfStream, qualifiedClass, key.transferIds).stream())
                 .flatMap(obj -> getAttributes(obj, attribute).stream())
                 .map(a -> logExceptionAsWarning(() -> Iox2jtsext.surface2JTS(a, 0.0, new OutParam<Boolean>(), logger, 0.0, "warning")))
                 .filter(Objects::nonNull)
@@ -130,6 +120,29 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
 
         Geometry geometryCollection = new GeometryFactory().createGeometryCollection(polygons);
         return geometryCollection.buffer(0);
+    }
+
+    /**
+     * Get the URLs of XTF files that may contain objects of the specified model.
+     */
+    private Collection<URL> getUrlsForModel(String model) {
+        if (modelFilesFromJars == null) {
+            modelFilesFromJars = analyzeClasspathResources();
+        }
+
+        Set<URL> urls = modelFilesFromJars.get(model);
+        if (urls != null) {
+            return urls;
+        }
+
+        if (dataDirectory == null) {
+            dataDirectory = getDataDirectory();
+        }
+
+        if (modelFilesFromDataDirectory == null) {
+            modelFilesFromDataDirectory = analyzeDataDirectory(dataDirectory);
+        }
+        return modelFilesFromDataDirectory.get(model);
     }
 
     /**
@@ -157,29 +170,30 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
      *
      * @return A mapping of Interlis model names to XTF files that contain the model.
      */
-    private static Map<String, Set<File>> analyzeDataDirectory(LogEventFactory logger, Settings settings) {
-        final Map<String, Set<File>> result = new HashMap<>();
+    private Map<String, Set<URL>> analyzeDataDirectory(File dataDirectory) {
+        final Map<String, Set<URL>> result = new HashMap<>();
+        if (dataDirectory == null) {
+            return result;
+        }
 
         try {
-            List<File> xtfFiles = Files.walk(dataDirectory.toPath())
+            List<URL> xtfFiles = Files.walk(dataDirectory.toPath())
                     .filter(Files::isRegularFile)
-                    .filter(path -> IoxUtility.isXtfFilename(path.toString()))
-                    .map(Path::toFile)
+                    .map(Path::toString)
+                    .filter(IoxUtility::isXtfFilename)
+                    .map(path -> logExceptionAsWarning(() -> new URL("file", null, path)))
                     .collect(Collectors.toList());
 
-            for (File xtfFile : xtfFiles) {
-                try {
-                    List<String> models = IoxUtility.getModels(xtfFile, logger, settings);
+            for (URL xtfUrl : xtfFiles) {
+                try (InputStream xtfStream = xtfUrl.openStream()) {
+                    Collection<String> models = getModels(xtfStream);
                     for (String model : models) {
-                        if (!result.containsKey(model)) {
-                            result.put(model, new HashSet<>());
-                        }
-                        Set<File> files = result.get(model);
-                        files.add(xtfFile);
+                        result.computeIfAbsent(model, k -> new HashSet<>());
+                        result.get(model).add(xtfUrl);
                     }
                 } catch (IoxException e) {
                     // ignore the erroneous file
-                    logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", qualifiedIliName, xtfFile.getAbsolutePath(), e.getLocalizedMessage()));
+                    logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", qualifiedIliName, xtfUrl.toString(), e.getLocalizedMessage()));
                 }
             }
         } catch (IOException e) {
@@ -190,15 +204,87 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
     }
 
     /**
-     * Search an XTF file for objects with the specified tag and transfer IDs.
+     * Analyze the XTF files inside JARs on the classpath.
+     *
+     * @return A mapping of Interlis model names to file URLs that contain the model.
      */
-    private List<IomObject> getObjectsFromFile(File xtfFile, String objectTag, String[] transferIds) {
-        Set<String> transferIdsToFind = new HashSet<>(Arrays.asList(transferIds));
-        List<IomObject> foundObjects = new ArrayList<>();
+    private Map<String, Set<URL>> analyzeClasspathResources() {
+        final Map<String, Set<URL>> result = new HashMap<>();
+        String[] classPaths = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
+        try {
+            for (String path : classPaths) {
+                if (path.toLowerCase().endsWith(".jar")) {
+                    URL jarUrl = new URL("jar:file:" + path + "!/");
+                    JarURLConnection connection = (JarURLConnection) jarUrl.openConnection();
+                    JarFile jarfile = connection.getJarFile();
+
+                    List<JarEntry> xtfEntries = jarfile.stream()
+                            .filter(entry -> entry.getName().toLowerCase().endsWith(".xtf"))
+                            .collect(Collectors.toList());
+
+                    for (JarEntry xtfEntry : xtfEntries) {
+                        URL xtfUrl = new URL(jarUrl + xtfEntry.getName());
+                        try (InputStream xtfStream = jarfile.getInputStream(xtfEntry)) {
+                            Collection<String> models = getModels(xtfStream);
+                            for (String model : models) {
+                                result.computeIfAbsent(model, k -> new HashSet<>());
+                                result.get(model).add(xtfUrl);
+                            }
+                        } catch (IoxException e) {
+                            // ignore the erroneous file
+                            logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", qualifiedIliName, xtfUrl.toString(), e.getLocalizedMessage()));
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            logger.addEvent(logger.logWarningMsg("{0}: Could not read JAR files from classpath. {2}", qualifiedIliName, e.getLocalizedMessage()));
+        }
+
+        return result;
+    }
+
+    /**
+     * Retrieve the models from the header section of an XTF.
+     */
+    private Collection<String> getModels(InputStream xtfInputStream) throws IoxException {
         IoxReader reader = null;
         try {
+            reader = new XtfReader(xtfInputStream);
+            IoxEvent event;
+
+            while ((event = reader.read()) != null) {
+                if (event instanceof XtfStartTransferEvent) {
+                    XtfStartTransferEvent xtfStart = (XtfStartTransferEvent) event;
+                    Map<String, IomObject> headerObjects = xtfStart.getHeaderObjects();
+                    if (headerObjects != null) {
+                        return headerObjects.values().stream()
+                                .filter(obj -> "iom04.metamodel.ModelEntry".equals(obj.getobjecttag()))
+                                .map(obj -> obj.getattrvalue("model"))
+                                .distinct()
+                                .collect(Collectors.toList());
+                    }
+                }
+            }
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
+    /**
+     * Search an XTF file for objects with the specified tag and transfer IDs.
+     */
+    private List<IomObject> getObjectsFromXTF(InputStream xtfInputStream, String objectTag, String[] transferIds) {
+        Set<String> transferIdsToFind = new HashSet<>(Arrays.asList(transferIds));
+        List<IomObject> foundObjects = new ArrayList<>();
+        try {
+            IoxReader reader = null;
             try {
-                reader = new ReaderFactory().createReader(xtfFile, logger, settings);
+                reader = new XtfReader(xtfInputStream);
                 IoxEvent event;
 
                 while ((event = reader.read()) != null && !transferIdsToFind.isEmpty()) {
@@ -218,10 +304,10 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
             }
 
             if (!transferIdsToFind.isEmpty()) {
-                throw new IllegalStateException(MessageFormat.format("Could not find objects with TID <{0}> in transfer file {1}", String.join(", ", transferIdsToFind), xtfFile.getAbsolutePath()));
+                throw new IllegalStateException(MessageFormat.format("Could not find objects with TID <{0}> in transfer file", String.join(", ", transferIdsToFind)));
             }
         } catch (IoxException e) {
-            throw new IllegalStateException(MessageFormat.format("Could not read {0}. {1}", xtfFile.getAbsolutePath(), e.getLocalizedMessage()), e);
+            throw new IllegalStateException(MessageFormat.format("Could not read objects from XTF. {1}", e.getLocalizedMessage()), e);
         }
 
         return foundObjects;
