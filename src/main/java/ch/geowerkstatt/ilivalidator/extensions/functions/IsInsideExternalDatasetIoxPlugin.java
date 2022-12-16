@@ -63,10 +63,9 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
 
         try {
             String transferIds = argObjects.getValue();
-            String[] splitTransferIds = transferIds.split("\\s*,\\s*");
             String datasetName = argDatasetName.getValue();
 
-            ValidAreaKey key = new ValidAreaKey(datasetName, splitTransferIds);
+            ValidAreaKey key = new ValidAreaKey(datasetName, transferIds);
             Geometry validArea = validAreaCache.computeIfAbsent(key, this::getValidArea);
 
             if (validArea == null) {
@@ -383,9 +382,12 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
         private final String datasetName;
         private final String[] transferIds;
 
-        ValidAreaKey(String datasetName, String[] transferIds) {
+        ValidAreaKey(String datasetName, String transferIds) {
             this.datasetName = datasetName;
-            this.transferIds = transferIds;
+
+            String[] splitTransferIds = transferIds.split("\\s*,\\s*");
+            Arrays.sort(splitTransferIds);
+            this.transferIds = splitTransferIds;
         }
 
         @Override
