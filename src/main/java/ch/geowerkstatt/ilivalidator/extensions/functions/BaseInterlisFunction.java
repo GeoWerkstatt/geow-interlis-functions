@@ -14,6 +14,7 @@ public abstract class BaseInterlisFunction implements InterlisFunction {
 
     protected LogEventFactory logger;
     protected TransferDescription td;
+    protected Settings settings;
     protected Validator validator;
 
     @Override
@@ -21,6 +22,7 @@ public abstract class BaseInterlisFunction implements InterlisFunction {
         this.logger = logEventFactory;
         this.logger.setValidationConfig(validationConfig);
         this.td = td;
+        this.settings = settings;
         this.validator = (Validator) settings.getTransientObject(IOX_VALIDATOR);
     }
 

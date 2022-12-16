@@ -10,25 +10,28 @@
     </ili:headersection>
     <ili:datasection>
         <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
-            <TestSuite:BaseClass ili:tid="0">
-                <TestSuite:testAttributePoint2d> <!-- Erwartet: 2D-Punkt: liegt im Kt.BE --> 
+            <TestSuite:Point2d ili:tid="0"> <!-- Erwartet: 2D-Punkt: liegt im Kt.BE -->
+                <TestSuite:expected>false</TestSuite:expected>
+                <TestSuite:testAttributePoint2d>
                     <geom:coord>
                         <geom:c1>2603035.011</geom:c1>
                         <geom:c2>1223715.841</geom:c2>
                     </geom:coord>
                 </TestSuite:testAttributePoint2d>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="1">
-                <TestSuite:testAttributePoint3d> <!-- Erwartet: 3D-Punkt: liegt im Kt.SO --> 
+            </TestSuite:Point2d>
+            <TestSuite:Point3d ili:tid="1"> <!-- Erwartet: 3D-Punkt: liegt im Kt.SO -->
+                <TestSuite:expected>true</TestSuite:expected>
+                <TestSuite:testAttributePoint3d>
                     <geom:coord>
                         <geom:c1>2605945.222</geom:c1>
                         <geom:c2>1225235.577</geom:c2>
                         <geom:c3>548.322</geom:c3>
                     </geom:coord>
                 </TestSuite:testAttributePoint3d>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="2">
-                <TestSuite:testAttributeMultiCoord> <!-- Erwartet: Multipoint: liegt teilweise (1/2) im Kt.SO --> 
+            </TestSuite:Point3d>
+            <TestSuite:MultiCoord ili:tid="2"> <!-- Erwartet: Multipoint: liegt teilweise (1/2) im Kt.SO -->
+                <TestSuite:expected>false</TestSuite:expected>
+                <TestSuite:testAttributeMultiCoord>
                     <geom:multicoord>
                         <geom:coord>
                             <geom:c1>2605945.222</geom:c1>
@@ -40,9 +43,10 @@
                         </geom:coord>
                     </geom:multicoord>
                 </TestSuite:testAttributeMultiCoord>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="3">
-                <TestSuite:testAttributeMultiCoord> <!-- Erwartet: Multipoint: liegt komplett im Kt.SO --> 
+            </TestSuite:MultiCoord>
+            <TestSuite:MultiCoord ili:tid="3"> <!-- Erwartet: Multipoint: liegt komplett im Kt.SO -->
+                <TestSuite:expected>true</TestSuite:expected>
+                <TestSuite:testAttributeMultiCoord>
                     <geom:multicoord>
                         <geom:coord>
                             <geom:c1>2605945.222</geom:c1>
@@ -54,43 +58,45 @@
                         </geom:coord>
                     </geom:multicoord>
                 </TestSuite:testAttributeMultiCoord>
-            </TestSuite:BaseClass>
-           <TestSuite:BaseClass ili:tid="4">
-                <TestSuite:testAttributePolyline3d> <!-- Erwartet: Polyline 3d: liegt ausserhalb Kt.SO --> 
+            </TestSuite:MultiCoord>
+            <TestSuite:Polyline3d ili:tid="4"> <!-- Erwartet: Polyline 3d: liegt ausserhalb Kt.SO -->
+                <TestSuite:expected>false</TestSuite:expected>
+                <TestSuite:testAttributePolyline3d>
                     <geom:polyline>
                         <geom:coord>
-                                <geom:c1>2646350.000</geom:c1>
-                                <geom:c2>1249020.000</geom:c2>
-                                <geom:c3>548.322</geom:c3>
-                            </geom:coord>
-                            <geom:coord>
-                                <geom:c1>2646351.000</geom:c1>
-                                <geom:c2>1249020.000</geom:c2>
-                                <geom:c3>548.316</geom:c3>
-                            </geom:coord>
-                            <geom:coord>
-                                <geom:c1>2646351.000</geom:c1>
-                                <geom:c2>1249021.000</geom:c2>
-                                <geom:c3>548.202</geom:c3>
-                            </geom:coord>
-                            <geom:coord>
-                                <geom:c1>2646350.000</geom:c1>
-                                <geom:c2>1249021.000</geom:c2>
-                                <geom:c3>548.788</geom:c3>
-                            </geom:coord>
-                            <geom:coord>
-                                <geom:c1>2646350.000</geom:c1>
-                                <geom:c2>1249020.000</geom:c2>
-                                <geom:c3>548.412</geom:c3>
-                            </geom:coord>
-                        </geom:polyline>
+                            <geom:c1>2646350.000</geom:c1>
+                            <geom:c2>1249020.000</geom:c2>
+                            <geom:c3>548.322</geom:c3>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2646351.000</geom:c1>
+                            <geom:c2>1249020.000</geom:c2>
+                            <geom:c3>548.316</geom:c3>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2646351.000</geom:c1>
+                            <geom:c2>1249021.000</geom:c2>
+                            <geom:c3>548.202</geom:c3>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2646350.000</geom:c1>
+                            <geom:c2>1249021.000</geom:c2>
+                            <geom:c3>548.788</geom:c3>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2646350.000</geom:c1>
+                            <geom:c2>1249020.000</geom:c2>
+                            <geom:c3>548.412</geom:c3>
+                        </geom:coord>
+                    </geom:polyline>
                 </TestSuite:testAttributePolyline3d>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="5">
-                <TestSuite:testAttributeMultiPolyline> <!-- Erwartet: MultiPolyline 2d: liegt ausserhalb Kt.SO --> 
-                <geom:multipolyline>
-                    <geom:polyline>
-                        <geom:coord>
+            </TestSuite:Polyline3d>
+            <TestSuite:MultiPolyline ili:tid="5"> <!-- Erwartet: MultiPolyline 2d: liegt ausserhalb Kt.SO -->
+                <TestSuite:expected>false</TestSuite:expected>
+                <TestSuite:testAttributeMultiPolyline>
+                    <geom:multipolyline>
+                        <geom:polyline>
+                            <geom:coord>
                                 <geom:c1>2646350.000</geom:c1>
                                 <geom:c2>1249020.000</geom:c2>
                             </geom:coord>
@@ -135,8 +141,9 @@
                         </geom:polyline>
                     </geom:multipolyline>
                 </TestSuite:testAttributeMultiPolyline>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="6"> <!-- Erwartet: Area, liegt innerhalb Kt. SO --> 
+            </TestSuite:MultiPolyline>
+            <TestSuite:Area ili:tid="6"> <!-- Erwartet: Area, liegt innerhalb Kt. SO -->
+                <TestSuite:expected>true</TestSuite:expected>
                 <TestSuite:testAttributeArea>
                     <geom:surface>
                         <geom:exterior>
@@ -170,8 +177,9 @@
                         </geom:exterior>
                     </geom:surface>
                 </TestSuite:testAttributeArea>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="7"> <!-- Erwartet: Surface mit Löcher, liegt ausserhalb Kt. SO --> 
+            </TestSuite:Area>
+            <TestSuite:Surface ili:tid="7"> <!-- Erwartet: Surface mit Löcher, liegt ausserhalb Kt. SO -->
+                <TestSuite:expected>false</TestSuite:expected>
                 <TestSuite:testAttributeSurface>
                     <geom:surface>
                         <geom:exterior>
@@ -247,11 +255,12 @@
                             </geom:polyline>
                         </geom:interior>
                     </geom:surface>
-                </TestSuite:testAttributeSurface> 
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="8"> <!-- Erwartet: MultiSurface: 1x mit Loch, 1x ohne (Total: 1 Loch), liegt ausserhalb Kt.SO --> 
+                </TestSuite:testAttributeSurface>
+            </TestSuite:Surface>
+            <TestSuite:MultiSurface ili:tid="8"> <!-- Erwartet: MultiSurface: 1x mit Loch, 1x ohne (Total: 1 Loch), liegt ausserhalb Kt.SO -->
+                <TestSuite:expected>false</TestSuite:expected>
                 <TestSuite:testAttributeMultiSurface>
-                   <geom:multisurface>
+                    <geom:multisurface>
                         <geom:surface>
                             <geom:exterior>
                                 <geom:polyline>
@@ -312,7 +321,7 @@
                                 </geom:polyline>
                             </geom:interior>
                         </geom:surface>
-                       <geom:surface>
+                        <geom:surface>
                             <geom:exterior>
                                 <geom:polyline>
                                     <geom:coord>
@@ -343,9 +352,17 @@
                                 </geom:polyline>
                             </geom:exterior>
                         </geom:surface>
-                    </geom:multisurface>                   
+                    </geom:multisurface>
                 </TestSuite:testAttributeMultiSurface>
-            </TestSuite:BaseClass>
+            </TestSuite:MultiSurface>
+            <TestSuite:InvalidConstraints ili:tid="9">
+                <TestSuite:geometryAttribute>
+                    <geom:coord>
+                        <geom:c1>2533306.953</geom:c1>
+                        <geom:c2>1184710.792</geom:c2>
+                    </geom:coord>
+                </TestSuite:geometryAttribute>
+            </TestSuite:InvalidConstraints>
         </TestSuite:FunctionTestTopic>
     </ili:datasection>
 </ili:transfer>
