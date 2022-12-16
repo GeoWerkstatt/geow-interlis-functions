@@ -28,7 +28,7 @@ MODEL GeoW_FunctionsExt
     !!@ fn.since = "2022-12-02";
     FUNCTION GetInGroups (Objects: OBJECTS OF ANYCLASS; Attr: TEXT): OBJECTS OF ANYCLASS;
 
-    !!@ fn.description = "Prüft, ob ein Objekt innerhalb einer gegebenen Testgeometrie liegt, welche aus einem externen Datensatz stammt. Der externe Datensatz muss sich in einer INTERLIS Transferdatei befinden, die entweder im selben Ordner wie die GeoW_FunctionsExt JAR liegt oder sich in einem JAR befinden, das über den Java Classpath erreichbar ist.";
+    !!@ fn.description = "Prüft, ob ein Objekt innerhalb einer gegebenen Testgeometrie liegt, welche aus einem externen Datensatz stammt. Der externe Datensatz muss sich in einer INTERLIS 2.3 Transferdatei befinden, die entweder im selben Ordner wie die GeoW_FunctionsExt JAR liegt oder sich in einem JAR befinden, das über den Java Classpath erreichbar ist.";
     !!@ fn.param = "DatasetName: Qualifizierter Name des Attributes aus dem Transfermodells, in welchem die Objekte zur Prüfung bereitliegen. Objects: Objekt(e), über die TID identifiziert, welche zur Prüfung beigezogen werden. TestObject: Objekt, welches zu prüfen ist. TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2022-12-05";
