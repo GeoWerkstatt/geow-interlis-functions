@@ -151,8 +151,8 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
      * @return A {@link File} representing the directory or {@code null}.
      */
     private static File getDataDirectory() {
-        Class<IsInsideExternalDatasetIoxPlugin> clazz = IsInsideExternalDatasetIoxPlugin.class;
-        URL resource = clazz.getResource(clazz.getSimpleName() + ".class");
+        Class<IsInsideExternalDatasetIoxPlugin> pluginClass = IsInsideExternalDatasetIoxPlugin.class;
+        URL resource = pluginClass.getResource(pluginClass.getSimpleName() + ".class");
         if (resource == null) {
             return null;
         }
