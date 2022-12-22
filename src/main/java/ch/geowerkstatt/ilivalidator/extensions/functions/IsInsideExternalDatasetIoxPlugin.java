@@ -149,18 +149,22 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
      *
      * @return A {@link File} representing the directory or {@code null}.
      */
-    private static File getDataDirectory() {
+    private File getDataDirectory() {
         Class<IsInsideExternalDatasetIoxPlugin> pluginClass = IsInsideExternalDatasetIoxPlugin.class;
         URL resource = pluginClass.getResource(pluginClass.getSimpleName() + ".class");
         if (resource == null) {
+            logger.addEvent(logger.logErrorMsg(MessageFormat.format("{0}: Could not resolve data directory, resource is null.", this.getQualifiedIliName())));
             return null;
         }
         String url = resource.toString();
         if (url.startsWith("jar:file:")) {
             String path = url.replaceAll("^jar:(file:.*\\.jar)!/.*", "$1");
-            return new File(path).getParentFile();
+            File directory = new File(path).getParentFile();
+            logger.addEvent(logger.logDetailInfoMsg(MessageFormat.format("{0}: data directory {1}", this.getQualifiedIliName(), directory)));
+            return directory;
         }
 
+        logger.addEvent(logger.logErrorMsg(MessageFormat.format("{0}: Could not resolve data directory.", this.getQualifiedIliName())));
         return null;
     }
 
