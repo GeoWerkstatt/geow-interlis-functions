@@ -158,7 +158,7 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
         }
         String url = resource.toString();
         if (url.startsWith("jar:file:")) {
-            String path = url.replaceAll("^jar:(file:.*\\.jar)!/.*", "$1");
+            String path = url.replaceAll("^jar:file:(.*\\.jar)!/.*", "$1");
             File directory = new File(path).getParentFile();
             logger.addEvent(logger.logDetailInfoMsg(MessageFormat.format("{0}: data directory {1}", this.getQualifiedIliName(), directory)));
             return directory;
