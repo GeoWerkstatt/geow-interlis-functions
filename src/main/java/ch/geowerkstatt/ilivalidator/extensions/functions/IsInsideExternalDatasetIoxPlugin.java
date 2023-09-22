@@ -113,6 +113,7 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
                 .map(url -> logExceptionAsWarning(url::openStream))
                 .flatMap(xtfStream -> getObjectsFromXTF(xtfStream, qualifiedClass, key.transferIds).stream())
                 .flatMap(obj -> getAttributes(obj, attribute).stream())
+                .flatMap(attr -> extractChBaseSurfaceGeometryFromAttribute(attr).stream())
                 .map(a -> logExceptionAsWarning(() -> Iox2jtsext.surface2JTS(a, 0.0, new OutParam<Boolean>(), logger, 0.0, "warning")))
                 .filter(Objects::nonNull)
                 .toArray(Polygon[]::new);
@@ -380,6 +381,23 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
             foundAttributes.add(iomObject.getattrobj(attributeName, i));
         }
         return foundAttributes;
+    }
+
+    /**
+     * Extract surface geometries from a CHBase Geometry Attribute.
+     * If the IomObject is not a CHBase surface Geometry, it is returned unchanged.
+     */
+    private Collection<IomObject> extractChBaseSurfaceGeometryFromAttribute(IomObject iomObject) {
+        switch (iomObject.getobjecttag()) {
+            case "GeometryCHLV95_V1.MultiSurface":
+            case "GeometryCHLV03_V1.MultiSurface":
+                return getAttributes(iomObject, "Surfaces").stream().flatMap(attr -> extractChBaseSurfaceGeometryFromAttribute(attr).stream()).collect(Collectors.toList());
+            case "GeometryCHLV95_V1.SurfaceStructure":
+            case "GeometryCHLV03_V1.SurfaceStructure":
+                return getAttributes(iomObject, "Surface");
+            default:
+                return Collections.singleton(iomObject);
+        }
     }
 
     private static class ValidAreaKey {

@@ -363,6 +363,15 @@
                     </geom:coord>
                 </TestSuite:geometryAttribute>
             </TestSuite:InvalidConstraints>
+            <TestSuite:IsInsideCHBaseGeometrie ili:tid="10"> <!-- Erwartet: 2D-Punkt: liegt im Kt. SO -->
+                <TestSuite:expected>true</TestSuite:expected>
+                <TestSuite:testAttributeIsInsideCHBaseGeometrie>
+                    <geom:coord>
+                        <geom:c1>2620570.500</geom:c1>
+                        <geom:c2>1237151.400</geom:c2>
+                    </geom:coord>
+                </TestSuite:testAttributeIsInsideCHBaseGeometrie>
+            </TestSuite:IsInsideCHBaseGeometrie>
         </TestSuite:FunctionTestTopic>
     </ili:datasection>
 </ili:transfer>
