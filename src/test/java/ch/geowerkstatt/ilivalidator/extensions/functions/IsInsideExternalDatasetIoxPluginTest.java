@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.lang.reflect.Field;
 
-public class IsInsideExternalDatasetIoxPluginTest {
-    protected static final String TEST_DATA = "IsInsideExternalDataset/TestData.xtf";
+class IsInsideExternalDatasetIoxPluginTest {
+    private static final String TEST_DATA = "IsInsideExternalDataset/TestData.xtf";
     ValidationTestHelper vh;
 
     @BeforeEach
@@ -26,7 +26,7 @@ public class IsInsideExternalDatasetIoxPluginTest {
     }
 
     @Test
-    void IsInsideExternalDataset() throws Ili2cFailure, IoxException {
+    void isInsideExternalDataset() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"IsInsideExternalDataset/MandatoryConstraintThis.ili"});
 
         Assert.equals(6, vh.getErrs().size());

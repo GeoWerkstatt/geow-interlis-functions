@@ -7,9 +7,9 @@ import ch.interlis.iox.IoxLogEvent;
 import java.util.ArrayList;
 
 
-public class LogCollector implements ch.interlis.iox.IoxLogging {
-    private ArrayList<IoxLogEvent> errs = new ArrayList<>();
-    private ArrayList<IoxLogEvent> warn = new ArrayList<>();
+public final class LogCollector implements ch.interlis.iox.IoxLogging {
+    private final ArrayList<IoxLogEvent> errs = new ArrayList<>();
+    private final ArrayList<IoxLogEvent> warn = new ArrayList<>();
 
     @Override
     public void addEvent(IoxLogEvent event) {

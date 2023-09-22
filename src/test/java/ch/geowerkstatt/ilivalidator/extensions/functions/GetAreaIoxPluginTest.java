@@ -19,7 +19,7 @@ class GetAreaIoxPluginTest {
     }
 
     @Test
-    void MandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
+    void mandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetArea/MandatoryConstraintThis.ili"});
         Assert.equals(4, vh.getErrs().size());
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint1");
@@ -29,7 +29,7 @@ class GetAreaIoxPluginTest {
     }
 
     @Test
-    void SetConstraintOnAll() throws Ili2cFailure, IoxException {
+    void setConstraintOnAll() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetArea/SetConstraintAll.ili"});
         Assert.equals(3, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "Constraint1");
@@ -40,7 +40,7 @@ class GetAreaIoxPluginTest {
     }
 
     @Test
-    void SetConstraintOnThis() throws Ili2cFailure, IoxException {
+    void setConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetArea/SetConstraintThis.ili"});
         Assert.equals(2, vh.getErrs().size());
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
@@ -49,7 +49,7 @@ class GetAreaIoxPluginTest {
 
     @Test
     @Disabled("XTF24Reader fails on reading Bag Of Struct")
-    void SetConstraintOnThisWithBagOfStruct() throws Ili2cFailure, IoxException {
+    void setConstraintOnThisWithBagOfStruct() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{"GetArea/TestDataBagOf.xtf"}, new String[]{"GetArea/SetConstraintBagOf.ili"});
         Assert.equals(1, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "Constraint1");
@@ -60,7 +60,7 @@ class GetAreaIoxPluginTest {
     }
 
     @Test
-    void SetConstraintOnAssociationOne2Many() throws Ili2cFailure, IoxException {
+    void setConstraintOnAssociationOne2Many() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{"GetArea/TestDataAssocOne2Many.xtf"}, new String[]{"GetArea/SetConstraintAssocOne2Many.ili"});
         AssertionHelper.assertNoConstraintError(vh, "Constraint1");
 
@@ -79,7 +79,7 @@ class GetAreaIoxPluginTest {
     }
 
     @Test
-    void SetConstraintOnAssociationMany2Many() throws Ili2cFailure, IoxException {
+    void setConstraintOnAssociationMany2Many() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{"GetArea/TestDataAssocMany2Many.xtf"}, new String[]{"GetArea/SetConstraintAssocMany2Many.ili"});
         AssertionHelper.assertNoConstraintError(vh, "Constraint1");
 
