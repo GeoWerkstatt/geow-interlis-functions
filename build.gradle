@@ -54,7 +54,7 @@ publishing {
                 developers {
                     developer {
                         id = 'GeoWerkstatt'
-                        name = 'GeoWerkstatt GmbHH'
+                        name = 'GeoWerkstatt GmbH'
                         email = 'office@geowerkstatt.ch'
                     }
                 }
