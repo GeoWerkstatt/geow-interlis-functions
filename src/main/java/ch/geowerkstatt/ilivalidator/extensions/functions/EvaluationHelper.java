@@ -16,7 +16,21 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Function;
 
-public class EvaluationHelper {
+public final class EvaluationHelper {
+
+    private EvaluationHelper() {
+        // Utility class
+    }
+
+    /**
+     * Parse the {@code argPath} into a {@link PathEl} array.
+     *
+     * @param validator the {@link Validator} instance.
+     * @param contextClass the {@link Viewable} definition where the {@code argPath} starts.
+     * @param argPath the path string to parse. see {@link Value#getValue()}.
+     *
+     * @return the parsed {@link PathEl} array or {@code null} if the {@code argPath} could not be parsed.
+     */
     public static PathEl[] getAttributePathEl(Validator validator, Viewable<Element> contextClass, Value argPath) {
         try {
             ObjectPath objectPath = validator.parseObjectOrAttributePath(contextClass, argPath.getValue());
@@ -29,6 +43,10 @@ public class EvaluationHelper {
         return null;
     }
 
+    /**
+     * Get the {@link Viewable} (e.g. the class definition) from the {@link TransferDescription}.
+     * If the {@code iomObject} is {@code null}, the {@code argObjects} is used to retrieve the {@link Viewable}.
+     */
     public static Viewable getContextClass(TransferDescription td, IomObject iomObject, Value argObjects) {
         if (iomObject != null) {
             return (Viewable) td.getElement(iomObject.getobjecttag());
@@ -44,6 +62,9 @@ public class EvaluationHelper {
         return null;
     }
 
+    /**
+     * Get the collection of {@link IomObject} inside {@code argObjects} by following the provided {@code attributePath}.
+     */
     public static Collection<IomObject> evaluateAttributes(Validator validator, Value argObjects, PathEl[] attributePath) {
         Collection<IomObject> attributes = new ArrayList<>();
 
@@ -57,6 +78,9 @@ public class EvaluationHelper {
         return attributes;
     }
 
+    /**
+     * Applies the given function to each item in the collection and sums up the results.
+     */
     public static Double sum(Collection<IomObject> items, Function<IomObject, Double> func) {
         return items
                 .stream()
