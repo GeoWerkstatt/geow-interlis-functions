@@ -18,7 +18,7 @@ public abstract class BaseInterlisFunction implements InterlisFunction {
     protected Validator validator;
 
     @Override
-    public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
+    public final void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
         this.logger = logEventFactory;
         this.logger.setValidationConfig(validationConfig);
         this.td = td;
@@ -27,10 +27,10 @@ public abstract class BaseInterlisFunction implements InterlisFunction {
     }
 
     @Override
-    public Value evaluate(String validationKind, String usageScope, IomObject mainObj, Value[] actualArguments) {
+    public final Value evaluate(String validationKind, String usageScope, IomObject mainObj, Value[] actualArguments) {
 
         for (Value arg : actualArguments) {
-            if (arg.skipEvaluation()){
+            if (arg.skipEvaluation()) {
                 return arg;
             }
         }

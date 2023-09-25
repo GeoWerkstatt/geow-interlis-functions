@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ValidationTestHelper {
+public final class ValidationTestHelper {
 
     private final HashMap<String, Class<InterlisFunction>> userFunctions = new HashMap<>();
     private LogCollector logCollector;
@@ -68,9 +68,9 @@ public class ValidationTestHelper {
 
     private String[] appendGeoWFunctionsExtIli(String[] modelDirs) {
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        String GeoW_FunctionsExtIliPath = "src/model/GeoW_FunctionsExt.ili";
+        String functionsExtIliPath = "src/model/GeoW_FunctionsExt.ili";
         ArrayList<String> result = new ArrayList<>();
-        result.add(GeoW_FunctionsExtIliPath);
+        result.add(functionsExtIliPath);
         result.addAll(Arrays.asList(modelDirs));
         return result.toArray(new String[0]);
     }

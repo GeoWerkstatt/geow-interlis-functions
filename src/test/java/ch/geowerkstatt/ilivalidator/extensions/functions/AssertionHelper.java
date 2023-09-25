@@ -8,13 +8,18 @@ import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AssertionHelper {
+public final class AssertionHelper {
+
+    private AssertionHelper() {
+        // Utility class
+    }
 
     public static void assertConstraintErrors(ValidationTestHelper vh, int expectedCount, String oid, String constraintName) {
         int errorsFound = 0;
         for (IoxLogEvent err : vh.getErrs()) {
-            if (oid.equals(err.getSourceObjectXtfId()) && err.getEventMsg().contains(String.format(".%s ", constraintName)))
+            if (oid.equals(err.getSourceObjectXtfId()) && err.getEventMsg().contains(String.format(".%s ", constraintName))) {
                 errorsFound++;
+            }
         }
 
         Assert.equals(expectedCount, errorsFound,
@@ -28,8 +33,9 @@ public class AssertionHelper {
     public static void assertConstraintErrors(ValidationTestHelper vh, int expectedCount, String constraintName) {
         int errorsFound = 0;
         for (IoxLogEvent err : vh.getErrs()) {
-            if (err.getEventMsg().contains(String.format(".%s ", constraintName)))
+            if (err.getEventMsg().contains(String.format(".%s ", constraintName))) {
                 errorsFound++;
+            }
         }
 
         Assert.equals(expectedCount, errorsFound,
@@ -39,14 +45,15 @@ public class AssertionHelper {
     public static void assertNoConstraintError(ValidationTestHelper vh, String constraintName) {
         int errorsFound = 0;
         for (IoxLogEvent err : vh.getErrs()) {
-            if (err.getEventMsg().contains(String.format(".%s ", constraintName)))
+            if (err.getEventMsg().contains(String.format(".%s ", constraintName))) {
                 errorsFound++;
+            }
         }
 
         Assert.equals(0, errorsFound,
                 String.format("Expected No errors with Source <%s> but found %d.", constraintName, errorsFound));
     }
-    
+
     public static void assertLogEventsContainMessage(List<IoxLogEvent> logs, String expectedMessageRegex) {
         Pattern pattern = Pattern.compile(expectedMessageRegex);
         if (logs.stream().noneMatch(log -> pattern.matcher(log.getEventMsg()).find())) {

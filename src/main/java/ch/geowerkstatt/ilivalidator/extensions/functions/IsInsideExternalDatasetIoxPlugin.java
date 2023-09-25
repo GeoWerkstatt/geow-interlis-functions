@@ -1,18 +1,17 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
-import ch.ehi.basics.settings.Settings;
 import ch.ehi.basics.types.OutParam;
-import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iom_j.Iom_jObject;
 import ch.interlis.iom_j.itf.impl.jtsext.geom.CompoundCurve;
 import ch.interlis.iom_j.xtf.XtfReader;
 import ch.interlis.iom_j.xtf.XtfStartTransferEvent;
-import ch.interlis.iox.*;
+import ch.interlis.iox.IoxEvent;
+import ch.interlis.iox.IoxException;
+import ch.interlis.iox.IoxReader;
+import ch.interlis.iox.ObjectEvent;
 import ch.interlis.iox_j.jts.Iox2jtsext;
-import ch.interlis.iox_j.logging.LogEventFactory;
 import ch.interlis.iox_j.utility.IoxUtility;
-import ch.interlis.iox_j.validator.ObjectPool;
 import ch.interlis.iox_j.validator.Value;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
@@ -33,21 +32,16 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
-public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
+public final class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
     private static File dataDirectory;
     private static Map<String, Set<URL>> modelFilesFromDataDirectory;
     private static Map<String, Set<URL>> modelFilesFromJars;
-    private static final Map<ValidAreaKey, Geometry> validAreaCache = new HashMap<>();
-    private static final String qualifiedIliName = "GeoW_FunctionsExt.IsInsideExternalDataset";
+    private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
+    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalDataset";
 
     @Override
     public String getQualifiedIliName() {
-        return qualifiedIliName;
-    }
-
-    @Override
-    public void init(TransferDescription td, Settings settings, IoxValidationConfig validationConfig, ObjectPool objectPool, LogEventFactory logEventFactory) {
-        super.init(td, settings, validationConfig, objectPool, logEventFactory);
+        return QUALIFIED_ILI_NAME;
     }
 
     @Override
@@ -66,7 +60,7 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
             String datasetName = argDatasetName.getValue();
 
             ValidAreaKey key = new ValidAreaKey(datasetName, transferIds);
-            Geometry validArea = validAreaCache.computeIfAbsent(key, this::getValidArea);
+            Geometry validArea = VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea);
 
             if (validArea == null) {
                 return Value.createUndefined();
@@ -196,11 +190,11 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
                     }
                 } catch (IoxException e) {
                     // ignore the erroneous file
-                    logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", qualifiedIliName, xtfUrl.toString(), e.getLocalizedMessage()));
+                    logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", QUALIFIED_ILI_NAME, xtfUrl.toString(), e.getLocalizedMessage()));
                 }
             }
         } catch (IOException e) {
-            logger.addEvent(logger.logWarningMsg("{0}: Could not read data directory {1}. {2}", qualifiedIliName, dataDirectory.getAbsolutePath(), e.getLocalizedMessage()));
+            logger.addEvent(logger.logWarningMsg("{0}: Could not read data directory {1}. {2}", QUALIFIED_ILI_NAME, dataDirectory.getAbsolutePath(), e.getLocalizedMessage()));
         }
 
         return result;
@@ -235,13 +229,13 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
                             }
                         } catch (IoxException e) {
                             // ignore the erroneous file
-                            logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", qualifiedIliName, xtfUrl.toString(), e.getLocalizedMessage()));
+                            logger.addEvent(logger.logWarningMsg("{0}: Error while reading xtf file {1}. {2}", QUALIFIED_ILI_NAME, xtfUrl.toString(), e.getLocalizedMessage()));
                         }
                     }
                 }
             }
         } catch (IOException e) {
-            logger.addEvent(logger.logWarningMsg("{0}: Could not read JAR files from classpath. {2}", qualifiedIliName, e.getLocalizedMessage()));
+            logger.addEvent(logger.logWarningMsg("{0}: Could not read JAR files from classpath. {2}", QUALIFIED_ILI_NAME, e.getLocalizedMessage()));
         }
 
         return result;
@@ -396,8 +390,12 @@ public class IsInsideExternalDatasetIoxPlugin extends BaseInterlisFunction {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             ValidAreaKey that = (ValidAreaKey) o;
             return Objects.equals(datasetName, that.datasetName) && Arrays.equals(transferIds, that.transferIds);
         }

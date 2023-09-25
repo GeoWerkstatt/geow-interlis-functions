@@ -7,10 +7,9 @@ import ch.interlis.iox.IoxException;
 import ch.interlis.iox_j.jts.Iox2jtsext;
 import ch.interlis.iox_j.validator.Value;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-public class GetLengthIoxPlugin extends BaseInterlisFunction {
+public final class GetLengthIoxPlugin extends BaseInterlisFunction {
 
     @Override
     public String getQualifiedIliName() {

@@ -3,20 +3,18 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 import ch.interlis.ili2c.metamodel.PathEl;
 import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
-import ch.interlis.iox.IoxException;
-import ch.interlis.iox_j.jts.Iox2jtsext;
 import ch.interlis.iox_j.validator.Value;
 
 import java.util.Collection;
 
-public class GetInnerRingsCountIoxPlugin extends BaseInterlisFunction {
+public final class GetInnerRingsCountIoxPlugin extends BaseInterlisFunction {
 
     @Override
     public String getQualifiedIliName() {
         return "GeoW_FunctionsExt.GetInnerRingsCount";
     }
 
-    private Integer GetInnerRingsCount(IomObject multisurface) {
+    private Integer getInnerRingsCount(IomObject multisurface) {
         int innerRings = 0;
 
         for (int si = 0; si < multisurface.getattrvaluecount("surface"); si++) {
@@ -55,7 +53,7 @@ public class GetInnerRingsCountIoxPlugin extends BaseInterlisFunction {
             surfaces = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
         }
 
-        int innerRingsCount = surfaces.stream().map(this::GetInnerRingsCount).reduce(0, Integer::sum);
+        int innerRingsCount = surfaces.stream().map(this::getInnerRingsCount).reduce(0, Integer::sum);
         return new Value(innerRingsCount);
     }
 }
