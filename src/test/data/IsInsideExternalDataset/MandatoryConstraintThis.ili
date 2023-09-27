@@ -62,6 +62,11 @@ MODEL TestSuite
         MANDATORY CONSTRAINT MultiCoord: GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiCoord") == expected;
     END MultiCoord;
 
+    CLASS IsInsideCHBaseGeometrie EXTENDS ConstraintTestClass =
+        testAttributeIsInsideCHBaseGeometrie : CHKoord;
+        MANDATORY CONSTRAINT IsInsideCHBaseGeometrie: GeoW_FunctionsExt.IsInsideExternalDataset("SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze.Geometrie", "fubar", THIS, "testAttributeIsInsideCHBaseGeometrie") == expected;
+    END IsInsideCHBaseGeometrie;
+
     CLASS InvalidConstraints =
         geometryAttribute : CHKoord;
         MANDATORY CONSTRAINT MalformedDatasetName: GeoW_FunctionsExt.IsInsideExternalDataset("DatasetNameWithoutQualifiedAttribute", "906645", THIS, "geometryAttribute");

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
+<HEADERSECTION SENDER="ili2pg-4.9.0-eb3a0d51869bd2adeeb51fe7aba4b526fe002c1a" VERSION="2.3"><MODELS><MODEL NAME="SO_Hoheitsgrenzen_Publikation_20170626" VERSION="2017-06-26" URI="http://www.geo.so.ch/models/AGI"></MODEL></MODELS></HEADERSECTION>
+<DATASECTION>
+<SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen BID="SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen">
+<SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze TID="fubar"><Kantonsname>Solothurn</Kantonsname><Geometrie><GeometryCHLV95_V1.MultiSurface><Surfaces><GeometryCHLV95_V1.SurfaceStructure><Surface><SURFACE><BOUNDARY><POLYLINE><COORD><C1>2591994.000</C1><C2>1262353.000</C2></COORD><COORD><C1>2645900.000</C1><C2>1262353.000</C2></COORD><COORD><C1>2645900.000</C1><C2>1211927.000</C2></COORD><COORD><C1>2591994.000</C1><C2>1211927.000</C2></COORD><COORD><C1>2591994.000</C1><C2>1262353.000</C2></COORD></POLYLINE></BOUNDARY></SURFACE></Surface></GeometryCHLV95_V1.SurfaceStructure></Surfaces></GeometryCHLV95_V1.MultiSurface></Geometrie><Kantonskuerzel>SO</Kantonskuerzel><Kantonsnummer>11</Kantonsnummer></SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze>
+</SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen>
+</DATASECTION>
+</TRANSFER>
