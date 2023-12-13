@@ -8,12 +8,18 @@ import ch.interlis.ili2c.metamodel.PathEl;
 import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
+import ch.interlis.iom_j.Iom_jObject;
+import ch.interlis.iox_j.jts.Iox2jtsException;
+import ch.interlis.iox_j.jts.Jtsext2iox;
 import ch.interlis.iox_j.validator.Validator;
 import ch.interlis.iox_j.validator.Value;
+import com.vividsolutions.jts.geom.MultiPolygon;
+import com.vividsolutions.jts.geom.Polygon;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Function;
 
 public final class EvaluationHelper {
@@ -88,4 +94,35 @@ public final class EvaluationHelper {
                 .reduce(0.0, Double::sum);
     }
 
+    /**
+     * Converts a {@link MultiPolygon} into a MULTISURFACE {@link IomObject}.
+     */
+    public static IomObject jts2multiSurface(MultiPolygon multiPolygon) throws Iox2jtsException {
+        List<Polygon> polygons = splitMultiPolygon(multiPolygon);
+
+        IomObject unionSurface = new Iom_jObject(Iom_jObject.MULTISURFACE, null);
+        for (Polygon polygon : polygons) {
+            IomObject multiSurfaceObject = Jtsext2iox.JTS2surface(polygon);
+
+            int surfaceCount = multiSurfaceObject.getattrvaluecount(Iom_jObject.MULTISURFACE_SURFACE);
+            for (int i = 0; i < surfaceCount; i++) {
+                IomObject surfaceObject = multiSurfaceObject.getattrobj(Iom_jObject.MULTISURFACE_SURFACE, i);
+                unionSurface.addattrobj(Iom_jObject.MULTISURFACE_SURFACE, surfaceObject);
+            }
+        }
+        return unionSurface;
+    }
+
+    /**
+     * Splits the {@link MultiPolygon} into a list of {@link Polygon}s.
+     */
+    public static List<Polygon> splitMultiPolygon(MultiPolygon multiPolygon) {
+        int polygonCount = multiPolygon.getNumGeometries();
+        List<Polygon> polygons = new ArrayList<>(polygonCount);
+
+        for (int i = 0; i < polygonCount; i++) {
+            polygons.add((Polygon) multiPolygon.getGeometryN(i));
+        }
+        return polygons;
+    }
 }

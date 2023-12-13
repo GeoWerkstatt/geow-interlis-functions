@@ -33,4 +33,10 @@ MODEL GeoW_FunctionsExt
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2022-12-05";
     FUNCTION IsInsideExternalDataset (DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
+
+    !!@ fn.description = "Fasst die Flächen-Geometrien aus der Eingabemenge zu einer Flächen-Geometrie zusammen. Für 'Objects' können Objekte oder Geometrien angegeben werden. Für 'AreaAttr' soll der Pfad zur Flächen-Geometrie in INTERLIS 2 Syntax angegeben werden. Falls 'Objects' bereits die Geometrien enthält, soll für 'AreaAttr' 'UNDEFINED' übergeben werden.";
+    !!@ fn.param = "Objects: Ausgangsobjekte oder Geometrien. AreaAttr: Pfad zum Geometrieattribut oder UNDEFINED";
+    !!@ fn.return = "Zusammengefasste Flächen-Geometrie";
+    !!@ fn.since = "2023-12-13";
+    FUNCTION Union (Objects: OBJECTS OF ANYCLASS; AreaAttr: TEXT): OBJECT OF ANYCLASS;
 END GeoW_FunctionsExt.
