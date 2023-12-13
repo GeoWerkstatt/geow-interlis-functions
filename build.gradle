@@ -19,9 +19,9 @@ repositories {
 
 dependencies {
     implementation group: 'ch.interlis', name: 'iox-api', version: '1.0.4'
-    implementation group: 'ch.interlis', name: 'iox-ili', version: '1.21.8'
-    implementation group: 'ch.interlis', name: 'ili2c-tool', version: "5.2.3"
-    implementation group: 'ch.interlis', name: 'ili2c-core', version: "5.2.3"
+    implementation group: 'ch.interlis', name: 'iox-ili', version: '1.22.0'
+    implementation group: 'ch.interlis', name: 'ili2c-tool', version: "5.4.0"
+    implementation group: 'ch.interlis', name: 'ili2c-core', version: "5.4.0"
     implementation group: 'com.vividsolutions', name: 'jts-core', version: '1.14.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
