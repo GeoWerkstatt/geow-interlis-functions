@@ -93,36 +93,4 @@ public final class EvaluationHelper {
                 .map(func)
                 .reduce(0.0, Double::sum);
     }
-
-    /**
-     * Converts a {@link MultiPolygon} into a MULTISURFACE {@link IomObject}.
-     */
-    public static IomObject jts2multiSurface(MultiPolygon multiPolygon) throws Iox2jtsException {
-        List<Polygon> polygons = splitMultiPolygon(multiPolygon);
-
-        IomObject unionSurface = new Iom_jObject(Iom_jObject.MULTISURFACE, null);
-        for (Polygon polygon : polygons) {
-            IomObject multiSurfaceObject = Jtsext2iox.JTS2surface(polygon);
-
-            int surfaceCount = multiSurfaceObject.getattrvaluecount(Iom_jObject.MULTISURFACE_SURFACE);
-            for (int i = 0; i < surfaceCount; i++) {
-                IomObject surfaceObject = multiSurfaceObject.getattrobj(Iom_jObject.MULTISURFACE_SURFACE, i);
-                unionSurface.addattrobj(Iom_jObject.MULTISURFACE_SURFACE, surfaceObject);
-            }
-        }
-        return unionSurface;
-    }
-
-    /**
-     * Splits the {@link MultiPolygon} into a list of {@link Polygon}s.
-     */
-    public static List<Polygon> splitMultiPolygon(MultiPolygon multiPolygon) {
-        int polygonCount = multiPolygon.getNumGeometries();
-        List<Polygon> polygons = new ArrayList<>(polygonCount);
-
-        for (int i = 0; i < polygonCount; i++) {
-            polygons.add((Polygon) multiPolygon.getGeometryN(i));
-        }
-        return polygons;
-    }
 }

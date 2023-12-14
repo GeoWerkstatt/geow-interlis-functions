@@ -84,7 +84,7 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
             if (unionGeometry instanceof Polygon) {
                 return Jtsext2iox.JTS2surface((Polygon) unionGeometry);
             } else if (unionGeometry instanceof MultiPolygon) {
-                return EvaluationHelper.jts2multiSurface((MultiPolygon) unionGeometry);
+                return Jts2iox.JTS2multisurface((MultiPolygon) unionGeometry);
             } else {
                 logger.addEvent(logger.logErrorMsg("Expected {0} or {1} but was {2}", Polygon.class.toString(), MultiPolygon.class.toString(), unionGeometry.getClass().toString()));
                 return null;
