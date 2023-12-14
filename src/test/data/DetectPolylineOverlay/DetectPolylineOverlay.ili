@@ -1,0 +1,21 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2023-12-14" =
+
+  DOMAIN
+       !!@CRS=EPSG:2056
+       CHKoord = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+
+  TOPIC FunctionTestTopic =
+
+    CLASS TestClass =
+        geometry : POLYLINE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
+        type : (t1,t2,t3);
+    END TestClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.
