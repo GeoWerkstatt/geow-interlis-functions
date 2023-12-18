@@ -28,18 +28,8 @@ public final class UnionIoxPluginTest {
     }
 
     @Test
-    void setConstraintAll() throws Ili2cFailure, IoxException {
-        vh.runValidation(new String[]{TEST_DATA}, new String[]{"Union/SetConstraintAll.ili"});
-        Assert.equals(2, vh.getErrs().size());
-        AssertionHelper.assertConstraintErrors(vh, 1, "falseConstraint");
-        AssertionHelper.assertConstraintErrors(vh, 1, "falseConstraintUnion");
-        AssertionHelper.assertNoConstraintError(vh, "trueConstraint");
-        AssertionHelper.assertNoConstraintError(vh, "trueConstraintUnion");
-    }
-
-    @Test
-    void setConstraintMergedInnerRings() throws Ili2cFailure, IoxException {
-        vh.runValidation(new String[]{TEST_DATA_MERGED_INNER_RINGS}, new String[]{"Union/SetConstraintMergedInnerRings.ili"});
+    void mandatoryConstraintMergedInnerRings() throws Ili2cFailure, IoxException {
+        vh.runValidation(new String[]{TEST_DATA_MERGED_INNER_RINGS}, new String[]{"Union/MandatoryConstraintMergedInnerRings.ili"});
         Assert.equals(0, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "innerRings");
         AssertionHelper.assertNoConstraintError(vh, "innerRingsUnion");

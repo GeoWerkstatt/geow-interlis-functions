@@ -65,8 +65,6 @@
                         </geom:interior>
                     </geom:surface>
                 </TestSuite:surfaceAttribute>
-            </TestSuite:BaseClass>
-            <TestSuite:BaseClass ili:tid="1">
                 <TestSuite:surfaceAttribute> <!-- Surface with one inner square from (1,1) to (4,4) -->
                     <geom:surface>
                         <geom:exterior>

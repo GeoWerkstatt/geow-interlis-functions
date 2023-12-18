@@ -1,12 +1,11 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.ehi.basics.types.OutParam;
-import ch.interlis.ili2c.metamodel.PathEl;
-import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox_j.jts.Iox2jtsException;
 import ch.interlis.iox_j.jts.Iox2jtsext;
+import ch.interlis.iox_j.jts.Jts2iox;
 import ch.interlis.iox_j.jts.Jtsext2iox;
 import ch.interlis.iox_j.validator.Value;
 import com.vividsolutions.jts.geom.Geometry;
@@ -30,28 +29,15 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
 
     @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] actualArguments) {
-        Value argObjects = actualArguments[0]; // OBJECTS OF ANYCLASS
-        Value argPath = actualArguments[1]; // TEXT
+        Value argGeometries = actualArguments[0];
 
-        if (argObjects.isUndefined()) {
+        if (argGeometries.isUndefined()) {
             return Value.createSkipEvaluation();
         }
-        if (argObjects.getComplexObjects() == null) {
+
+        Collection<IomObject> surfaces = argGeometries.getComplexObjects();
+        if (surfaces == null) {
             return Value.createUndefined();
-        }
-
-        Collection<IomObject> surfaces;
-
-        if (argPath.isUndefined()) {
-            surfaces = argObjects.getComplexObjects();
-        } else {
-            Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
-            if (contextClass == null) {
-                throw new IllegalStateException("unknown class in " + usageScope);
-            }
-
-            PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            surfaces = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
         }
 
         UnionSurfaceKey key = new UnionSurfaceKey(surfaces);

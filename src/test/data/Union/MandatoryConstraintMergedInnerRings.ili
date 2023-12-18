@@ -9,18 +9,20 @@ MODEL TestSuite
                   0 .. 10 [INTERLIS.m],
                   ROTATION 2 -> 1;
 
+    Surface = SURFACE WITH (STRAIGHTS) VERTEX Coord WITHOUT OVERLAPS > 0.1;
+
   TOPIC FunctionTestTopic =
 
     CLASS BaseClass =
-      surfaceAttribute : SURFACE WITH (STRAIGHTS) VERTEX Coord WITHOUT OVERLAPS > 0.1;
+      surfaceAttribute : BAG OF Surface;
 
       !! Surfaces evaluated separately
-      SET CONSTRAINT innerRings:
-        GeoW_FunctionsExt.GetInnerRingsCount(ALL, "surfaceAttribute") == 2;
+      MANDATORY CONSTRAINT innerRings:
+        GeoW_FunctionsExt.GetInnerRingsCount(THIS, "surfaceAttribute") == 2;
 
       !! Surfaces evaluated as union (inner rings overlap in test data)
-      SET CONSTRAINT innerRingsUnion:
-        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(ALL, "surfaceAttribute"), UNDEFINED) == 1;
+      MANDATORY CONSTRAINT innerRingsUnion:
+        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute), UNDEFINED) == 1;
 
     END BaseClass;
 
