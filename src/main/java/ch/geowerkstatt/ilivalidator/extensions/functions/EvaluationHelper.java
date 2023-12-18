@@ -8,18 +8,12 @@ import ch.interlis.ili2c.metamodel.PathEl;
 import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
-import ch.interlis.iom_j.Iom_jObject;
-import ch.interlis.iox_j.jts.Iox2jtsException;
-import ch.interlis.iox_j.jts.Jtsext2iox;
 import ch.interlis.iox_j.validator.Validator;
 import ch.interlis.iox_j.validator.Value;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.function.Function;
 
 public final class EvaluationHelper {
