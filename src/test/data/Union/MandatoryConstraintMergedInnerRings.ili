@@ -1,0 +1,31 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2023-12-13" =
+  IMPORTS GeoW_FunctionsExt;
+
+  DOMAIN
+    Coord = COORD 0 .. 10 [INTERLIS.m],
+                  0 .. 10 [INTERLIS.m],
+                  ROTATION 2 -> 1;
+
+    Surface = SURFACE WITH (STRAIGHTS) VERTEX Coord WITHOUT OVERLAPS > 0.1;
+
+  TOPIC FunctionTestTopic =
+
+    CLASS BaseClass =
+      surfaceAttribute : BAG OF Surface;
+
+      !! Surfaces evaluated separately
+      MANDATORY CONSTRAINT innerRings:
+        GeoW_FunctionsExt.GetInnerRingsCount(THIS, "surfaceAttribute") == 2;
+
+      !! Surfaces evaluated as union (inner rings overlap in test data)
+      MANDATORY CONSTRAINT innerRingsUnion:
+        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute), UNDEFINED) == 1;
+
+    END BaseClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.

@@ -33,4 +33,10 @@ MODEL GeoW_FunctionsExt
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2022-12-05";
     FUNCTION IsInsideExternalDataset (DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
+
+    !!@ fn.description = "Fasst die Flächen-Geometrien aus der Eingabemenge zu einer Flächen-Geometrie zusammen. Für 'Geometries' können nur Geometrien angegeben werden.";
+    !!@ fn.param = "Geometries: Geometrien, die zusammengefasst werden sollen";
+    !!@ fn.return = "Zusammengefasste Flächen-Geometrie";
+    !!@ fn.since = "2023-12-13";
+    FUNCTION Union (Geometries: ANYSTRUCTURE): MULTIAREA;
 END GeoW_FunctionsExt.

@@ -154,27 +154,22 @@
                                     <geom:coord>
                                         <geom:c1>2530000</geom:c1>
                                         <geom:c2>1150000</geom:c2>
-                                        <geom:c3>467</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530010</geom:c1>
                                         <geom:c2>1150000</geom:c2>
-                                        <geom:c3>468</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530010</geom:c1>
                                         <geom:c2>1150010</geom:c2>
-                                        <geom:c3>469</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530000</geom:c1>
                                         <geom:c2>1150010</geom:c2>
-                                        <geom:c3>468</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530000</geom:c1>
                                         <geom:c2>1150000</geom:c2>
-                                        <geom:c3>467</geom:c3>
                                     </geom:coord>
                                 </geom:polyline>
                             </geom:exterior>
@@ -183,27 +178,22 @@
                                     <geom:coord>
                                         <geom:c1>2530003</geom:c1>
                                         <geom:c2>1150003</geom:c2>
-                                        <geom:c3>467</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530006</geom:c1>
                                         <geom:c2>1150003</geom:c2>
-                                        <geom:c3>468</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530006</geom:c1>
                                         <geom:c2>1150006</geom:c2>
-                                        <geom:c3>469</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530003</geom:c1>
                                         <geom:c2>1150006</geom:c2>
-                                        <geom:c3>468</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2530003</geom:c1>
                                         <geom:c2>1150003</geom:c2>
-                                        <geom:c3>467</geom:c3>
                                     </geom:coord>
                                 </geom:polyline>
                             </geom:interior>
@@ -214,27 +204,22 @@
                                     <geom:coord>
                                         <geom:c1>2540000</geom:c1>
                                         <geom:c2>1150000</geom:c2>
-                                        <geom:c3>467</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2540010</geom:c1>
                                         <geom:c2>1150000</geom:c2>
-                                        <geom:c3>468</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2540010</geom:c1>
                                         <geom:c2>1150010</geom:c2>
-                                        <geom:c3>469</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2540000</geom:c1>
                                         <geom:c2>1150010</geom:c2>
-                                        <geom:c3>468</geom:c3>
                                     </geom:coord>
                                     <geom:coord>
                                         <geom:c1>2540000</geom:c1>
                                         <geom:c2>1150000</geom:c2>
-                                        <geom:c3>467</geom:c3>
                                     </geom:coord>
                                 </geom:polyline>
                             </geom:exterior>

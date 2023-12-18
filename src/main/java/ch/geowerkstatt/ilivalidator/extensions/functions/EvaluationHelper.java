@@ -87,5 +87,4 @@ public final class EvaluationHelper {
                 .map(func)
                 .reduce(0.0, Double::sum);
     }
-
 }
