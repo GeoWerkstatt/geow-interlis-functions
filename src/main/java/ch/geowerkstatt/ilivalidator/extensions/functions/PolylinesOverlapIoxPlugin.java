@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public final class PolylinesNotOverlappingIoxPlugin extends BaseInterlisFunction {
+public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
     @Override
     public String getQualifiedIliName() {
-        return "GeoW_FunctionsExt.PolylinesNotOverlapping";
+        return "GeoW_FunctionsExt.PolylinesOverlap";
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class PolylinesNotOverlappingIoxPlugin extends BaseInterlisFunction
 
         List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
         boolean hasOverlap = hasLineOverlap(lines);
-        return new Value(!hasOverlap);
+        return new Value(hasOverlap);
     }
 
     private List<CompoundCurve> convertToJTSLines(Collection<IomObject> polylines) {
