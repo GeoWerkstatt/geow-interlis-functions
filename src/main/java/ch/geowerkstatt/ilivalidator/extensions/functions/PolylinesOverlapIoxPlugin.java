@@ -7,10 +7,13 @@ import ch.interlis.iom_j.itf.impl.jtsext.geom.CompoundCurve;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox_j.jts.Iox2jtsext;
 import ch.interlis.iox_j.validator.Value;
+import com.vividsolutions.jts.geom.IntersectionMatrix;
+import com.vividsolutions.jts.index.strtree.STRtree;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
@@ -66,14 +69,30 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
     }
 
     private static boolean hasLineOverlap(List<CompoundCurve> lines) {
-        for (int i = 0; i < lines.size(); i++) {
-            for (int j = i + 1; j < lines.size(); j++) {
-                if (lines.get(i).overlaps(lines.get(j))) {
-                    return true;
-                }
-            }
+        if (lines.size() <= 1) {
+            return false;
         }
 
-        return false;
+        STRtree tree = new STRtree(lines.size());
+        for (CompoundCurve line : lines) {
+            tree.insert(line.getEnvelopeInternal(), line);
+        }
+
+        AtomicBoolean hasOverlap = new AtomicBoolean(false);
+        for (CompoundCurve line : lines) {
+            if (hasOverlap.get()) {
+                break;
+            }
+            tree.query(line.getEnvelopeInternal(), o -> {
+                if (!hasOverlap.get() && o != line && linesOverlap(line, (CompoundCurve) o)) {
+                    hasOverlap.set(true);
+                }
+            });
+        }
+        return hasOverlap.get();
+    }
+
+    private static boolean linesOverlap(CompoundCurve a, CompoundCurve b) {
+        return a.overlaps(b);
     }
 }
