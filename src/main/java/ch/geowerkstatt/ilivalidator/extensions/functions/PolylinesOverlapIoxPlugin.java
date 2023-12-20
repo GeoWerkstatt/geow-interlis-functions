@@ -11,12 +11,16 @@ import com.vividsolutions.jts.geom.IntersectionMatrix;
 import com.vividsolutions.jts.index.strtree.STRtree;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
+    private static final Map<HasEqualLinePartKey, Boolean> HAS_EQUAL_LINE_PART_CACHE = new HashMap<>();
+
     @Override
     public String getQualifiedIliName() {
         return "GeoW_FunctionsExt.PolylinesOverlap";
@@ -49,8 +53,20 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
             polylineObjects = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
         }
 
-        List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
-        boolean hasOverlap = hasEqualLinePart(lines);
+        Collection<IomObject> inputObjects = argObjects.getComplexObjects();
+        boolean hasObjectIds = inputObjects.stream().anyMatch(o -> o.getobjectoid() != null);
+        if (!hasObjectIds) {
+            List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
+            return new Value(hasEqualLinePart(lines));
+        }
+
+        List<String> objectIds = inputObjects.stream().map(IomObject::getobjectoid).collect(Collectors.toList());
+        HasEqualLinePartKey key = new HasEqualLinePartKey(objectIds, argPath.isUndefined() ? null : argPath.getValue());
+
+        boolean hasOverlap = HAS_EQUAL_LINE_PART_CACHE.computeIfAbsent(key, k -> {
+            List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
+            return hasEqualLinePart(lines);
+        });
         return new Value(hasOverlap);
     }
 
@@ -98,5 +114,32 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
         // If the intersection of the interiors is a line, they have at least one part of a section in common
         int interiorIntersection = relation.get(0, 0);
         return interiorIntersection == 1;
+    }
+
+    private static final class HasEqualLinePartKey {
+        private final List<String> objectIds;
+        private final String attributeName;
+
+        HasEqualLinePartKey(List<String> objectIds, String attributeName) {
+            this.objectIds = objectIds;
+            this.attributeName = attributeName;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            HasEqualLinePartKey that = (HasEqualLinePartKey) o;
+            return Objects.equals(objectIds, that.objectIds) && Objects.equals(attributeName, that.attributeName);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(objectIds, attributeName);
+        }
     }
 }
