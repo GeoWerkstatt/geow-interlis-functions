@@ -20,6 +20,7 @@ MODEL TestSuite
       SET CONSTRAINT setConstraintT1 : WHERE type == #t1 : GeoW_FunctionsExt.PolylinesOverlap(ALL, "geometry");
       SET CONSTRAINT setConstraintT2 : WHERE type == #t2 : GeoW_FunctionsExt.PolylinesOverlap(ALL, "geometry");
       SET CONSTRAINT setConstraintT3 : WHERE type == #t3 : GeoW_FunctionsExt.PolylinesOverlap(ALL, "geometry");
+      SET CONSTRAINT setConstraintT1or2 : WHERE type == #t1 OR type == #t2 : GeoW_FunctionsExt.PolylinesOverlap(ALL, "geometry");
       SET CONSTRAINT setConstraintT2or3 : WHERE type == #t2 OR type == #t3 : GeoW_FunctionsExt.PolylinesOverlap(ALL, "geometry");
     END TestClass;
 

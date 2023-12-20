@@ -50,7 +50,7 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
         }
 
         List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
-        boolean hasOverlap = hasLineOverlap(lines);
+        boolean hasOverlap = hasEqualLinePart(lines);
         return new Value(hasOverlap);
     }
 
@@ -68,7 +68,7 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
                 .collect(Collectors.toList());
     }
 
-    private static boolean hasLineOverlap(List<CompoundCurve> lines) {
+    private static boolean hasEqualLinePart(List<CompoundCurve> lines) {
         if (lines.size() <= 1) {
             return false;
         }
@@ -84,7 +84,7 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
                 break;
             }
             tree.query(line.getEnvelopeInternal(), o -> {
-                if (!hasOverlap.get() && o != line && linesOverlap(line, (CompoundCurve) o)) {
+                if (!hasOverlap.get() && o != line && linesHaveEqualPart(line, (CompoundCurve) o)) {
                     hasOverlap.set(true);
                 }
             });
@@ -92,7 +92,11 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
         return hasOverlap.get();
     }
 
-    private static boolean linesOverlap(CompoundCurve a, CompoundCurve b) {
-        return a.overlaps(b);
+    private static boolean linesHaveEqualPart(CompoundCurve a, CompoundCurve b) {
+        IntersectionMatrix relation = a.relate(b);
+
+        // If the intersection of the interiors is a line, they have at least one part of a section in common
+        int interiorIntersection = relation.get(0, 0);
+        return interiorIntersection == 1;
     }
 }
