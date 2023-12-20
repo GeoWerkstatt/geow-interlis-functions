@@ -54,13 +54,13 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
         }
 
         Collection<IomObject> inputObjects = argObjects.getComplexObjects();
-        boolean hasObjectIds = inputObjects.stream().anyMatch(o -> o.getobjectoid() != null);
+        List<String> objectIds = inputObjects.stream().map(IomObject::getobjectoid).collect(Collectors.toList());
+        boolean hasObjectIds = objectIds.stream().allMatch(Objects::nonNull);
         if (!hasObjectIds) {
             List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
             return new Value(hasEqualLinePart(lines));
         }
 
-        List<String> objectIds = inputObjects.stream().map(IomObject::getobjectoid).collect(Collectors.toList());
         HasEqualLinePartKey key = new HasEqualLinePartKey(objectIds, argPath.isUndefined() ? null : argPath.getValue());
 
         boolean hasOverlap = HAS_EQUAL_LINE_PART_CACHE.computeIfAbsent(key, k -> {
