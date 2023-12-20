@@ -89,7 +89,7 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
             return false;
         }
 
-        STRtree tree = new STRtree(lines.size());
+        STRtree tree = new STRtree();
         for (CompoundCurve line : lines) {
             tree.insert(line.getEnvelopeInternal(), line);
         }
