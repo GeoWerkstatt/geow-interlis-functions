@@ -26,6 +26,7 @@ public final class IsInsideExternalDatasetIoxPlugin extends BaseIsInsideFunction
     private static File dataDirectory;
     private static Map<String, Set<URL>> modelFilesFromDataDirectory;
     private static Map<String, Set<URL>> modelFilesFromJars;
+    private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
     private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalDataset";
 
     @Override
@@ -49,11 +50,16 @@ public final class IsInsideExternalDatasetIoxPlugin extends BaseIsInsideFunction
         ValidAreaKey key = new ValidAreaKey(null, datasetName, transferIds);
         String testObjectGeometryAttribute = argTestObjectgeometry.getValue();
 
-        return isInsideValidArea(usageScope, key, argTestObject.getComplexObjects(), testObjectGeometryAttribute);
+        return isInsideValidArea(usageScope, argTestObject.getComplexObjects(), testObjectGeometryAttribute, () -> VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea));
     }
 
-    @Override
-    protected Geometry getValidArea(ValidAreaKey key) {
+    /**
+     * Retrieve the geometries from referenced data according to the specified key.
+     *
+     * @param key The key that specifies which geometries to retrieve.
+     * @return The union of all found geometries.
+     */
+    private Geometry getValidArea(ValidAreaKey key) {
         String datasetName = key.getDatasetName();
         int firstPoint = datasetName.indexOf('.');
         int lastPoint = datasetName.lastIndexOf('.');

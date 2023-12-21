@@ -40,6 +40,12 @@ MODEL GeoW_FunctionsExt
     !!@ fn.since = "2023-12-20";
     FUNCTION IsInsideExternalDatasetResource (TransferFile: TEXT; DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
 
+    !!@ fn.description = "Prüft, ob ein Objekt innerhalb der Geometrie eines anderen Objektes liegt.";
+    !!@ fn.param = "ReferenceGeometry: Referenzgeometrie, innerhalb welcher das TestObject liegen muss. TestObject: Objekt, welches zu prüfen ist. TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
+    !!@ fn.return = "Boolean";
+    !!@ fn.since = "2023-12-21";
+    FUNCTION IsInside (ReferenceGeometry: MULTIAREA; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
+
     !!@ fn.description = "Fasst die Flächen-Geometrien aus der Eingabemenge zu einer Flächen-Geometrie zusammen. Für 'Geometries' können nur Geometrien angegeben werden.";
     !!@ fn.param = "Geometries: Geometrien, die zusammengefasst werden sollen";
     !!@ fn.return = "Zusammengefasste Flächen-Geometrie";
