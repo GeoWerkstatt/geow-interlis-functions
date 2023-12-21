@@ -46,7 +46,7 @@ public final class IsInsideExternalDatasetIoxPlugin extends BaseIsInsideFunction
 
         String transferIds = argObjects.getValue();
         String datasetName = argDatasetName.getValue();
-        ValidAreaKey key = new ValidAreaKey(datasetName, transferIds);
+        ValidAreaKey key = new ValidAreaKey(null, datasetName, transferIds);
         String testObjectGeometryAttribute = argTestObjectgeometry.getValue();
 
         return isInsideValidArea(usageScope, key, argTestObject.getComplexObjects(), testObjectGeometryAttribute);

@@ -150,15 +150,21 @@ public abstract class BaseIsInsideFunction extends BaseInterlisFunction {
     }
 
     protected static final class ValidAreaKey {
+        private final String dataSource;
         private final String datasetName;
         private final String[] transferIds;
 
-        ValidAreaKey(String datasetName, String transferIds) {
+        ValidAreaKey(String dataSource, String datasetName, String transferIds) {
+            this.dataSource = dataSource;
             this.datasetName = datasetName;
 
             String[] splitTransferIds = transferIds.split("\\s*,\\s*");
             Arrays.sort(splitTransferIds);
             this.transferIds = splitTransferIds;
+        }
+
+        public String getDataSource() {
+            return dataSource;
         }
 
         public String getDatasetName() {
@@ -178,12 +184,12 @@ public abstract class BaseIsInsideFunction extends BaseInterlisFunction {
                 return false;
             }
             ValidAreaKey that = (ValidAreaKey) o;
-            return Objects.equals(datasetName, that.datasetName) && Arrays.equals(transferIds, that.transferIds);
+            return Objects.equals(dataSource, that.dataSource) && Objects.equals(datasetName, that.datasetName) && Arrays.equals(transferIds, that.transferIds);
         }
 
         @Override
         public int hashCode() {
-            int result = Objects.hash(datasetName);
+            int result = Objects.hash(dataSource, datasetName);
             result = 31 * result + Arrays.hashCode(transferIds);
             return result;
         }
