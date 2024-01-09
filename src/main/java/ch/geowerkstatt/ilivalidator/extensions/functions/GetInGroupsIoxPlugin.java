@@ -30,6 +30,10 @@ public final class GetInGroupsIoxPlugin extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
+        if (inputObjects.isEmpty()) {
+            return new Value(Collections.emptyList());
+        }
+
         Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
         if (contextClass == null) {
             throw new IllegalStateException("unknown class in " + usageScope);
