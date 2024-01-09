@@ -58,6 +58,45 @@
                     </geom:multisurface>
                 </TestSuite:testAttributeKantonsgrenze>
             </TestSuite:IsInsideKantonsgrenze>
+            <TestSuite:IsInsideKantonsgrenze ili:tid="3"> <!-- Erwartet: 2D-Punkt: liegt ausserhalb, c1 der Fläche verschoben -->
+                <TestSuite:expected>false</TestSuite:expected>
+                <TestSuite:testAttributeIsInsideKantonsgrenze>
+                    <geom:coord>
+                        <geom:c1>2620570.500</geom:c1>
+                        <geom:c2>1237151.400</geom:c2>
+                    </geom:coord>
+                </TestSuite:testAttributeIsInsideKantonsgrenze>
+                <TestSuite:testAttributeKantonsgrenze>
+                    <geom:multisurface>
+                        <geom:surface>
+                            <geom:exterior>
+                                <geom:polyline>
+                                    <geom:coord>
+                                        <geom:c1>2691994.000</geom:c1>
+                                        <geom:c2>1262353.000</geom:c2>
+                                    </geom:coord>
+                                    <geom:coord>
+                                        <geom:c1>2745900.000</geom:c1>
+                                        <geom:c2>1262353.000</geom:c2>
+                                    </geom:coord>
+                                    <geom:coord>
+                                        <geom:c1>2745900.000</geom:c1>
+                                        <geom:c2>1211927.000</geom:c2>
+                                    </geom:coord>
+                                    <geom:coord>
+                                        <geom:c1>2691994.000</geom:c1>
+                                        <geom:c2>1211927.000</geom:c2>
+                                    </geom:coord>
+                                    <geom:coord>
+                                        <geom:c1>2691994.000</geom:c1>
+                                        <geom:c2>1262353.000</geom:c2>
+                                    </geom:coord>
+                                </geom:polyline>
+                            </geom:exterior>
+                        </geom:surface>
+                    </geom:multisurface>
+                </TestSuite:testAttributeKantonsgrenze>
+            </TestSuite:IsInsideKantonsgrenze>
         </TestSuite:FunctionTestTopic>
     </ili:datasection>
 </ili:transfer>
