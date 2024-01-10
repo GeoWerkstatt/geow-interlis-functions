@@ -9,9 +9,12 @@ import com.vividsolutions.jts.geom.Polygon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class IsInsideExternalDatasetResourceIoxPlugin extends BaseIsInsideFunction {
+    private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
     private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalDatasetResource";
 
     @Override
@@ -37,11 +40,16 @@ public final class IsInsideExternalDatasetResourceIoxPlugin extends BaseIsInside
         ValidAreaKey key = new ValidAreaKey(transferFile, datasetName, transferIds);
         String testObjectGeometryAttribute = argTestObjectgeometry.getValue();
 
-        return isInsideValidArea(usageScope, key, argTestObject.getComplexObjects(), testObjectGeometryAttribute);
+        return isInsideValidArea(usageScope, argTestObject.getComplexObjects(), testObjectGeometryAttribute, () -> VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea));
     }
 
-    @Override
-    protected Geometry getValidArea(ValidAreaKey key) {
+    /**
+     * Retrieve the geometries from referenced data according to the specified key.
+     *
+     * @param key The key that specifies which geometries to retrieve.
+     * @return The union of all found geometries.
+     */
+    private Geometry getValidArea(ValidAreaKey key) {
         String transferFile = key.getDataSource();
         String datasetName = key.getDatasetName();
         int lastPoint = datasetName.lastIndexOf('.');

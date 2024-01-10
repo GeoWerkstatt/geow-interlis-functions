@@ -17,28 +17,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class BaseIsInsideFunction extends BaseInterlisFunction {
-    private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
-
-    /**
-     * Retrieve the geometries from referenced data according to the specified key.
-     *
-     * @param key The key that specifies which geometries to retrieve.
-     * @return The union of all found geometries.
-     */
-    protected abstract Geometry getValidArea(ValidAreaKey key);
-
-    protected final Value isInsideValidArea(String usageScope, ValidAreaKey key, Collection<IomObject> testObjects, String geometryAttribute) {
+    protected final Value isInsideValidArea(String usageScope, Collection<IomObject> testObjects, String geometryAttribute, Supplier<Geometry> validAreaSupplier) {
         try {
-            Geometry validArea = VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea);
+            Geometry validArea = validAreaSupplier.get();
 
             if (validArea == null) {
                 return Value.createUndefined();
@@ -73,6 +62,10 @@ public abstract class BaseIsInsideFunction extends BaseInterlisFunction {
             logger.addEvent(logger.logWarningMsg("{0}: {1}, {2}", this.getQualifiedIliName(), e.getClass().getSimpleName(), e.getLocalizedMessage()));
             return null;
         }
+    }
+
+    protected final void writeLogErrorMessage(String usageScope, String message) {
+        logger.addEvent(logger.logErrorMsg("{0}: Unable to evaluate {1}. {2}", usageScope, this.getQualifiedIliName(), message));
     }
 
     /**
