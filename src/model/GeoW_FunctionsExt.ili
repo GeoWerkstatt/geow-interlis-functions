@@ -57,4 +57,10 @@ MODEL GeoW_FunctionsExt
     !!@ fn.return = "TRUE, wenn sich zwei Linien überlappen oder zwischen zwei Linien eine gemeinsame Teilstrecke vorhanden ist";
     !!@ fn.since = "2023-12-18";
     FUNCTION PolylinesOverlap (Objects: OBJECTS OF ANYCLASS; LineAttr: TEXT): BOOLEAN;
+
+    !!@ fn.description = "Sucht im aktuellen Transfer nach Objekten der angegebenen Klasse, welche das Filterkriterium erfüllen. Für 'FilterAttr' soll der Pfad zum Attribut in INTERLIS 2 Syntax angegeben werden. Für 'FilterValue' kann ein beliebiger Wert angegeben werden.";
+    !!@ fn.param = "ClassName: Qualifizierter Klassenname (inklusive Modell und Topic) der Objekte, die gesucht werden. FilterAttr: Pfad zum Attribut, welches für den Filter verwendet werden soll. FilterValue: Wert für das Filterkriterium";
+    !!@ fn.return = "Alle Objekte der angegebenen Klasse aus dem aktuellen Transfer, welche das Filterkriterium erfüllen";
+    !!@ fn.since = "2024-01-10";
+    FUNCTION FindObjects(ClassName: TEXT; FilterAttr: TEXT; FilterValue: ANYSTRUCTURE): BAG OF ANYSTRUCTURE;
 END GeoW_FunctionsExt.
