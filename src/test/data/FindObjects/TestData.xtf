@@ -35,7 +35,7 @@
             <TestSuite:ReferencedClass ili:tid="5">
                 <TestSuite:textAttr>bbb</TestSuite:textAttr>
                 <TestSuite:enumAttr>val1</TestSuite:enumAttr>
-                <TestSuite:numberAttr>1</TestSuite:numberAttr>
+                <TestSuite:numberAttr>3</TestSuite:numberAttr>
             </TestSuite:ReferencedClass>
         </TestSuite:FunctionTestTopic>
     </ili:datasection>
