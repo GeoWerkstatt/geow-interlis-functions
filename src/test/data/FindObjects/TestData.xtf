@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:geom="http://www.interlis.ch/geometry/1.0"
+              xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+    <ili:headersection>
+        <ili:models>
+            <ili:model>GeoW_FunctionsExt</ili:model>
+            <ili:model>TestSuite</ili:model>
+        </ili:models>
+        <ili:sender>ili2gpkg-4.6.1-63db90def1260a503f0f2d4cb846686cd4851184</ili:sender>
+    </ili:headersection>
+    <ili:datasection>
+        <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
+            <TestSuite:BaseClass ili:tid="base">
+            </TestSuite:BaseClass>
+            <TestSuite:ReferencedClass ili:tid="1">
+                <TestSuite:textAttr>Some Value</TestSuite:textAttr>
+                <TestSuite:enumAttr>val2</TestSuite:enumAttr>
+                <TestSuite:numberAttr>2</TestSuite:numberAttr>
+            </TestSuite:ReferencedClass>
+            <TestSuite:ReferencedClass ili:tid="2">
+                <TestSuite:textAttr>aaa</TestSuite:textAttr>
+                <TestSuite:enumAttr>val2</TestSuite:enumAttr>
+                <TestSuite:numberAttr>2</TestSuite:numberAttr>
+            </TestSuite:ReferencedClass>
+            <TestSuite:ReferencedClass ili:tid="3">
+                <TestSuite:textAttr>aaa</TestSuite:textAttr>
+                <TestSuite:enumAttr>val2</TestSuite:enumAttr>
+                <TestSuite:numberAttr>2</TestSuite:numberAttr>
+            </TestSuite:ReferencedClass>
+            <TestSuite:ReferencedClass ili:tid="4">
+                <TestSuite:textAttr>Some Value</TestSuite:textAttr>
+                <TestSuite:enumAttr>val3</TestSuite:enumAttr>
+                <TestSuite:numberAttr>1</TestSuite:numberAttr>
+            </TestSuite:ReferencedClass>
+            <TestSuite:ReferencedClass ili:tid="5">
+                <TestSuite:textAttr>bbb</TestSuite:textAttr>
+                <TestSuite:enumAttr>val1</TestSuite:enumAttr>
+                <TestSuite:numberAttr>3</TestSuite:numberAttr>
+            </TestSuite:ReferencedClass>
+        </TestSuite:FunctionTestTopic>
+    </ili:datasection>
+</ili:transfer>
