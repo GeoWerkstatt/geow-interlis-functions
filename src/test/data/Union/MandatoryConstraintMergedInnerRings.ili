@@ -22,7 +22,7 @@ MODEL TestSuite
 
       !! Surfaces evaluated as union (inner rings overlap in test data)
       MANDATORY CONSTRAINT innerRingsUnion:
-        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute), UNDEFINED) == 1;
+        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS, "surfaceAttribute"), UNDEFINED) == 1;
 
     END BaseClass;
 
