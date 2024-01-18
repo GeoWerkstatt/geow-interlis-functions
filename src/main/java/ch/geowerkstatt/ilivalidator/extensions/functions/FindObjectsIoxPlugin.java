@@ -1,7 +1,6 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.ehi.iox.objpool.impl.ObjPoolImpl2;
-import ch.interlis.ili2c.metamodel.Element;
 import ch.interlis.ili2c.metamodel.PathEl;
 import ch.interlis.ili2c.metamodel.TextType;
 import ch.interlis.ili2c.metamodel.Viewable;
@@ -27,32 +26,31 @@ public final class FindObjectsIoxPlugin extends BaseInterlisFunction {
 
     @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
-        Value argClassName = arguments[0];
+        Value argObjectClass = arguments[0];
         Value argPath = arguments[1];
         Value argValue = arguments[2];
 
-        if (argClassName.isUndefined() || argPath.isUndefined()) {
+        if (argObjectClass.isUndefined() || argPath.isUndefined()) {
             return Value.createSkipEvaluation();
         }
 
-        String className = argClassName.getValue();
+        Viewable<?> objectClass = argObjectClass.getViewable();
         String attributePath = argPath.getValue();
-        if (className == null || attributePath == null) {
+        if (attributePath == null) {
             return Value.createUndefined();
         }
+        if (objectClass == null) {
+            throw new IllegalStateException("Failed to find objects: Invalid class reference in " + usageScope);
+        }
 
-        FindObjectsKey key = new FindObjectsKey(className, attributePath, argValue);
+        FindObjectsKey key = new FindObjectsKey(objectClass, attributePath, argValue);
         return new Value(OBJECTS_CACHE.computeIfAbsent(key, this::findObjects));
     }
 
     private List<IomObject> findObjects(FindObjectsKey key) {
-        Element classElement = td.getElement(key.className);
-        if (!(classElement instanceof Viewable)) {
-            throw new IllegalStateException("Could not find class \"" + key.className + "\"");
-        }
-        PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, (Viewable) classElement, new Value(new TextType(), key.attributePath));
+        PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, (Viewable) key.objectClass, new Value(new TextType(), key.attributePath));
 
-        List<IomObject> objects = findObjectsOfClass(key.className);
+        List<IomObject> objects = findObjectsOfClass(key.objectClass);
         return objects.stream()
                 .filter(object -> {
                     Value value = validator.getValueFromObjectPath(null, object, attributePath, null);
@@ -61,7 +59,8 @@ public final class FindObjectsIoxPlugin extends BaseInterlisFunction {
                 .collect(Collectors.toList());
     }
 
-    private List<IomObject> findObjectsOfClass(String className) {
+    private List<IomObject> findObjectsOfClass(Viewable<?> objectClass) {
+        String className = objectClass.getScopedName();
         List<IomObject> objects = new ArrayList<>();
         for (String basketId : objectPool.getBasketIds()) {
             ObjPoolImpl2<ObjectPoolKey, IomObject> basketObjectPool = objectPool.getObjectsOfBasketId(basketId);
@@ -77,12 +76,12 @@ public final class FindObjectsIoxPlugin extends BaseInterlisFunction {
     }
 
     private static final class FindObjectsKey {
-        private final String className;
+        private final Viewable<?> objectClass;
         private final String attributePath;
         private final Value value;
 
-        FindObjectsKey(String className, String attributePath, Value value) {
-            this.className = className;
+        FindObjectsKey(Viewable<?> objectClass, String attributePath, Value value) {
+            this.objectClass = objectClass;
             this.attributePath = attributePath;
             this.value = value;
         }
@@ -96,14 +95,14 @@ public final class FindObjectsIoxPlugin extends BaseInterlisFunction {
                 return false;
             }
             FindObjectsKey that = (FindObjectsKey) o;
-            return className.equals(that.className)
+            return objectClass.getScopedName().equals(that.objectClass.getScopedName())
                     && attributePath.equals(that.attributePath)
                     && value.compareTo(that.value) == 0;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(className, attributePath, value.getValue());
+            return Objects.hash(objectClass.getScopedName(), attributePath, value.getValue());
         }
     }
 }
