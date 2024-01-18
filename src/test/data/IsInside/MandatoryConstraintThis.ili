@@ -19,13 +19,14 @@ MODEL TestSuite
     CLASS IsInsideKantonsgrenze EXTENDS ConstraintTestClass =
         testAttributeIsInsideKantonsgrenze : CHKoord;
         testAttributeKantonsgrenze : CHMultiArea;
-        MANDATORY CONSTRAINT IsInsideKantonsgrenze: GeoW_FunctionsExt.IsInside(THIS->testAttributeKantonsgrenze, THIS, "testAttributeIsInsideKantonsgrenze") == expected;
+        MANDATORY CONSTRAINT IsInsideKantonsgrenzePath: GeoW_FunctionsExt.IsInside(THIS, "testAttributeKantonsgrenze", THIS, "testAttributeIsInsideKantonsgrenze") == expected;
+        MANDATORY CONSTRAINT IsInsideKantonsgrenzeUndefinedPath: GeoW_FunctionsExt.IsInside(THIS->testAttributeKantonsgrenze, UNDEFINED, THIS->testAttributeIsInsideKantonsgrenze, UNDEFINED) == expected;
     END IsInsideKantonsgrenze;
 
     CLASS InvalidConstraints =
         geometryAttribute : CHKoord;
         area : CHMultiArea;
-        MANDATORY CONSTRAINT IsInsideMissingArea: GeoW_FunctionsExt.IsInside(THIS->area, THIS, "geometryAttribute");
+        MANDATORY CONSTRAINT IsInsideMissingArea: GeoW_FunctionsExt.IsInside(THIS->area, UNDEFINED, THIS, "geometryAttribute");
     END InvalidConstraints;
 
   END FunctionTestTopic;

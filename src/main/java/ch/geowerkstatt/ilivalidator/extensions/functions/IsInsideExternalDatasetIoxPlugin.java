@@ -41,16 +41,15 @@ public final class IsInsideExternalDatasetIoxPlugin extends BaseIsInsideFunction
         Value argTestObject = arguments[2]; // OBJECT OF ANYCLASS
         Value argTestObjectgeometry = arguments[3]; // TEXT
 
-        if (argDatasetName.isUndefined() || argObjects.isUndefined() || argTestObject.isUndefined() || argTestObjectgeometry.isUndefined()) {
+        if (argDatasetName.isUndefined() || argObjects.isUndefined() || argTestObject.isUndefined()) {
             return Value.createSkipEvaluation();
         }
 
         String transferIds = argObjects.getValue();
         String datasetName = argDatasetName.getValue();
         ValidAreaKey key = new ValidAreaKey(null, datasetName, transferIds);
-        String testObjectGeometryAttribute = argTestObjectgeometry.getValue();
 
-        return isInsideValidArea(usageScope, argTestObject.getComplexObjects(), testObjectGeometryAttribute, () -> VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea));
+        return isInsideValidArea(usageScope, argTestObject, argTestObjectgeometry, () -> VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea));
     }
 
     /**
