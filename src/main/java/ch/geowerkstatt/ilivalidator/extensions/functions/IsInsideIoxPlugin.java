@@ -22,19 +22,20 @@ public final class IsInsideIoxPlugin extends BaseIsInsideFunction {
 
     @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject mainObj, Value[] arguments) {
-        Value argReferenceGeometry = arguments[0]; // MULTIAREA
-        Value argTestObject = arguments[1]; // OBJECT OF ANYCLASS
-        Value argTestObjectgeometry = arguments[2]; // TEXT
+        Value argReferenceObject = arguments[0]; // ANYSTRUCTURE
+        Value argReferenceGeometryPath = arguments[1]; // TEXT
+        Value argTestObject = arguments[2]; // OBJECT OF ANYCLASS
+        Value argTestObjectgeometry = arguments[3]; // TEXT
 
         if (argTestObject.isUndefined() || argTestObjectgeometry.isUndefined()) {
             return Value.createSkipEvaluation();
         }
-        if (argReferenceGeometry.isUndefined()) {
+        if (argReferenceObject.isUndefined()) {
             writeLogErrorMessage(usageScope, "Missing reference geometry.");
             return Value.createUndefined();
         }
 
-        Collection<IomObject> referenceGeometryObjects = argReferenceGeometry.getComplexObjects();
+        Collection<IomObject> referenceGeometryObjects = EvaluationHelper.evaluateObjectPath(td, validator, argReferenceObject, argReferenceGeometryPath, mainObj, usageScope);
         if (referenceGeometryObjects.size() != 1) {
             writeLogErrorMessage(usageScope, "Expected exactly one reference geometry.");
             return Value.createUndefined();
