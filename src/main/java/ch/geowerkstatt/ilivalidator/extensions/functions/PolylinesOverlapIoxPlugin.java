@@ -1,7 +1,5 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
-import ch.interlis.ili2c.metamodel.PathEl;
-import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iom_j.itf.impl.jtsext.geom.CompoundCurve;
 import ch.interlis.iox.IoxException;
@@ -39,19 +37,7 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        Collection<IomObject> polylineObjects;
-
-        if (argPath.isUndefined()) {
-            polylineObjects = argObjects.getComplexObjects();
-        } else {
-            Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
-            if (contextClass == null) {
-                throw new IllegalStateException("unknown class in " + usageScope);
-            }
-
-            PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            polylineObjects = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
-        }
+        Collection<IomObject> polylineObjects = EvaluationHelper.evaluateObjectPath(td, validator, argObjects, argPath, contextObject, usageScope);
 
         Collection<IomObject> inputObjects = argObjects.getComplexObjects();
         List<String> objectIds = inputObjects.stream().map(IomObject::getobjectoid).collect(Collectors.toList());

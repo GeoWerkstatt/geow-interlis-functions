@@ -79,6 +79,24 @@ public final class EvaluationHelper {
     }
 
     /**
+     * Get the collection of {@link IomObject} inside {@code object} by following the provided {@code path} text.
+     * If the {@code path} is UNDEFINED, the direct collection of {@code object} is returned.
+     */
+    public static Collection<IomObject> evaluateObjectPath(TransferDescription td, Validator validator, Value object, Value path, IomObject contextObject, String usageScope) {
+        if (path.isUndefined()) {
+            return object.getComplexObjects();
+        } else {
+            Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, object);
+            if (contextClass == null) {
+                throw new IllegalStateException("unknown class in " + usageScope);
+            }
+
+            PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, path);
+            return EvaluationHelper.evaluateAttributes(validator, object, attributePath);
+        }
+    }
+
+    /**
      * Applies the given function to each item in the collection and sums up the results.
      */
     public static Double sum(Collection<IomObject> items, Function<IomObject, Double> func) {

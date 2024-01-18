@@ -41,9 +41,8 @@ public final class IsInsideIoxPlugin extends BaseIsInsideFunction {
         }
 
         IomObject referenceGeometry = referenceGeometryObjects.iterator().next();
-        String testObjectGeometryAttribute = argTestObjectgeometry.getValue();
 
-        return isInsideValidArea(usageScope, argTestObject.getComplexObjects(), testObjectGeometryAttribute, () -> VALID_AREA_CACHE.computeIfAbsent(referenceGeometry, this::getValidArea));
+        return isInsideValidArea(usageScope, argTestObject, argTestObjectgeometry, () -> VALID_AREA_CACHE.computeIfAbsent(referenceGeometry, this::getValidArea));
     }
 
     private Geometry getValidArea(IomObject referenceGeometry) {

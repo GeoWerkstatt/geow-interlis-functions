@@ -1,8 +1,6 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.ehi.basics.types.OutParam;
-import ch.interlis.ili2c.metamodel.PathEl;
-import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox_j.jts.Iox2jtsException;
@@ -38,19 +36,7 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
             return Value.createSkipEvaluation();
         }
 
-        Collection<IomObject> surfaces;
-        if (argPath.isUndefined()) {
-            surfaces = argObjects.getComplexObjects();
-        } else {
-            Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
-            if (contextClass == null) {
-                throw new IllegalStateException("unknown class in " + usageScope);
-            }
-
-            PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            surfaces = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
-        }
-
+        Collection<IomObject> surfaces = EvaluationHelper.evaluateObjectPath(td, validator, argObjects, argPath, contextObject, usageScope);
         if (surfaces == null) {
             return Value.createUndefined();
         }
