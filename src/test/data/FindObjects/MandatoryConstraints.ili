@@ -13,12 +13,12 @@ MODEL TestSuite
     END ReferencedClass;
 
     CLASS BaseClass =
-        MANDATORY CONSTRAINT trueConstraintTextAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("TestSuite.FunctionTestTopic.ReferencedClass", "textAttr", "Some Value")) == 2;
-        MANDATORY CONSTRAINT trueConstraintEnumAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("TestSuite.FunctionTestTopic.ReferencedClass", "enumAttr", #val2)) == 3;
-        MANDATORY CONSTRAINT trueConstraintNumberAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("TestSuite.FunctionTestTopic.ReferencedClass", "numberAttr", 3)) == 1;
-        MANDATORY CONSTRAINT falseConstraintTextAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("TestSuite.FunctionTestTopic.ReferencedClass", "textAttr", "Some Value")) == 0;
-        MANDATORY CONSTRAINT falseConstraintEnumAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("TestSuite.FunctionTestTopic.ReferencedClass", "enumAttr", #val2)) == 0;
-        MANDATORY CONSTRAINT falseConstraintNumberAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("TestSuite.FunctionTestTopic.ReferencedClass", "numberAttr", 3)) == 0;
+        MANDATORY CONSTRAINT trueConstraintTextAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects(>ReferencedClass, "textAttr", "Some Value")) == 2;
+        MANDATORY CONSTRAINT trueConstraintEnumAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects(>TestSuite.FunctionTestTopic.ReferencedClass, "enumAttr", #val2)) == 3;
+        MANDATORY CONSTRAINT trueConstraintNumberAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects(>TestSuite.FunctionTestTopic.ReferencedClass, "numberAttr", 3)) == 1;
+        MANDATORY CONSTRAINT falseConstraintTextAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects(>TestSuite.FunctionTestTopic.ReferencedClass, "textAttr", "Some Value")) == 0;
+        MANDATORY CONSTRAINT falseConstraintEnumAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects(>ReferencedClass, "enumAttr", #val2)) == 0;
+        MANDATORY CONSTRAINT falseConstraintNumberAttr: INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects(>ReferencedClass, "numberAttr", 3)) == 0;
     END BaseClass;
 
   END FunctionTestTopic;
