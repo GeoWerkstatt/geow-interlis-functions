@@ -22,12 +22,12 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class IsInsideExternalDatasetIoxPlugin extends BaseIsInsideFunction {
+public final class IsInsideExternalXtfIoxPlugin extends BaseIsInsideFunction {
     private static File dataDirectory;
     private static Map<String, Set<URL>> modelFilesFromDataDirectory;
     private static Map<String, Set<URL>> modelFilesFromJars;
     private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
-    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalDataset";
+    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalXtf";
 
     @Override
     public String getQualifiedIliName() {
@@ -113,7 +113,7 @@ public final class IsInsideExternalDatasetIoxPlugin extends BaseIsInsideFunction
      * @return A {@link File} representing the directory or {@code null}.
      */
     private File getDataDirectory() {
-        Class<IsInsideExternalDatasetIoxPlugin> pluginClass = IsInsideExternalDatasetIoxPlugin.class;
+        Class<IsInsideExternalXtfIoxPlugin> pluginClass = IsInsideExternalXtfIoxPlugin.class;
         URL resource = pluginClass.getResource(pluginClass.getSimpleName() + ".class");
         if (resource == null) {
             logger.addEvent(logger.logErrorMsg(MessageFormat.format("{0}: Could not resolve data directory, resource is null.", this.getQualifiedIliName())));
