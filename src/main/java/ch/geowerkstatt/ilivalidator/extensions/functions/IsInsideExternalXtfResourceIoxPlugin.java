@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class IsInsideExternalDatasetResourceIoxPlugin extends BaseIsInsideFunction {
+public final class IsInsideExternalXtfResourceIoxPlugin extends BaseIsInsideFunction {
     private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
-    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalDatasetResource";
+    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalXtfResource";
 
     @Override
     public String getQualifiedIliName() {
