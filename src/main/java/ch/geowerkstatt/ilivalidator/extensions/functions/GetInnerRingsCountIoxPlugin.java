@@ -1,7 +1,5 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
-import ch.interlis.ili2c.metamodel.PathEl;
-import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iox_j.validator.Value;
 
@@ -38,20 +36,7 @@ public final class GetInnerRingsCountIoxPlugin extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        Collection<IomObject> surfaces;
-
-        if (argPath.isUndefined()) {
-            surfaces = argObjects.getComplexObjects();
-        } else {
-            Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
-
-            if (contextClass == null) {
-                throw new IllegalStateException("unknown class in " + usageScope);
-            }
-
-            PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            surfaces = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
-        }
+        Collection<IomObject> surfaces = EvaluationHelper.evaluateObjectPath(td, validator, argObjects, argPath, contextObject, usageScope);
 
         int innerRingsCount = surfaces.stream().map(this::getInnerRingsCount).reduce(0, Integer::sum);
         return new Value(innerRingsCount);

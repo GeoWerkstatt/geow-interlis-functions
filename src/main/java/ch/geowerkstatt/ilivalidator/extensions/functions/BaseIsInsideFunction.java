@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class BaseIsInsideFunction extends BaseInterlisFunction {
-    protected final Value isInsideValidArea(String usageScope, Collection<IomObject> testObjects, String geometryAttribute, Supplier<Geometry> validAreaSupplier) {
+    protected final Value isInsideValidArea(String usageScope, Value testObjects, Value geometryAttribute, Supplier<Geometry> validAreaSupplier) {
         try {
             Geometry validArea = validAreaSupplier.get();
 
@@ -33,8 +33,9 @@ public abstract class BaseIsInsideFunction extends BaseInterlisFunction {
                 return Value.createUndefined();
             }
 
-            boolean allInsideValidArea = testObjects.stream()
-                    .flatMap(obj -> getAttributes(obj, geometryAttribute).stream())
+            Collection<IomObject> geometries = EvaluationHelper.evaluateObjectPath(td, validator, testObjects, geometryAttribute, null, usageScope);
+
+            boolean allInsideValidArea = geometries.stream()
                     .map(geometry -> logExceptionAsWarning(() -> geometry2JtsOrNull(geometry)))
                     .filter(Objects::nonNull)
                     .allMatch(validArea::contains);

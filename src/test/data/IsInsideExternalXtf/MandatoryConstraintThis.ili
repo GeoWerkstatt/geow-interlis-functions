@@ -1,0 +1,79 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2022-12-05" =
+  IMPORTS GeoW_FunctionsExt ;
+
+  DOMAIN
+      !!@CRS=EPSG:2056
+      CHKoord = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+      CHKoord3d = COORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      0.000 .. 5000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+      CHMultiKoord = MULTICOORD 2460000.000 .. 2870000.000 [INTERLIS.m],
+                      1045000.000 .. 1310000.000 [INTERLIS.m],
+                      ROTATION 2 -> 1;
+
+  TOPIC FunctionTestTopic =
+    CLASS ConstraintTestClass (ABSTRACT) =
+        expected : MANDATORY BOOLEAN;
+    END ConstraintTestClass;
+
+    CLASS Area EXTENDS ConstraintTestClass =
+        testAttributeArea : AREA WITH (STRAIGHTS) VERTEX CHKoord3d WITHOUT OVERLAPS > 0.001;
+        MANDATORY CONSTRAINT Area: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230, 9245, 9247, 9257", THIS, "testAttributeArea") == expected;
+    END Area;
+
+    CLASS Surface EXTENDS ConstraintTestClass =
+        testAttributeSurface : SURFACE WITH (STRAIGHTS) VERTEX CHKoord WITHOUT OVERLAPS > 0.001;
+        MANDATORY CONSTRAINT Surface: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeSurface") == expected;
+    END Surface;
+
+    CLASS MultiSurface EXTENDS ConstraintTestClass =
+        testAttributeMultiSurface : MULTISURFACE WITH (STRAIGHTS) VERTEX CHKoord3d WITHOUT OVERLAPS > 0.001;
+        MANDATORY CONSTRAINT MultiSurface: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiSurface") == expected;
+    END MultiSurface;
+
+    CLASS Polyline3d EXTENDS ConstraintTestClass =
+        testAttributePolyline3d : POLYLINE WITH (STRAIGHTS) VERTEX CHKoord3d;
+        MANDATORY CONSTRAINT Polyline3d: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributePolyline3d") == expected;
+    END Polyline3d;
+
+    CLASS MultiPolyline EXTENDS ConstraintTestClass =
+        testAttributeMultiPolyline : MULTIPOLYLINE WITH (STRAIGHTS) VERTEX CHKoord;
+        MANDATORY CONSTRAINT MultiPolyline: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiPolyline") == expected;
+    END MultiPolyline;
+
+    CLASS Point2d EXTENDS ConstraintTestClass =
+        testAttributePoint2d : CHKoord;
+        MANDATORY CONSTRAINT Point2D: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributePoint2d") == expected;
+    END Point2d;
+
+    CLASS Point3d EXTENDS ConstraintTestClass =
+        testAttributePoint3d : CHKoord3d;
+        MANDATORY CONSTRAINT Point3d: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributePoint3d") == expected;
+    END Point3d;
+
+    CLASS MultiCoord EXTENDS ConstraintTestClass =
+        testAttributeMultiCoord : CHMultiKoord;
+        MANDATORY CONSTRAINT MultiCoord: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiCoord") == expected;
+    END MultiCoord;
+
+    CLASS IsInsideCHBaseGeometrie EXTENDS ConstraintTestClass =
+        testAttributeIsInsideCHBaseGeometrie : CHKoord;
+        MANDATORY CONSTRAINT IsInsideCHBaseGeometrie: GeoW_FunctionsExt.IsInsideExternalXtf("SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze.Geometrie", "fubar", THIS, "testAttributeIsInsideCHBaseGeometrie") == expected;
+    END IsInsideCHBaseGeometrie;
+
+    CLASS InvalidConstraints =
+        geometryAttribute : CHKoord;
+        MANDATORY CONSTRAINT MalformedDatasetName: GeoW_FunctionsExt.IsInsideExternalXtf("DatasetNameWithoutQualifiedAttribute", "906645", THIS, "geometryAttribute");
+        MANDATORY CONSTRAINT NonExistentDatasetName: GeoW_FunctionsExt.IsInsideExternalXtf("DoesNotExist.AwesomeTopic.AwesomeClass.NondescriptAttribute", "788070", THIS, "geometryAttribute");
+        MANDATORY CONSTRAINT NonExistentTransferIds: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9999,100000000", THIS, "geometryAttribute");
+    END InvalidConstraints;
+
+  END FunctionTestTopic;
+
+END TestSuite.

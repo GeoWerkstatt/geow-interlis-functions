@@ -18,10 +18,10 @@ MODEL TestSuite
       surfaceAttribute : BAG OF Surface;
 
       MANDATORY CONSTRAINT falseConstraint:
-        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute), UNDEFINED) > 3;
+        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute, UNDEFINED), UNDEFINED) > 3;
 
       MANDATORY CONSTRAINT oneInnerRingConstraint:
-        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute), UNDEFINED) == 1;
+        GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute, UNDEFINED), UNDEFINED) == 1;
 
     END BaseClass;
 

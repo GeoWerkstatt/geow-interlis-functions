@@ -1,7 +1,5 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
-import ch.interlis.ili2c.metamodel.PathEl;
-import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox_j.jts.Iox2jtsext;
@@ -38,20 +36,7 @@ public final class GetLengthIoxPlugin extends BaseInterlisFunction {
             return Value.createUndefined();
         }
 
-        Collection<IomObject> polylines;
-
-        if (argPath.isUndefined()) {
-            polylines = argObjects.getComplexObjects();
-        } else {
-            Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, argObjects);
-
-            if (contextClass == null) {
-                throw new IllegalStateException("unknown class in " + usageScope);
-            }
-
-            PathEl[] attributePath = EvaluationHelper.getAttributePathEl(validator, contextClass, argPath);
-            polylines = EvaluationHelper.evaluateAttributes(validator, argObjects, attributePath);
-        }
+        Collection<IomObject> polylines = EvaluationHelper.evaluateObjectPath(td, validator, argObjects, argPath, contextObject, usageScope);
 
         double lengthSum = EvaluationHelper.sum(polylines, this::getLength);
         return new Value(lengthSum);

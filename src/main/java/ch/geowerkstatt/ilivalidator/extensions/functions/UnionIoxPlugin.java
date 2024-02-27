@@ -29,13 +29,14 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
 
     @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] actualArguments) {
-        Value argGeometries = actualArguments[0];
+        Value argObjects = actualArguments[0];
+        Value argPath = actualArguments[1];
 
-        if (argGeometries.isUndefined()) {
+        if (argObjects.isUndefined()) {
             return Value.createSkipEvaluation();
         }
 
-        Collection<IomObject> surfaces = argGeometries.getComplexObjects();
+        Collection<IomObject> surfaces = EvaluationHelper.evaluateObjectPath(td, validator, argObjects, argPath, contextObject, usageScope);
         if (surfaces == null) {
             return Value.createUndefined();
         }

@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class IsInsideExternalDatasetResourceIoxPlugin extends BaseIsInsideFunction {
+public final class IsInsideExternalXtfResourceIoxPlugin extends BaseIsInsideFunction {
     private static final Map<ValidAreaKey, Geometry> VALID_AREA_CACHE = new HashMap<>();
-    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalDatasetResource";
+    private static final String QUALIFIED_ILI_NAME = "GeoW_FunctionsExt.IsInsideExternalXtfResource";
 
     @Override
     public String getQualifiedIliName() {
@@ -30,7 +30,7 @@ public final class IsInsideExternalDatasetResourceIoxPlugin extends BaseIsInside
         Value argTestObject = arguments[3]; // OBJECT OF ANYCLASS
         Value argTestObjectgeometry = arguments[4]; // TEXT
 
-        if (argTransferFile.isUndefined() || argDatasetName.isUndefined() || argObjects.isUndefined() || argTestObject.isUndefined() || argTestObjectgeometry.isUndefined()) {
+        if (argTransferFile.isUndefined() || argDatasetName.isUndefined() || argObjects.isUndefined() || argTestObject.isUndefined()) {
             return Value.createSkipEvaluation();
         }
 
@@ -38,9 +38,8 @@ public final class IsInsideExternalDatasetResourceIoxPlugin extends BaseIsInside
         String transferIds = argObjects.getValue();
         String datasetName = argDatasetName.getValue();
         ValidAreaKey key = new ValidAreaKey(transferFile, datasetName, transferIds);
-        String testObjectGeometryAttribute = argTestObjectgeometry.getValue();
 
-        return isInsideValidArea(usageScope, argTestObject.getComplexObjects(), testObjectGeometryAttribute, () -> VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea));
+        return isInsideValidArea(usageScope, argTestObject, argTestObjectgeometry, () -> VALID_AREA_CACHE.computeIfAbsent(key, this::getValidArea));
     }
 
     /**
