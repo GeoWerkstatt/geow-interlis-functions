@@ -56,9 +56,9 @@ MODEL GeoW_FunctionsExt
     FUNCTION IsInsideExternalXtfResource (TransferFile: TEXT; DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
 
     !!@ fn.description = "Prüft, ob ein Objekt innerhalb der Geometrie eines anderen Objektes liegt.";
-    !!@ fn.param = "ReferenceGeometry: Referenzgeometrie, innerhalb welcher das TestObject liegen muss";"
-    !!@ fn.param = "ReferenceGeometryAttr: Geometriefeld, bezogen auf das unter ReferenceGeometry übergebene Objekt"
-    !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist."
+    !!@ fn.param = "ReferenceGeometry: Referenzgeometrie, innerhalb welcher das TestObject liegen muss";
+    !!@ fn.param = "ReferenceGeometryAttr: Geometriefeld, bezogen auf das unter ReferenceGeometry übergebene Objekt";
+    !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist.";
     !!@ fn.param = "TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2023-12-21";
