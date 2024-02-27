@@ -1,6 +1,6 @@
 INTERLIS 2.4;
 MODEL GeoW_FunctionsExt
-  AT "mailto:info@geowerkstatt.ch" VERSION "2022-12-02" =
+  AT "mailto:info@geowerkstatt.ch" VERSION "2024-02-26" =
     /**
     * Geometrie-Funktionen
     */
@@ -31,7 +31,6 @@ MODEL GeoW_FunctionsExt
     !!@ fn.description = "Gruppiert die Eingabemenge gemäss dem übergebenen Attribut-Kriterium / -Pfad und gibt die Objekte der Eingabemenge als gruppierte Menge zurück. Für 'Attr' soll der Pfad zum klassierenden Attribut in INTERLIS 2 Syntax angegeben werden.";
     !!@ fn.param = "Objects: Ausgangsobjekte.";
     !!@ fn.param = "Attr: Pfad zum Attribut welches die Klassierung bestimmen soll";
-    !!@ nf.sample = "SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 3;";
     !!@ fn.return = "Zugehörige Gruppe gemäss Attr des aktuellen Kontextobjekt";
     !!@ fn.since = "2022-12-02";
     !!sample = "SET CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 3;";
