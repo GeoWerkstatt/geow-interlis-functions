@@ -40,7 +40,8 @@ CONTRACTED MODEL GeoW_FunctionsExt
     !!@ fn.description = "Prüft, ob ein Objekt innerhalb einer gegebenen Testgeometrie liegt, welche aus einem externen Datensatz stammt. Der externe Datensatz muss sich in einer INTERLIS 2.3 Transferdatei befinden, die entweder im selben Ordner wie die GeoW_FunctionsExt JAR liegt oder sich in einem JAR befinden, das über den Java Classpath erreichbar ist.";
     !!@ fn.param = "DatasetName: Qualifizierter Name des Attributes aus dem Transfermodell, in welchem die Objekte zur Prüfung bereitliegen.";
     !!@ fn.param = "Objects: Objekt(e), über die TID identifiziert, welche zur Prüfung beigezogen werden.";
-    !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist. TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
+    !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist.";
+    !!@ fn.param = "TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2022-12-05";
     !!sample = "MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiCoord");";
@@ -50,7 +51,8 @@ CONTRACTED MODEL GeoW_FunctionsExt
     !!@ fn.param = "TransferFile: Qualifizierter Name der Transferdatei-Ressource.";
     !!@ fn.param = "DatasetName: Qualifizierter Name des Attributes aus dem Transfermodell, in welchem die Objekte zur Prüfung bereitliegen.";
     !!@ fn.param = "Objects: Objekt(e), über die TID identifiziert, welche zur Prüfung beigezogen werden.";
-    !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist. TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
+    !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist.";
+    !!@ fn.param = "TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2023-12-20";
     !!sample = "MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalXtfResource("IsInsideExternalDatasetResource/ch.so.agi.av.hoheitsgrenzen_excerpt.xtf", "SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze.Geometrie", "fubar", THIS, "testAttributeIsInsideCHBaseGeometrie")";"
@@ -67,7 +69,8 @@ CONTRACTED MODEL GeoW_FunctionsExt
     FUNCTION IsInside (ReferenceObject: ANYSTRUCTURE; ReferenceGeometryAttr: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
 
     !!@ fn.description = "Fasst die Flächen-Geometrien aus der Eingabemenge zu einer Flächen-Geometrie zusammen. Für 'Geometries' können nur Geometrien angegeben werden.";
-    !!@ fn.param = "Geometries: Geometrien, die zusammengefasst werden sollen";
+    !!@ fn.param = "Objects: Objekte, deren Geometrien zusammengefasst werden sollen.";
+    !!@ fn.param = "GeometryAttr: Pfad zum Geometrieattribut oder UNDEFINED";
     !!@ fn.return = "Zusammengefasste Flächen-Geometrie";
     !!@ fn.since = "2023-12-13";
     !!sample = "MANDATORY CONSTRAINT GeoW_FunctionsExt.GetInnerRingsCount(GeoW_FunctionsExt.Union(THIS->surfaceAttribute), UNDEFINED) > 3;";
