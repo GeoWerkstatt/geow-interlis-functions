@@ -1,6 +1,6 @@
 INTERLIS 2.3;
 CONTRACTED MODEL GeoW_FunctionsExt
-  AT "mailto:info@geowerkstatt.ch" VERSION "2024-01-12" =
+  AT "mailto:info@geowerkstatt.ch" VERSION "2024-02-26" =
     IMPORTS GeometryCHLV95_V1;
     /**
     * Geometrie-Funktionen
@@ -44,8 +44,8 @@ CONTRACTED MODEL GeoW_FunctionsExt
     !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist. TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2022-12-05";
-    !!sample = "MANDATORY CONSTRAINT MultiCoord: GeoW_FunctionsExt.IsInsideExternalDataset("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiCoord");";
-    FUNCTION IsInsideExternalDataset (DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
+    !!sample = "MANDATORY CONSTRAINT MultiCoord: GeoW_FunctionsExt.IsInsideExternalXtf("swissBOUNDARIES3D_ili2_LV95_V1_3.TLM_GRENZEN.TLM_KANTONSGEBIET.Shape", "9230,9245,9247,9257", THIS, "testAttributeMultiCoord");";
+    FUNCTION IsInsideExternalXtf (DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
 
     !!@ fn.description = "Prüft, ob ein Objekt innerhalb einer gegebenen Testgeometrie liegt, welche aus einem externen Datensatz innerhalb der Ressourcen stammt. Der externe Datensatz muss sich in einer INTERLIS 2.3 Transferdatei befinden, die über den angegebenen Pfad als Ressource erreichbar ist.";
     !!@ fn.param = "TransferFile: Qualifizierter Name der Transferdatei-Ressource.";
@@ -54,8 +54,8 @@ CONTRACTED MODEL GeoW_FunctionsExt
     !!@ fn.param = "TestObject: Objekt, welches zu prüfen ist. TestObjectgeometry: Geometriefeld, bezogen auf das unter Testobject übergebene Objekt";
     !!@ fn.return = "Boolean";
     !!@ fn.since = "2023-12-20";
-    !!sample = "MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalDatasetResource("IsInsideExternalDatasetResource/ch.so.agi.av.hoheitsgrenzen_excerpt.xtf", "SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze.Geometrie", "fubar", THIS, "testAttributeIsInsideCHBaseGeometrie")";"
-    FUNCTION IsInsideExternalDatasetResource (TransferFile: TEXT; DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
+    !!sample = "MANDATORY CONSTRAINT GeoW_FunctionsExt.IsInsideExternalXtfResource("IsInsideExternalDatasetResource/ch.so.agi.av.hoheitsgrenzen_excerpt.xtf", "SO_Hoheitsgrenzen_Publikation_20170626.Hoheitsgrenzen.Kantonsgrenze.Geometrie", "fubar", THIS, "testAttributeIsInsideCHBaseGeometrie")";"
+    FUNCTION IsInsideExternalXtfResource (TransferFile: TEXT; DatasetName: TEXT; Objects: TEXT; TestObject: OBJECT OF ANYCLASS; TestObjectgeometry: TEXT): BOOLEAN;
 
     !!@ fn.description = "Prüft, ob ein Objekt innerhalb der Geometrie eines anderen Objektes liegt.";
     !!@ fn.param = "ReferenceGeometry: Referenzgeometrie, innerhalb welcher das TestObject liegen muss.";"
@@ -79,7 +79,6 @@ CONTRACTED MODEL GeoW_FunctionsExt
     !!@ fn.return = "TRUE, wenn sich zwei Linien überlappen oder zwischen zwei Linien eine gemeinsame Teilstrecke vorhanden ist";
     !!@ fn.since = "2023-12-18";
     !!sample = "SET CONSTRAINT WHERE type == #t3 : GeoW_FunctionsExt.PolylinesOverlap(ALL, "geometry");";
-    FUNCTION PolylinesOverlap 
     FUNCTION PolylinesOverlap (Objects: OBJECTS OF ANYCLASS; LineAttr: TEXT): BOOLEAN;
 
     !!@ fn.description = "Sucht im aktuellen Transfer nach Objekten der angegebenen Klasse, welche das Filterkriterium erfüllen. Für 'FilterAttr' soll der Pfad zum Attribut in INTERLIS 2 Syntax angegeben werden. Für 'FilterValue' kann ein beliebiger Wert angegeben werden.";
