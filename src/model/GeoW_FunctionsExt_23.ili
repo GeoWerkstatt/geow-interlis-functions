@@ -85,11 +85,11 @@ CONTRACTED MODEL GeoW_FunctionsExt
     FUNCTION PolylinesOverlap (Objects: OBJECTS OF ANYCLASS; LineAttr: TEXT): BOOLEAN;
 
     !!@ fn.description = "Sucht im aktuellen Transfer nach Objekten der angegebenen Klasse, welche das Filterkriterium erfüllen. Für 'FilterAttr' soll der Pfad zum Attribut in INTERLIS 2 Syntax angegeben werden. Für 'FilterValue' kann ein beliebiger Wert angegeben werden.";
-    !!@ fn.param = "ClassName: Qualifizierter Klassenname (inklusive Modell und Topic) der Objekte, die gesucht werden.";
+    !!@ fn.param = "ObjectClass: Klassenreferenz der Objekte, die gesucht werden.";
     !!@ fn.param = "FilterAttr: Pfad zum Attribut, welches für den Filter verwendet werden soll.";
     !!@ fn.param = "FilterValue: Wert für das Filterkriterium";
     !!@ fn.return = "Alle Objekte der angegebenen Klasse aus dem aktuellen Transfer, welche das Filterkriterium erfüllen";
     !!@ fn.since = "2024-01-10";
     !!sample = "MANDATORY CONSTRAINT INTERLIS.elementCount(GeoW_FunctionsExt.FindObjects("ZG_Nutzungsplanung_V1_1.TransferMetadaten.Amt", "Name", "Gemeinde Walchwil")) == 1";
-    FUNCTION FindObjects(ClassName: TEXT; FilterAttr: TEXT; FilterValue: ANYSTRUCTURE): BAG OF ANYSTRUCTURE;
+    FUNCTION FindObjects(ObjectClass: CLASS; FilterAttr: TEXT; FilterValue: ANYSTRUCTURE): BAG OF ANYSTRUCTURE;
 END GeoW_FunctionsExt.
