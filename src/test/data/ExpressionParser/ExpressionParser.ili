@@ -1,0 +1,14 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2024-04-03" =
+
+  TOPIC FunctionTestTopic =
+
+    CLASS TestClass =
+      enumAttr: (a, b, c);
+    END TestClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.
