@@ -1,0 +1,30 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2024-04-04" =
+  IMPORTS GeoW_FunctionsExt;
+
+  TOPIC FunctionTestTopic =
+
+    STRUCTURE ReferencedStruct =
+      textAttr: TEXT*16;
+      enumAttr: (val1,val2,val3);
+      numberAttr: 0..10;
+    END ReferencedStruct;
+
+    STRUCTURE ExtendedStruct EXTENDS ReferencedStruct =
+      newAttr: BOOLEAN;
+    END ExtendedStruct;
+
+    CLASS BaseClass =
+      references: BAG {1..*} OF ReferencedStruct;
+
+      MANDATORY CONSTRAINT trueConstraintEnumAttr: INTERLIS.elementCount(GeoW_FunctionsExt.Filter(THIS->references, "WHERE enumAttr == #val2;")) == 3;
+      MANDATORY CONSTRAINT trueConstraintNumberAttr: INTERLIS.elementCount(GeoW_FunctionsExt.Filter(references, "WHERE numberAttr >= 3 AND enumAttr != #val3;")) == 1;
+      MANDATORY CONSTRAINT falseConstraintEnumAttr: INTERLIS.elementCount(GeoW_FunctionsExt.Filter(references, "WHERE enumAttr == #val2;")) == 0;
+      MANDATORY CONSTRAINT falseConstraintNumberAttr: INTERLIS.elementCount(GeoW_FunctionsExt.Filter(THIS->references, "WHERE numberAttr == 3 AND enumAttr == #val3;")) > 0;
+    END BaseClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.
