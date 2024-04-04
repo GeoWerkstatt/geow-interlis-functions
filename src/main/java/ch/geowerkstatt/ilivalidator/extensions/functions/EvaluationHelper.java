@@ -14,7 +14,9 @@ import ch.interlis.iox_j.validator.Value;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public final class EvaluationHelper {
 
@@ -58,6 +60,46 @@ public final class EvaluationHelper {
                 return null;
             }
             return (Viewable) td.getElement(it.next().getobjecttag());
+        }
+        return null;
+    }
+
+    /**
+     * Get the common base class of the given {@code objects}.
+     *
+     * @param td the {@link TransferDescription} instance.
+     * @param objects the collection of {@link IomObject} to find the common base class of.
+     *
+     * @return the common base class of the given {@code objects} or {@code null} if no common base class could be found.
+     */
+    public static Viewable<?> getCommonBaseClass(TransferDescription td, Collection<IomObject> objects) {
+        if (objects.isEmpty()) {
+            return null;
+        }
+
+        Set<String> classNames = objects.stream()
+                .map(IomObject::getobjecttag)
+                .collect(Collectors.toSet());
+        Viewable<?> firstClass = (Viewable<?>) td.getElement(classNames.iterator().next());
+        if (classNames.size() == 1) {
+            return firstClass;
+        }
+
+        return classNames.stream()
+                .map(className -> (Viewable) td.getElement(className))
+                .reduce(firstClass, EvaluationHelper::getCommonBaseClass);
+    }
+
+    private static Viewable<?> getCommonBaseClass(Viewable<?> classA, Viewable<?> classB) {
+        if (classA == null || classB == null) {
+            return null;
+        }
+        Viewable<?> currentClass = classA;
+        while (currentClass != null) {
+            if (currentClass == classB || classB.isExtending(currentClass)) {
+                return currentClass;
+            }
+            currentClass = (Viewable<?>) currentClass.getExtending();
         }
         return null;
     }
