@@ -65,6 +65,9 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
                 .toArray(MultiPolygon[]::new);
 
         Geometry geometryCollection = new GeometryFactory().createGeometryCollection(polygons);
+
+        // Calculating unionGeometry with Geometry.union() in JTS 1.14.0 may cause unexpected Exception
+        // See: https://github.com/GeoWerkstatt/geow-interlis-functions/issues/49
         Geometry unionGeometry = geometryCollection.buffer(0);
 
         try {
