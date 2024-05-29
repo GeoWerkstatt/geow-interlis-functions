@@ -34,4 +34,10 @@ public final class UnionIoxPluginTest {
         AssertionHelper.assertNoConstraintError(vh, "innerRings");
         AssertionHelper.assertNoConstraintError(vh, "innerRingsUnion");
     }
+
+    @Test
+    void test() throws Exception {
+        vh.runValidation(new String[]{"Union/UnionTest.xtf"}, new String[]{"Union/UnionTest.ili"});
+        Assert.equals(0, vh.getErrs().size());
+    }
 }
