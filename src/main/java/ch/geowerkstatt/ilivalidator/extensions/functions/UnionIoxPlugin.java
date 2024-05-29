@@ -65,7 +65,7 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
                 .toArray(MultiPolygon[]::new);
 
         Geometry geometryCollection = new GeometryFactory().createGeometryCollection(polygons);
-        Geometry unionGeometry = geometryCollection.union();
+        Geometry unionGeometry = geometryCollection.buffer(0);
 
         try {
             if (unionGeometry instanceof Polygon) {
