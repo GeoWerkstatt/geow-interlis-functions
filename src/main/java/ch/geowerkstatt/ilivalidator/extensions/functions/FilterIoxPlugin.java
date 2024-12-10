@@ -20,6 +20,11 @@ public final class FilterIoxPlugin extends BaseInterlisFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        EXPRESSION_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
         Value argObjects = arguments[0];
         Value argFilter = arguments[1];

@@ -25,6 +25,11 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        HAS_EQUAL_LINE_PART_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
         Value argObjects = arguments[0];
         Value argPath = arguments[1];

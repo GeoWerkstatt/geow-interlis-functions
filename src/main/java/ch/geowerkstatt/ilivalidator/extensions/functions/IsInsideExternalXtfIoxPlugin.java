@@ -35,6 +35,11 @@ public final class IsInsideExternalXtfIoxPlugin extends BaseIsInsideFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        VALID_AREA_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject mainObj, Value[] arguments) {
         Value argDatasetName = arguments[0]; // TEXT
         Value argObjects = arguments[1]; // TEXT

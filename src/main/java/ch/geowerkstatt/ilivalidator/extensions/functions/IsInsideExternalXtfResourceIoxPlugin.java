@@ -23,6 +23,11 @@ public final class IsInsideExternalXtfResourceIoxPlugin extends BaseIsInsideFunc
     }
 
     @Override
+    protected void resetCaches() {
+        VALID_AREA_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject mainObj, Value[] arguments) {
         Value argTransferFile = arguments[0]; // TEXT
         Value argDatasetName = arguments[1]; // TEXT

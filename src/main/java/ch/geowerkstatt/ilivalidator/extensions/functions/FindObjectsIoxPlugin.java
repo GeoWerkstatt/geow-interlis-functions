@@ -25,6 +25,11 @@ public final class FindObjectsIoxPlugin extends BaseInterlisFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        OBJECTS_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
         Value argObjectClass = arguments[0];
         Value argPath = arguments[1];

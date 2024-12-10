@@ -17,6 +17,11 @@ public final class GetInGroupsIoxPlugin extends BaseInterlisFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        groups.clear();
+    }
+
+    @Override
     public Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
         Value argObjects = arguments[0];
         Value argPath = arguments[1];
