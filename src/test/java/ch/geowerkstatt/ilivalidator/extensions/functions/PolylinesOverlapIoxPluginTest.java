@@ -55,10 +55,10 @@ public final class PolylinesOverlapIoxPluginTest {
         vh.runValidation(new String[]{TEST_DATA_ONLY_T2}, new String[]{"PolylinesOverlap/PolylinesOverlap.ili"});
         assertEquals(3, vh.getErrs().size());
         AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintAllNoOverlaps");
-        AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT1");
+        AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT1"); // Error because no T1 objects
         AssertionHelper.assertNoConstraintError(vh, "setConstraintT2");
-        AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT3");
-        AssertionHelper.assertNoConstraintError(vh, "setConstraintT1or2"); // One line in T1 is a segment of T2
-        AssertionHelper.assertNoConstraintError(vh, "setConstraintT2or3"); // The lines in T2 and T3 are equal
+        AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT3"); // Error because no T3 objects
+        AssertionHelper.assertNoConstraintError(vh, "setConstraintT1or2"); // T2 has overlapping lines
+        AssertionHelper.assertNoConstraintError(vh, "setConstraintT2or3"); // T2 has overlapping lines
     }
 }
