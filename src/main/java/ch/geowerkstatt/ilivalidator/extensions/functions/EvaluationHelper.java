@@ -11,10 +11,7 @@ import ch.interlis.iom.IomObject;
 import ch.interlis.iox_j.validator.Validator;
 import ch.interlis.iox_j.validator.Value;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -48,6 +45,8 @@ public final class EvaluationHelper {
     /**
      * Get the {@link Viewable} (e.g. the class definition) from the {@link TransferDescription}.
      * If the {@code iomObject} is {@code null}, the {@code argObjects} is used to retrieve the {@link Viewable}.
+     *
+     * @return the {@link Viewable} instance or {@code null} if no {@link Viewable} could be found.
      */
     public static Viewable getContextClass(TransferDescription td, IomObject iomObject, Value argObjects) {
         if (iomObject != null) {
@@ -122,12 +121,17 @@ public final class EvaluationHelper {
 
     /**
      * Get the collection of {@link IomObject} inside {@code object} by following the provided {@code path} text.
-     * If the {@code path} is UNDEFINED, the direct collection of {@code object} is returned.
+     * If the {@code path} is {@link Value#isUndefined()}, the direct collection of {@code object} is returned.
+     * If {@code object} is empty, an empty collection is returned.
      */
     public static Collection<IomObject> evaluateObjectPath(TransferDescription td, Validator validator, Value object, Value path, IomObject contextObject, String usageScope) {
         if (path.isUndefined()) {
             return object.getComplexObjects();
         } else {
+            if (object.getComplexObjects().isEmpty()) {
+                return Collections.emptyList();
+            }
+
             Viewable contextClass = EvaluationHelper.getContextClass(td, contextObject, object);
             if (contextClass == null) {
                 throw new IllegalStateException("unknown class in " + usageScope);
