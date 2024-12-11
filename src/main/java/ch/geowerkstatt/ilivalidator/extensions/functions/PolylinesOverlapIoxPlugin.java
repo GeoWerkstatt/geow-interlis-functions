@@ -25,6 +25,11 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        HAS_EQUAL_LINE_PART_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] arguments) {
         Value argObjects = arguments[0];
         Value argPath = arguments[1];
@@ -50,6 +55,7 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
         HasEqualLinePartKey key = new HasEqualLinePartKey(objectIds, argPath.isUndefined() ? null : argPath.getValue());
 
         boolean hasOverlap = HAS_EQUAL_LINE_PART_CACHE.computeIfAbsent(key, k -> {
+            logger.addEvent(logger.logDetailInfoMsg("Calculating {0} for key {1}", getQualifiedIliName(), k.toString()));
             List<CompoundCurve> lines = convertToJTSLines(polylineObjects);
             return hasEqualLinePart(lines);
         });
@@ -126,6 +132,14 @@ public final class PolylinesOverlapIoxPlugin extends BaseInterlisFunction {
         @Override
         public int hashCode() {
             return Objects.hash(objectIds, attributeName);
+        }
+
+        @Override
+        public String toString() {
+            return "HasEqualLinePartKey{"
+                    + "objectIds=[" + String.join(", ", objectIds)
+                    + "], attributeName='" + attributeName + '\''
+                    + '}';
         }
     }
 }

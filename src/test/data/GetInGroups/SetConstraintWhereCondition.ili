@@ -1,0 +1,18 @@
+INTERLIS 2.4;
+
+MODEL TestSuite
+  AT "mailto:info@geowerkstatt.ch" VERSION "2024-01-09" =
+  IMPORTS GeoW_FunctionsExt;
+
+  TOPIC FunctionTestTopic =
+
+    CLASS BaseClass =
+        textAttr: TEXT*16;
+        type: (t1, t2);
+        SET CONSTRAINT onlyT1: WHERE type == #t1: INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 2;
+        SET CONSTRAINT onlyT2: WHERE type == #t2: INTERLIS.elementCount(GeoW_FunctionsExt.GetInGroups(ALL, "textAttr")) == 2;
+    END BaseClass;
+
+  END FunctionTestTopic;
+
+END TestSuite.

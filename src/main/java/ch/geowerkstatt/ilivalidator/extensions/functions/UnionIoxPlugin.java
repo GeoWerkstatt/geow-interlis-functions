@@ -28,6 +28,11 @@ public final class UnionIoxPlugin extends BaseInterlisFunction {
     }
 
     @Override
+    protected void resetCaches() {
+        UNION_SURFACE_CACHE.clear();
+    }
+
+    @Override
     protected Value evaluateInternal(String validationKind, String usageScope, IomObject contextObject, Value[] actualArguments) {
         Value argObjects = actualArguments[0];
         Value argPath = actualArguments[1];

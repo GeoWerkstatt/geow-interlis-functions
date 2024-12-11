@@ -2,9 +2,10 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.interlis.ili2c.Ili2cFailure;
 import ch.interlis.iox.IoxException;
-import com.vividsolutions.jts.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GetInnerringsCountIoxPluginTest {
 
@@ -20,7 +21,7 @@ class GetInnerringsCountIoxPluginTest {
     @Test
     void mandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetInnerRingsCount/MandatoryConstraintThis.ili"});
-        Assert.equals(5, vh.getErrs().size());
+        assertEquals(5, vh.getErrs().size());
 
         AssertionHelper.assertConstraintErrors(vh, 1, "1", "AreaInnerRingCount");
         AssertionHelper.assertConstraintErrors(vh, 1, "1", "SurfaceInnerRingCount");

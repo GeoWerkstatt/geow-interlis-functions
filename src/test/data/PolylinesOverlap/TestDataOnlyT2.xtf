@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:geom="http://www.interlis.ch/geometry/1.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:TestSuite="http://www.interlis.ch/xtf/2.4/TestSuite">
+    <ili:headersection>
+        <ili:models>
+            <ili:model>TestSuite</ili:model>
+        </ili:models>
+        <ili:sender>ili2gpkg-5.0.0-20f2bb62307ba6329a125fc6f10965ad9a4e6300</ili:sender>
+    </ili:headersection>
+    <ili:datasection>
+        <TestSuite:FunctionTestTopic ili:bid="TestSuite.FunctionTestTopic">
+            <TestSuite:TestClass ili:tid="1bf1e7c0-4f03-4823-a04b-106a6948cb7c">
+                <TestSuite:geometry>
+                    <geom:polyline>
+                        <geom:coord>
+                            <geom:c1>2645543.027</geom:c1>
+                            <geom:c2>1249774.761</geom:c2>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2645564.119</geom:c1>
+                            <geom:c2>1249788.217</geom:c2>
+                        </geom:coord>
+                    </geom:polyline>
+                </TestSuite:geometry>
+                <TestSuite:type>t2</TestSuite:type>
+            </TestSuite:TestClass>
+            <TestSuite:TestClass ili:tid="a9ee6314-d0bb-430c-834b-7c7ad60a9608">
+                <TestSuite:geometry>
+                    <geom:polyline>
+                        <geom:coord>
+                            <geom:c1>2645543.027</geom:c1>
+                            <geom:c2>1249774.761</geom:c2>
+                        </geom:coord>
+                        <geom:coord>
+                            <geom:c1>2645564.119</geom:c1>
+                            <geom:c2>1249788.217</geom:c2>
+                        </geom:coord>
+                    </geom:polyline>
+                </TestSuite:geometry>
+                <TestSuite:type>t2</TestSuite:type>
+            </TestSuite:TestClass>
+        </TestSuite:FunctionTestTopic>
+    </ili:datasection>
+</ili:transfer>
