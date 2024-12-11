@@ -11,6 +11,7 @@ class GetInGroupsIoxPluginTest {
 
     protected static final String TEST_DATA = "GetInGroups/TestData.xtf";
     protected static final String TEST_DATA_EMPTY = "GetInGroups/TestDataEmpty.xtf";
+    protected static final String TEST_DATA_ONLY_T2 = "GetInGroups/TestDataOnlyT2.xtf";
     ValidationTestHelper vh = null;
 
     @BeforeEach
@@ -37,5 +38,13 @@ class GetInGroupsIoxPluginTest {
         assertEquals(1, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "trueConstraintTextAttr");
         AssertionHelper.assertConstraintErrors(vh, 1, "falseConstraintTextAttr");
+    }
+
+    @Test
+    void emptyAfterWhereCondition() throws Ili2cFailure, IoxException {
+        vh.runValidation(new String[]{TEST_DATA_ONLY_T2}, new String[]{"GetInGroups/SetConstraintWhereCondition.ili"});
+        assertEquals(1, vh.getErrs().size());
+        AssertionHelper.assertConstraintErrors(vh, 1, "onlyT1");
+        AssertionHelper.assertNoConstraintError(vh, "onlyT2");
     }
 }
