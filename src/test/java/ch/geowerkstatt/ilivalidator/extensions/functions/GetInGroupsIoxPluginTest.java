@@ -2,9 +2,10 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.interlis.ili2c.Ili2cFailure;
 import ch.interlis.iox.IoxException;
-import com.vividsolutions.jts.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GetInGroupsIoxPluginTest {
 
@@ -21,7 +22,7 @@ class GetInGroupsIoxPluginTest {
     @Test
     void mandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetInGroups/SetConstraintAll.ili"});
-        Assert.equals(3, vh.getErrs().size());
+        assertEquals(3, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "trueConstraintTextAttr");
         AssertionHelper.assertNoConstraintError(vh, "trueConstraintEnumAttr");
         AssertionHelper.assertNoConstraintError(vh, "trueConstraintNumberAttr");
@@ -33,7 +34,7 @@ class GetInGroupsIoxPluginTest {
     @Test
     void emptySet() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA_EMPTY}, new String[]{"GetInGroups/SetConstraintEmpty.ili"});
-        Assert.equals(1, vh.getErrs().size());
+        assertEquals(1, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "trueConstraintTextAttr");
         AssertionHelper.assertConstraintErrors(vh, 1, "falseConstraintTextAttr");
     }

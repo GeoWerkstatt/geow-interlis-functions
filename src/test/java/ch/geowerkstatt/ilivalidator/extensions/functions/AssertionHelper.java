@@ -1,11 +1,11 @@
 package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.interlis.iox.IoxLogEvent;
-import com.vividsolutions.jts.util.Assert;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class AssertionHelper {
@@ -22,7 +22,7 @@ public final class AssertionHelper {
             }
         }
 
-        Assert.equals(expectedCount, errorsFound,
+        assertEquals(expectedCount, errorsFound,
                 String.format("Expected %d but found %d errors with OID <%s> and Source <%s>.", expectedCount, errorsFound, oid, constraintName));
     }
 
@@ -38,7 +38,7 @@ public final class AssertionHelper {
             }
         }
 
-        Assert.equals(expectedCount, errorsFound,
+        assertEquals(expectedCount, errorsFound,
                 String.format("Expected %s errors with Source <%s> but found %d.", expectedCount, constraintName, errorsFound));
     }
 
@@ -50,7 +50,7 @@ public final class AssertionHelper {
             }
         }
 
-        Assert.equals(0, errorsFound,
+        assertEquals(0, errorsFound,
                 String.format("Expected No errors with Source <%s> but found %d.", constraintName, errorsFound));
     }
 

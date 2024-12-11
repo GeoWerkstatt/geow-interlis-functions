@@ -14,11 +14,13 @@ import ch.interlis.iox_j.logging.LogEventFactory;
 import ch.interlis.iox_j.validator.ValidationConfig;
 import ch.interlis.iox_j.validator.Validator;
 import ch.interlis.iox_j.validator.Value;
-import com.vividsolutions.jts.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InterlisExpressionParserTest {
     private static final String ILI_FILE = "src/test/data/ExpressionParser/ExpressionParser.ili";
@@ -44,13 +46,13 @@ class InterlisExpressionParserTest {
         InterlisExpressionParser parser = InterlisExpressionParser.createParser(td, "WHERE THIS->enumAttr == #a;");
         Evaluable evaluable = parser.parseWhereExpression(viewable);
 
-        Assert.equals(Expression.Equality.class, evaluable.getClass());
+        assertEquals(Expression.Equality.class, evaluable.getClass());
 
         IomObject iomObject = createIomObject("1", "a");
         Value value = validator.evaluateExpression(null, "test", "test", iomObject, evaluable, null);
 
-        Assert.equals(0, logCollector.getErrs().size());
-        Assert.isTrue(value.isTrue());
+        assertEquals(0, logCollector.getErrs().size());
+        assertTrue(value.isTrue());
     }
 
     @Test
@@ -58,13 +60,13 @@ class InterlisExpressionParserTest {
         InterlisExpressionParser parser = InterlisExpressionParser.createParser(td, "WHERE enumAttr != #c;");
         Evaluable evaluable = parser.parseWhereExpression(viewable);
 
-        Assert.equals(Expression.Inequality.class, evaluable.getClass());
+        assertEquals(Expression.Inequality.class, evaluable.getClass());
 
         IomObject iomObject = createIomObject("2", "c");
         Value value = validator.evaluateExpression(null, "test", "test", iomObject, evaluable, null);
 
-        Assert.equals(0, logCollector.getErrs().size());
-        Assert.equals(false, value.isTrue());
+        assertEquals(0, logCollector.getErrs().size());
+        assertEquals(false, value.isTrue());
     }
 
     private static IomObject createIomObject(String oid, String enumAttrValue) {

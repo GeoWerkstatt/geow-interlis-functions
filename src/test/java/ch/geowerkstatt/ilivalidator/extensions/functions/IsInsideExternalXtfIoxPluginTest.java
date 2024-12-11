@@ -2,12 +2,13 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.interlis.ili2c.Ili2cFailure;
 import ch.interlis.iox.IoxException;
-import com.vividsolutions.jts.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.lang.reflect.Field;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IsInsideExternalXtfIoxPluginTest {
     private static final String TEST_DATA = "IsInsideExternalXtf/TestData.xtf";
@@ -29,7 +30,7 @@ class IsInsideExternalXtfIoxPluginTest {
     void isInsideExternalXtf() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"IsInsideExternalXtf/MandatoryConstraintThis.ili"});
 
-        Assert.equals(6, vh.getErrs().size());
+        assertEquals(6, vh.getErrs().size());
         AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "TestSuite.FunctionTestTopic.InvalidConstraints.MalformedDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalXtf. Expected qualified attribute name but got <DatasetNameWithoutQualifiedAttribute>.");
         AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalXtf. Could not find Transferfile containing model <DoesNotExist>.");
         AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds: Unable to evaluate GeoW_FunctionsExt.IsInsideExternalXtf. Could not find objects with TID <100000000, 9999> in transfer file");
@@ -37,7 +38,7 @@ class IsInsideExternalXtfIoxPluginTest {
         AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentDatasetName is not true.");
         AssertionHelper.assertLogEventsContainMessage(vh.getErrs(), "Mandatory Constraint TestSuite.FunctionTestTopic.InvalidConstraints.NonExistentTransferIds is not true.");
 
-        Assert.equals(1, vh.getWarn().size());
+        assertEquals(1, vh.getWarn().size());
         // Interlis 2.4 XTF files do not work.
         AssertionHelper.assertLogEventsContainMessage(vh.getWarn(), "GeoW_FunctionsExt.IsInsideExternalXtf: Error while reading xtf file \\S*TestData.xtf. Expected TRANSFER, but transfer found.");
     }

@@ -2,9 +2,10 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.interlis.ili2c.Ili2cFailure;
 import ch.interlis.iox.IoxException;
-import com.vividsolutions.jts.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class PolylinesOverlapIoxPluginTest {
     private static final String TEST_DATA = "PolylinesOverlap/TestData.xtf";
@@ -20,7 +21,7 @@ public final class PolylinesOverlapIoxPluginTest {
     @Test
     void polylinesOverlap() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"PolylinesOverlap/PolylinesOverlap.ili"});
-        Assert.equals(4, vh.getErrs().size());
+        assertEquals(4, vh.getErrs().size());
         AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintAllNoOverlaps");
         AssertionHelper.assertNoConstraintError(vh, "setConstraintT1"); // Some lines in T1 overlap
         AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT2");
@@ -32,7 +33,7 @@ public final class PolylinesOverlapIoxPluginTest {
     @Test
     void sameLineOverlaps() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA_SAME_LINE}, new String[]{"PolylinesOverlap/PolylinesOverlap.ili"});
-        Assert.equals(4, vh.getErrs().size());
+        assertEquals(4, vh.getErrs().size());
         AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintAllNoOverlaps");
         AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT1");
         AssertionHelper.assertConstraintErrors(vh, 1, "setConstraintT2");

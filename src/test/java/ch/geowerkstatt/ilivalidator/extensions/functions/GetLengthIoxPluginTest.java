@@ -2,10 +2,11 @@ package ch.geowerkstatt.ilivalidator.extensions.functions;
 
 import ch.interlis.ili2c.Ili2cFailure;
 import ch.interlis.iox.IoxException;
-import com.vividsolutions.jts.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GetLengthIoxPluginTest {
 
@@ -21,7 +22,7 @@ class GetLengthIoxPluginTest {
     @Test
     void mandatoryConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetLength/MandatoryConstraintThis.ili"});
-        Assert.equals(4, vh.getErrs().size());
+        assertEquals(4, vh.getErrs().size());
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint1");
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
         AssertionHelper.assertSingleConstraintError(vh, 3, "Constraint3");
@@ -31,7 +32,7 @@ class GetLengthIoxPluginTest {
     @Test
     void setConstraintOnAll() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetLength/SetConstraintAll.ili"});
-        Assert.equals(3, vh.getErrs().size());
+        assertEquals(3, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "Constraint1");
         AssertionHelper.assertNoConstraintError(vh, "Constraint2");
         AssertionHelper.assertConstraintErrors(vh, 1, "Constraint3");
@@ -42,7 +43,7 @@ class GetLengthIoxPluginTest {
     @Test
     void setConstraintOnThis() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{TEST_DATA}, new String[]{"GetLength/SetConstraintThis.ili"});
-        Assert.equals(2, vh.getErrs().size());
+        assertEquals(2, vh.getErrs().size());
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
         AssertionHelper.assertSingleConstraintError(vh, 3, "Constraint3");
     }
@@ -51,7 +52,7 @@ class GetLengthIoxPluginTest {
     @Disabled("XTF24Reader fails on reading Bag Of Struct")
     void setConstraintOnThisWithBagOfStruct() throws Ili2cFailure, IoxException {
         vh.runValidation(new String[]{"GetLength/TestDataBagOf.xtf"}, new String[]{"GetLength/SetConstraintBagOf.ili"});
-        Assert.equals(1, vh.getErrs().size());
+        assertEquals(1, vh.getErrs().size());
         AssertionHelper.assertNoConstraintError(vh, "Constraint1");
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint2");
         AssertionHelper.assertNoConstraintError(vh, "Constraint3");
@@ -75,7 +76,7 @@ class GetLengthIoxPluginTest {
 
         AssertionHelper.assertNoConstraintError(vh, "Constraint5");
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint6");
-        Assert.equals(7, vh.getErrs().size());
+        assertEquals(7, vh.getErrs().size());
     }
 
     @Test
@@ -100,6 +101,6 @@ class GetLengthIoxPluginTest {
         AssertionHelper.assertNoConstraintError(vh, "Constraint6");
         AssertionHelper.assertSingleConstraintError(vh, 0, "Constraint7");
         AssertionHelper.assertNoConstraintError(vh, "Constraint8");
-        Assert.equals(11, vh.getErrs().size());
+        assertEquals(11, vh.getErrs().size());
     }
 }
